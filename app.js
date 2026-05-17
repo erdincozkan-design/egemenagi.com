@@ -21,6 +21,7 @@ function renderAll() {
     renderTicker();
     renderTerminal();
     renderRecentTrades();
+    renderQuantumVision();
     renderEquityChart();
     renderMonthlyChart();
     renderHeatmap();
@@ -168,6 +169,103 @@ function renderRecentTrades() {
             <span class="pips" style="color: ${t.pips >= 0 ? 'var(--accent-green)' : 'var(--accent-red)'}">${t.pips >= 0 ? '+' : ''}${t.pips}</span>
         </div>
     `).join('');
+}
+
+// ─── QUANTUM VISION (SIMULATORS) ───
+const PAIRS_22 = [
+    "EURUSD","GBPUSD","USDJPY","USDCHF","AUDUSD","USDCAD","NZDUSD","EURGBP",
+    "EURJPY","GBPJPY","CHFJPY","AUDJPY","EURCHF","GBPCHF","EURAUD","GBPAUD",
+    "EURNZD","GBPNZD","AUDCAD","NZDJPY","CADJPY","AUDNZD"
+];
+
+function renderQuantumVision() {
+    const grid = document.getElementById('scanner-grid');
+    if (!grid) return;
+    
+    // 1. Setup Scanner Grid
+    grid.innerHTML = PAIRS_22.map(p => `
+        <div class="scanner-cell" id="sc-${p}">
+            <div class="sc-pair">${p}</div>
+            <div class="sc-val" id="sc-val-${p}">RSI: 50.0</div>
+            <div class="sc-tensor" id="sc-tns-${p}">W: [0.00, 0.00]</div>
+        </div>
+    `).join('');
+
+    setInterval(() => {
+        const p = PAIRS_22[Math.floor(Math.random() * PAIRS_22.length)];
+        const cell = document.getElementById(`sc-${p}`);
+        const val = document.getElementById(`sc-val-${p}`);
+        const tns = document.getElementById(`sc-tns-${p}`);
+        
+        const rsi = (Math.random() * 60 + 20).toFixed(1);
+        val.textContent = `RSI: ${rsi}`;
+        tns.textContent = `W: [${Math.random().toFixed(2)}, ${Math.random().toFixed(2)}]`;
+        
+        if (rsi > 70) {
+            cell.className = 'scanner-cell flash-sell';
+            setTimeout(() => cell.className = 'scanner-cell', 200);
+            logSimExecution(p, 'SELL', rsi);
+        } else if (rsi < 30) {
+            cell.className = 'scanner-cell flash-buy';
+            setTimeout(() => cell.className = 'scanner-cell', 200);
+            logSimExecution(p, 'BUY', rsi);
+        }
+    }, 150);
+
+    // 2. Setup Fast Chart
+    const ctx = document.getElementById('simChart').getContext('2d');
+    const simData = Array(50).fill(1.0500).map((v, i) => v + (Math.random() - 0.5) * 0.01);
+    
+    window.simChartObj = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Array(50).fill(''),
+            datasets: [{
+                data: simData,
+                borderColor: '#7b2ff7',
+                borderWidth: 1.5,
+                tension: 0.1,
+                pointRadius: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { display: false },
+                y: { display: false, min: 1.03, max: 1.07 }
+            }
+        }
+    });
+
+    setInterval(() => {
+        const last = simData[simData.length - 1];
+        const next = last + (Math.random() - 0.5) * 0.002;
+        simData.push(next);
+        simData.shift();
+        window.simChartObj.update();
+    }, 100);
+}
+
+function logSimExecution(pair, dir, rsi) {
+    const logs = document.getElementById('sim-logs');
+    if (!logs) return;
+    
+    const div = document.createElement('div');
+    div.className = 'sim-log-line';
+    const now = new Date();
+    const ms = now.getMilliseconds().toString().padStart(3, '0');
+    const time = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}.${ms}`;
+    
+    const dClass = dir === 'BUY' ? 'b' : 's';
+    div.innerHTML = `<span class="t">${time}</span> | <span class="${dClass}">${dir}</span> <span class="v">${pair}</span> (Score: ${rsi}) → EXECUTED`;
+    
+    logs.appendChild(div);
+    if (logs.children.length > 8) {
+        logs.removeChild(logs.firstChild);
+    }
 }
 
 // ─── EQUITY CHART ───
