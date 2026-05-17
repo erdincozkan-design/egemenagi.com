@@ -44,6 +44,13 @@
             tests, and deploys trading strategies across global currency markets — 
             without human intervention.
         </p>
+        
+        <div class="balance-container" id="balance-container">
+            <div class="balance-label">LIVE ACCOUNT BALANCE</div>
+            <div class="balance-value" id="live-balance">$**,***.**</div>
+            <div class="balance-lock" id="balance-lock">🔒 MASKED UNTIL $10,000 MILESTONE</div>
+        </div>
+
         <div class="hero-stats" id="hero-stats">
             <div class="hero-stat">
                 <div class="stat-value" id="stat-trades">—</div>
@@ -142,10 +149,13 @@
         <p>Historical performance metrics from the live trading account.</p>
     </div>
     <div class="charts-grid">
-        <div class="chart-card">
-            <h3>EQUITY CURVE</h3>
-            <div class="chart-container">
+        <div class="chart-card" id="equity-card">
+            <h3>EQUITY CURVE <span class="lock-badge" id="equity-lock">🔒 MASKED</span></h3>
+            <div class="chart-container" id="equity-container" style="filter: blur(8px); transition: filter 1s ease;">
                 <canvas id="equityChart"></canvas>
+            </div>
+            <div class="locked-overlay" id="equity-overlay">
+                <div>AWAITING $10K MILESTONE</div>
             </div>
         </div>
         <div class="chart-card">

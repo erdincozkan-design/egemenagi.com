@@ -70,6 +70,29 @@ function initMatrix() {
 // ─── HERO STATS ───
 function renderHeroStats() {
     const a = DATA.account;
+    
+    // Balance Logic
+    const balanceEl = document.getElementById('live-balance');
+    const lockText = document.getElementById('balance-lock');
+    const eqLock = document.getElementById('equity-lock');
+    const eqContainer = document.getElementById('equity-container');
+    const eqOverlay = document.getElementById('equity-overlay');
+    
+    if (a.balance >= 10000) {
+        // Milestone Reached! Unmask everything.
+        balanceEl.textContent = '$' + a.balance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        balanceEl.style.color = 'var(--accent-green)';
+        lockText.innerHTML = '🟢 $10K MILESTONE ACHIEVED - LIVE DATA UNLOCKED';
+        lockText.style.color = 'var(--accent-green)';
+        
+        if (eqLock) eqLock.style.display = 'none';
+        if (eqContainer) eqContainer.style.filter = 'none';
+        if (eqOverlay) eqOverlay.style.display = 'none';
+    } else {
+        // Under $10k - Masked
+        balanceEl.textContent = '$**,***.**';
+    }
+
     animateCounter('stat-trades', a.total_trades);
     document.getElementById('stat-winrate').textContent = a.win_rate + '%';
     animateCounter('stat-bots', a.active_bots);
