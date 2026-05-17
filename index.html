@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EGEMEN AGI — Autonomous AI Trading Platform</title>
+    <meta name="description" content="Sovereign AI-powered autonomous trading platform. 29 independent AI modules trading 22 currency pairs 24/7 with self-evolving strategies.">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav class="navbar" id="navbar">
+    <a href="#" class="nav-brand">
+        <span class="logo-text">EGEMEN AGI</span>
+        <span class="logo-dot"></span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="#performance">Performance</a></li>
+        <li><a href="#terminal">Live Feed</a></li>
+        <li><a href="#veterans">Strategies</a></li>
+        <li><a href="#modules">AI Modules</a></li>
+    </ul>
+    <div class="nav-status">
+        <span class="status-dot"></span>
+        <span>SYSTEM ONLINE</span>
+    </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="hero">
+    <canvas id="matrix-canvas"></canvas>
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="dot"></span>
+            AUTONOMOUS TRADING ACTIVE
+        </div>
+        <h1>
+            <span class="gradient-text">EGEMEN</span> AGI
+        </h1>
+        <p class="hero-subtitle">
+            A sovereign artificial intelligence ecosystem that autonomously designs, 
+            tests, and deploys trading strategies across global currency markets — 
+            without human intervention.
+        </p>
+        <div class="hero-stats" id="hero-stats">
+            <div class="hero-stat">
+                <div class="stat-value" id="stat-trades">—</div>
+                <div class="stat-label">Total Trades</div>
+            </div>
+            <div class="hero-stat">
+                <div class="stat-value" id="stat-winrate">—</div>
+                <div class="stat-label">Win Rate</div>
+            </div>
+            <div class="hero-stat">
+                <div class="stat-value" id="stat-bots">—</div>
+                <div class="stat-label">Active Modules</div>
+            </div>
+            <div class="hero-stat">
+                <div class="stat-value" id="stat-pairs">—</div>
+                <div class="stat-label">Pairs Traded</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ TICKER BAR ═══ -->
+<div class="ticker-bar">
+    <div class="ticker-content" id="ticker-content">
+        <!-- Populated by JS -->
+    </div>
+</div>
+
+<!-- ═══ LIVE TERMINAL + RECENT TRADES ═══ -->
+<section class="section" id="terminal">
+    <div class="section-header">
+        <h2>LIVE <span class="gradient-text">OPERATIONS</span></h2>
+        <p>Real-time feed from the autonomous trading engine. Sensitive data is redacted for security.</p>
+    </div>
+    <div class="terminal-section">
+        <div class="terminal">
+            <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">sovereign-agi@apex:~$ tail -f engine.log</span>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+        <div class="recent-trades">
+            <div class="recent-trades-header">
+                <h3>RECENT TRADES</h3>
+                <div class="live-badge"><span class="pulse"></span> LIVE</div>
+            </div>
+            <div class="trades-list" id="trades-list">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ CHARTS ═══ -->
+<section class="section" id="performance">
+    <div class="section-header">
+        <h2>PERFORMANCE <span class="gradient-text">ANALYTICS</span></h2>
+        <p>Historical performance metrics from the live trading account.</p>
+    </div>
+    <div class="charts-grid">
+        <div class="chart-card">
+            <h3>EQUITY CURVE</h3>
+            <div class="chart-container">
+                <canvas id="equityChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <h3>MONTHLY RETURNS</h3>
+            <div class="chart-container">
+                <canvas id="monthlyChart"></canvas>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ PAIR HEATMAP ═══ -->
+<section class="section">
+    <div class="section-header">
+        <h2>PAIR <span class="gradient-text">PERFORMANCE</span></h2>
+        <p>Win rate heat map across all actively traded currency pairs.</p>
+    </div>
+    <div class="heatmap-grid" id="heatmap-grid">
+        <!-- Populated by JS -->
+    </div>
+</section>
+
+<!-- ═══ VETERAN STRATEGIES ═══ -->
+<section class="section" id="veterans">
+    <div class="section-header">
+        <h2>VETERAN <span class="gradient-text">STRATEGIES</span></h2>
+        <p>Only the strongest survive. These strategies have been battle-tested across thousands of trades.</p>
+    </div>
+    <div class="veterans-grid" id="veterans-grid">
+        <!-- Populated by JS -->
+    </div>
+</section>
+
+<!-- ═══ AI MODULES ═══ -->
+<section class="section" id="modules">
+    <div class="section-header">
+        <h2>AI MODULE <span class="gradient-text">ARMY</span></h2>
+        <p>29 independent modules working in concert — each with a unique role in the ecosystem.</p>
+    </div>
+    <div class="modules-grid" id="modules-grid">
+        <!-- Populated by JS -->
+    </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+    <div class="footer-brand">EGEMEN AGI</div>
+    <div class="footer-tagline">Powered by Sovereign Intelligence</div>
+    <div class="footer-disclaimer">
+        Past performance is not indicative of future results. Trading foreign exchange carries a high level of risk 
+        and may not be suitable for all investors. This website is for informational purposes only and does not 
+        constitute financial advice.
+    </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

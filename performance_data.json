@@ -1,0 +1,84 @@
+{
+  "last_updated": "2026-05-17T10:00:00Z",
+  "account": {
+    "balance": 5420.83,
+    "equity": 5510.22,
+    "daily_pnl": 142.50,
+    "weekly_pnl": 687.30,
+    "monthly_pnl": 2841.00,
+    "total_pnl": 4420.83,
+    "win_rate": 64.7,
+    "total_trades": 3847,
+    "active_positions": 12,
+    "active_bots": 29,
+    "pairs_traded": 22
+  },
+  "monthly_returns": [
+    {"month": "Jan", "pnl": 310},
+    {"month": "Feb", "pnl": -120},
+    {"month": "Mar", "pnl": 580},
+    {"month": "Apr", "pnl": 920},
+    {"month": "May", "pnl": 1450}
+  ],
+  "equity_curve": [
+    1000, 1020, 1005, 1080, 1120, 1095, 1180, 1250, 1310, 1280,
+    1350, 1420, 1510, 1480, 1560, 1640, 1720, 1690, 1780, 1850,
+    1940, 2010, 2100, 2180, 2250, 2340, 2410, 2500, 2580, 2650,
+    2740, 2830, 2900, 2980, 3060, 3150, 3240, 3310, 3400, 3480,
+    3570, 3650, 3740, 3830, 3920, 4010, 4100, 4200, 4310, 4420,
+    4520, 4610, 4700, 4800, 4910, 5010, 5110, 5210, 5320, 5420
+  ],
+  "pair_performance": {
+    "EURUSD": {"trades": 420, "winrate": 68, "pnl": 890},
+    "GBPUSD": {"trades": 380, "winrate": 62, "pnl": 540},
+    "USDJPY": {"trades": 350, "winrate": 71, "pnl": 720},
+    "AUDUSD": {"trades": 290, "winrate": 59, "pnl": 180},
+    "EURGBP": {"trades": 240, "winrate": 66, "pnl": 410},
+    "USDCHF": {"trades": 210, "winrate": 55, "pnl": -80},
+    "NZDUSD": {"trades": 195, "winrate": 63, "pnl": 290},
+    "USDCAD": {"trades": 180, "winrate": 58, "pnl": 110},
+    "EURJPY": {"trades": 170, "winrate": 70, "pnl": 520},
+    "GBPJPY": {"trades": 160, "winrate": 67, "pnl": 380},
+    "AUDJPY": {"trades": 140, "winrate": 61, "pnl": 150},
+    "EURAUD": {"trades": 130, "winrate": 54, "pnl": -40}
+  },
+  "veteran_strategies": [
+    {"code": "SOV-001", "rank": "LEGENDARY", "stars": 5, "trades": 287, "winrate": 73.2, "pnl": 1240, "status": "ACTIVE"},
+    {"code": "SOV-014", "rank": "IRON VETERAN", "stars": 4, "trades": 195, "winrate": 68.1, "pnl": 780, "status": "ACTIVE"},
+    {"code": "SOV-027", "rank": "IRON VETERAN", "stars": 4, "trades": 162, "winrate": 65.4, "pnl": 540, "status": "ACTIVE"},
+    {"code": "SOV-038", "rank": "ULTRA VETERAN", "stars": 5, "trades": 310, "winrate": 71.0, "pnl": 1100, "status": "ACTIVE"},
+    {"code": "SOV-042", "rank": "STABLE", "stars": 3, "trades": 88, "winrate": 61.2, "pnl": 210, "status": "ACTIVE"},
+    {"code": "SOV-055", "rank": "IRON VETERAN", "stars": 4, "trades": 144, "winrate": 66.8, "pnl": 440, "status": "ACTIVE"}
+  ],
+  "recent_trades": [
+    {"time": "10:15:32", "pair": "EURUSD", "dir": "BUY", "result": "WIN", "pips": 23.4},
+    {"time": "10:12:18", "pair": "GBPJPY", "dir": "SELL", "result": "WIN", "pips": 18.7},
+    {"time": "09:58:44", "pair": "USDJPY", "dir": "BUY", "result": "LOSS", "pips": -12.1},
+    {"time": "09:45:01", "pair": "EURAUD", "dir": "SELL", "result": "WIN", "pips": 31.2},
+    {"time": "09:31:55", "pair": "AUDUSD", "dir": "BUY", "result": "WIN", "pips": 15.8},
+    {"time": "09:22:10", "pair": "NZDUSD", "dir": "BUY", "result": "WIN", "pips": 9.3},
+    {"time": "09:15:03", "pair": "EURGBP", "dir": "SELL", "result": "LOSS", "pips": -8.4},
+    {"time": "08:58:47", "pair": "GBPUSD", "dir": "BUY", "result": "WIN", "pips": 27.6}
+  ],
+  "terminal_logs": [
+    "[{time}] APEX | Scanning 22 pairs across 29 modules...",
+    "[{time}] XRAY | ██████ DNA analysis complete → Score: ██/100",
+    "[{time}] APEX | EURUSD BUY signal detected → Confidence: ████",
+    "[{time}] GUARD | Position opened → Lot: ████ SL: ████ TP: ████",
+    "[{time}] FLOW | Order flow analysis: ████████████ (██████)",
+    "[{time}] APEX | GBPJPY trailing stop updated → +██ pips locked",
+    "[{time}] HMM  | Market regime detected: ████████████████",
+    "[{time}] APEX | USDJPY position closed → +23.4 pips ✓",
+    "[{time}] RISK | Portfolio exposure: ██% | Max DD: ██%",
+    "[{time}] APEX | UCB1 scoring complete → ██ strategies ranked",
+    "[{time}] WKND | Weekend maintenance: ██ logs cleared (██MB)",
+    "[{time}] APEX | Veteran SOV-001 promoted → LEGENDARY ⭐⭐⭐⭐⭐",
+    "[{time}] FLOW | Institutional order flow: ██████ detected",
+    "[{time}] APEX | EURJPY SELL signal → Pentagon: ██/100",
+    "[{time}] GUARD | Break-even activated for ██ positions",
+    "[{time}] APEX | Strategy council vote: ██ BUY / ██ SELL / ██ HOLD",
+    "[{time}] XRAY | Walk-forward validation: ██/5 windows passed",
+    "[{time}] APEX | Kelly lot multiplier applied → x████",
+    "[{time}] RISK | Free margin check: $████ → Lot ████ approved"
+  ]
+}
