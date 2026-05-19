@@ -1,15 +1,15 @@
 {
-    "last_updated": "2026-05-19T17:38:54Z",
+    "last_updated": "2026-05-19T18:38:56Z",
     "account": {
-        "balance": 712.34,
-        "equity": 670.63,
-        "daily_pnl": 25.11,
-        "weekly_pnl": 100.44,
+        "balance": 712.44,
+        "equity": 678.07,
+        "daily_pnl": 25.21,
+        "weekly_pnl": 100.84,
         "monthly_pnl": 207.33,
         "total_pnl": 621.98,
         "win_rate": 0.2,
         "total_trades": 523,
-        "active_positions": 43,
+        "active_positions": 47,
         "active_bots": 21,
         "pairs_traded": 15
     },
@@ -42,7 +42,7 @@
         584.0,
         591.0,
         598.0,
-        605.0,
+        606.0,
         613.0,
         620.0,
         627.0,
@@ -50,7 +50,7 @@
         641.0,
         648.0,
         655.0,
-        662.0,
+        663.0,
         670.0,
         677.0,
         684.0,
@@ -58,7 +58,7 @@
         698.0,
         705.0,
         712.0,
-        719.0,
+        720.0,
         727.0,
         734.0,
         741.0,
@@ -66,7 +66,7 @@
         755.0,
         762.0,
         769.0,
-        776.0,
+        777.0,
         784.0,
         791.0,
         798.0,
@@ -74,7 +74,7 @@
         812.0,
         819.0,
         826.0,
-        833.0,
+        834.0,
         841.0,
         848.0,
         855.0,
@@ -82,7 +82,7 @@
         869.0,
         876.0,
         883.0,
-        890.0,
+        891.0,
         898.0,
         905.0,
         912.0,
@@ -90,7 +90,7 @@
         926.0,
         933.0,
         940.0,
-        947.0,
+        948.0,
         955.0,
         962.0,
         969.0,
@@ -161,6 +161,36 @@
         }
     },
     "recent_trades": [
+        {
+            "time": "21:26",
+            "date": "2026-05-19",
+            "pair": "GBPUSD",
+            "dir": "BUY",
+            "result": "WIN",
+            "pips": 0.2,
+            "profit": 0.02,
+            "strategy": "SOV-7901"
+        },
+        {
+            "time": "21:22",
+            "date": "2026-05-19",
+            "pair": "EURUSD",
+            "dir": "SELL",
+            "result": "WIN",
+            "pips": 0.1,
+            "profit": 0.01,
+            "strategy": "SOV-1886"
+        },
+        {
+            "time": "20:40",
+            "date": "2026-05-19",
+            "pair": "GBPUSD",
+            "dir": "SELL",
+            "result": "WIN",
+            "pips": 0.7,
+            "profit": 0.07,
+            "strategy": "SOV-5727"
+        },
         {
             "time": "20:35",
             "date": "2026-05-19",
@@ -430,36 +460,6 @@
             "pips": 1.0,
             "profit": 0.1,
             "strategy": "SOV-0239"
-        },
-        {
-            "time": "18:17",
-            "date": "2026-05-19",
-            "pair": "GBPUSD",
-            "dir": "BUY",
-            "result": "WIN",
-            "pips": 0.5,
-            "profit": 0.05,
-            "strategy": "SOV-4718"
-        },
-        {
-            "time": "18:17",
-            "date": "2026-05-19",
-            "pair": "GBPUSD",
-            "dir": "BUY",
-            "result": "WIN",
-            "pips": 1.0,
-            "profit": 0.1,
-            "strategy": "SOV-4718"
-        },
-        {
-            "time": "18:10",
-            "date": "2026-05-19",
-            "pair": "GBPUSD",
-            "dir": "SELL",
-            "result": "WIN",
-            "pips": 0.4,
-            "profit": 0.04,
-            "strategy": "SOV-8925"
         }
     ],
     "terminal_logs": [
