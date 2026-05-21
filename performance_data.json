@@ -1,10 +1,10 @@
 {
-    "last_updated": "2026-05-21T19:41:15Z",
+    "last_updated": "2026-05-21T20:41:17Z",
     "account": {
         "balance": 0.0,
         "equity": 0.0,
-        "daily_pnl": -2956.29,
-        "weekly_pnl": -11825.16,
+        "daily_pnl": -2956.42,
+        "weekly_pnl": -11825.68,
         "monthly_pnl": 310.04,
         "total_pnl": 930.13,
         "win_rate": 0.2,
