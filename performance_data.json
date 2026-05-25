@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-05-23T00:42:36Z",
+    "last_updated": "2026-05-25T00:13:39Z",
     "account": {
         "balance": 0.0,
         "equity": 0.0,
@@ -99,6 +99,11 @@
         0.0
     ],
     "pair_performance": {
+        "GBPUSD": {
+            "trades": 50,
+            "winrate": 0.2,
+            "pnl": 100
+        },
         "NZDCAD": {
             "trades": 50,
             "winrate": 0.2,
@@ -109,32 +114,17 @@
             "winrate": 0.2,
             "pnl": 100
         },
-        "GBPCHF": {
+        "AUDJPY": {
             "trades": 50,
             "winrate": 0.2,
             "pnl": 100
         },
-        "USDJPY": {
+        "NZDCHF": {
             "trades": 50,
             "winrate": 0.2,
             "pnl": 100
         },
-        "EURUSD": {
-            "trades": 50,
-            "winrate": 0.2,
-            "pnl": 100
-        },
-        "GBPUSD": {
-            "trades": 50,
-            "winrate": 0.2,
-            "pnl": 100
-        },
-        "AUDCAD": {
-            "trades": 50,
-            "winrate": 0.2,
-            "pnl": 100
-        },
-        "CADCHF": {
+        "USDCAD": {
             "trades": 50,
             "winrate": 0.2,
             "pnl": 100
@@ -144,17 +134,27 @@
             "winrate": 0.2,
             "pnl": 100
         },
-        "AUDJPY": {
-            "trades": 50,
-            "winrate": 0.2,
-            "pnl": 100
-        },
         "EURCHF": {
             "trades": 50,
             "winrate": 0.2,
             "pnl": 100
         },
+        "GBPJPY": {
+            "trades": 50,
+            "winrate": 0.2,
+            "pnl": 100
+        },
+        "EURUSD": {
+            "trades": 50,
+            "winrate": 0.2,
+            "pnl": 100
+        },
         "CHFJPY": {
+            "trades": 50,
+            "winrate": 0.2,
+            "pnl": 100
+        },
+        "AUDCAD": {
             "trades": 50,
             "winrate": 0.2,
             "pnl": 100
@@ -164,7 +164,7 @@
     "terminal_logs": [
         "[{time}] APEX | Scanning markets across all modules...",
         "[{time}] XRAY | \u2588\u2588\u2588\u2588\u2588\u2588 DNA analysis complete \u2192 Score: \u2588\u2588/100",
-        "[{time}] APEX | NZDCAD signal evaluated \u2192 Confidence: \u2588\u2588\u2588\u2588",
+        "[{time}] APEX | GBPUSD signal evaluated \u2192 Confidence: \u2588\u2588\u2588\u2588",
         "[{time}] GUARD | Position risk limits verified",
         "[{time}] FLOW | Institutional order flow analysis: \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588",
         "[{time}] HMM  | Market regime detected: \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588",
