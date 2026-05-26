@@ -1,39 +1,39 @@
 {
-    "last_updated": "2026-05-26T05:14:48Z",
+    "last_updated": "2026-05-26T06:14:50Z",
     "account": {
         "balance": 0.0,
         "equity": 0.0,
         "daily_pnl": 0.0,
         "weekly_pnl": 0.0,
-        "monthly_pnl": 320.24,
-        "total_pnl": 960.73,
+        "monthly_pnl": 323.04,
+        "total_pnl": 969.13,
         "win_rate": 0.1,
-        "total_trades": 798,
+        "total_trades": 792,
         "active_positions": 0,
-        "active_bots": 48,
+        "active_bots": 47,
         "pairs_traded": 16
     },
     "veteran_strategies": [],
     "monthly_returns": [
         {
             "month": "Jan",
-            "pnl": 144.0
+            "pnl": 145.0
         },
         {
             "month": "Feb",
-            "pnl": 96.0
+            "pnl": 97.0
         },
         {
             "month": "Mar",
-            "pnl": 240.0
+            "pnl": 242.0
         },
         {
             "month": "Apr",
-            "pnl": 192.0
+            "pnl": 194.0
         },
         {
             "month": "May",
-            "pnl": 288.0
+            "pnl": 291.0
         }
     ],
     "equity_curve": [
