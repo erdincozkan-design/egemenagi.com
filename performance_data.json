@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-05-28T11:46:43Z",
+    "last_updated": "2026-05-28T21:36:46Z",
     "account": {
         "balance": 0.0,
         "equity": 0.0,
@@ -99,37 +99,12 @@
         0.0
     ],
     "pair_performance": {
-        "AUDNZD": {
+        "AUDCAD": {
             "trades": 50,
             "winrate": 0.1,
             "pnl": 100
         },
-        "EURCHF": {
-            "trades": 50,
-            "winrate": 0.1,
-            "pnl": 100
-        },
-        "CHFJPY": {
-            "trades": 50,
-            "winrate": 0.1,
-            "pnl": 100
-        },
-        "AUDUSD": {
-            "trades": 50,
-            "winrate": 0.1,
-            "pnl": 100
-        },
-        "GBPJPY": {
-            "trades": 50,
-            "winrate": 0.1,
-            "pnl": 100
-        },
-        "NZDCHF": {
-            "trades": 50,
-            "winrate": 0.1,
-            "pnl": 100
-        },
-        "USDCAD": {
+        "EURUSD": {
             "trades": 50,
             "winrate": 0.1,
             "pnl": 100
@@ -139,12 +114,7 @@
             "winrate": 0.1,
             "pnl": 100
         },
-        "GBPUSD": {
-            "trades": 50,
-            "winrate": 0.1,
-            "pnl": 100
-        },
-        "EURUSD": {
+        "USDJPY": {
             "trades": 50,
             "winrate": 0.1,
             "pnl": 100
@@ -158,13 +128,43 @@
             "trades": 50,
             "winrate": 0.1,
             "pnl": 100
+        },
+        "AUDNZD": {
+            "trades": 50,
+            "winrate": 0.1,
+            "pnl": 100
+        },
+        "AUDUSD": {
+            "trades": 50,
+            "winrate": 0.1,
+            "pnl": 100
+        },
+        "CHFJPY": {
+            "trades": 50,
+            "winrate": 0.1,
+            "pnl": 100
+        },
+        "EURGBP": {
+            "trades": 50,
+            "winrate": 0.1,
+            "pnl": 100
+        },
+        "NZDCHF": {
+            "trades": 50,
+            "winrate": 0.1,
+            "pnl": 100
+        },
+        "USDCAD": {
+            "trades": 50,
+            "winrate": 0.1,
+            "pnl": 100
         }
     },
     "recent_trades": [],
     "terminal_logs": [
         "[{time}] APEX | Scanning markets across all modules...",
         "[{time}] XRAY | \u2588\u2588\u2588\u2588\u2588\u2588 DNA analysis complete \u2192 Score: \u2588\u2588/100",
-        "[{time}] APEX | AUDNZD signal evaluated \u2192 Confidence: \u2588\u2588\u2588\u2588",
+        "[{time}] APEX | AUDCAD signal evaluated \u2192 Confidence: \u2588\u2588\u2588\u2588",
         "[{time}] GUARD | Position risk limits verified",
         "[{time}] FLOW | Institutional order flow analysis: \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588",
         "[{time}] HMM  | Market regime detected: \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588",
