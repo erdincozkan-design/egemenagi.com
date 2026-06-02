@@ -1,102 +1,102 @@
 {
-    "last_updated": "2026-06-02T18:58:46Z",
+    "last_updated": "2026-06-02T19:58:49Z",
     "account": {
-        "balance": 4459.68,
-        "equity": 4236.8,
-        "daily_pnl": 159.11,
-        "weekly_pnl": 636.44,
+        "balance": 4460.14,
+        "equity": 3727.85,
+        "daily_pnl": 154.22,
+        "weekly_pnl": 616.88,
         "monthly_pnl": 0,
-        "total_pnl": -99795.02,
+        "total_pnl": -50141.51,
         "win_rate": 0.0,
-        "total_trades": 5257299,
-        "active_positions": 515,
-        "active_bots": 1982,
+        "total_trades": 10134,
+        "active_positions": 517,
+        "active_bots": 1637,
         "pairs_traded": 23
     },
     "veteran_strategies": [],
     "monthly_returns": [
         {
             "month": "Jan",
-            "pnl": -14969.0
+            "pnl": -7521.0
         },
         {
             "month": "Feb",
-            "pnl": -9980.0
+            "pnl": -5014.0
         },
         {
             "month": "Mar",
-            "pnl": -24949.0
+            "pnl": -12535.0
         },
         {
             "month": "Apr",
-            "pnl": -19959.0
+            "pnl": -10028.0
         },
         {
             "month": "May",
-            "pnl": -29939.0
+            "pnl": -15042.0
         }
     ],
     "equity_curve": [
         3568.0,
-        3612.0,
+        3613.0,
         3657.0,
         3702.0,
-        3746.0,
+        3747.0,
         3791.0,
-        3835.0,
+        3836.0,
         3880.0,
         3925.0,
-        3969.0,
+        3970.0,
         4014.0,
-        4058.0,
+        4059.0,
         4103.0,
         4148.0,
-        4192.0,
+        4193.0,
         4237.0,
-        4281.0,
+        4282.0,
         4326.0,
-        4370.0,
-        4415.0,
+        4371.0,
+        4416.0,
         4460.0,
-        4504.0,
+        4505.0,
         4549.0,
-        4593.0,
-        4638.0,
+        4594.0,
+        4639.0,
         4683.0,
-        4727.0,
+        4728.0,
         4772.0,
-        4816.0,
-        4861.0,
+        4817.0,
+        4862.0,
         4906.0,
-        4950.0,
+        4951.0,
         4995.0,
-        5039.0,
-        5084.0,
+        5040.0,
+        5085.0,
         5129.0,
-        5173.0,
+        5174.0,
         5218.0,
-        5262.0,
-        5307.0,
+        5263.0,
+        5308.0,
         5352.0,
-        5396.0,
+        5397.0,
         5441.0,
-        5485.0,
-        5530.0,
+        5486.0,
+        5531.0,
         5575.0,
-        5619.0,
+        5620.0,
         5664.0,
-        5708.0,
-        5753.0,
+        5709.0,
+        5754.0,
         5798.0,
-        5842.0,
+        5843.0,
         5887.0,
-        5931.0,
-        5976.0,
+        5932.0,
+        5977.0,
         6021.0,
-        6065.0,
+        6066.0,
         6110.0,
-        6154.0,
-        6199.0
+        6155.0,
+        6200.0
     ],
     "pair_performance": {
         "NZDCHF": {
@@ -161,6 +161,56 @@
         }
     },
     "recent_trades": [
+        {
+            "time": "22:56",
+            "date": "2026-06-02",
+            "pair": "GBPJPY",
+            "dir": "BUY",
+            "result": "WIN",
+            "pips": 0.6,
+            "profit": 0.25,
+            "strategy": "SOV-1882"
+        },
+        {
+            "time": "22:55",
+            "date": "2026-06-02",
+            "pair": "CHFJPY",
+            "dir": "BUY",
+            "result": "WIN",
+            "pips": 0.6,
+            "profit": 0.06,
+            "strategy": "SOV-7600"
+        },
+        {
+            "time": "22:50",
+            "date": "2026-06-02",
+            "pair": "EURJPY",
+            "dir": "BUY",
+            "result": "WIN",
+            "pips": 0.6,
+            "profit": 0.06,
+            "strategy": "SOV-2858"
+        },
+        {
+            "time": "22:21",
+            "date": "2026-06-02",
+            "pair": "GBPUSD",
+            "dir": "SELL",
+            "result": "WIN",
+            "pips": 0.1,
+            "profit": 0.03,
+            "strategy": "SOV-3565"
+        },
+        {
+            "time": "22:03",
+            "date": "2026-06-02",
+            "pair": "EURJPY",
+            "dir": "BUY",
+            "result": "WIN",
+            "pips": 0.6,
+            "profit": 0.06,
+            "strategy": "SOV-7657"
+        },
         {
             "time": "21:48",
             "date": "2026-06-02",
@@ -410,56 +460,6 @@
             "pips": -30.0,
             "profit": -39.0,
             "strategy": "SOV-3080"
-        },
-        {
-            "time": "21:18",
-            "date": "2026-06-02",
-            "pair": "EURUSD",
-            "dir": "SELL",
-            "result": "LOSS",
-            "pips": -30.0,
-            "profit": -9.0,
-            "strategy": "SOV-2965"
-        },
-        {
-            "time": "21:16",
-            "date": "2026-06-02",
-            "pair": "CHFJPY",
-            "dir": "SELL",
-            "result": "LOSS",
-            "pips": -25.0,
-            "profit": -10.0,
-            "strategy": "SOV-8942"
-        },
-        {
-            "time": "21:11",
-            "date": "2026-06-02",
-            "pair": "CHFJPY",
-            "dir": "SELL",
-            "result": "LOSS",
-            "pips": -25.0,
-            "profit": -10.0,
-            "strategy": "SOV-3201"
-        },
-        {
-            "time": "21:01",
-            "date": "2026-06-02",
-            "pair": "CHFJPY",
-            "dir": "BUY",
-            "result": "WIN",
-            "pips": 15.9,
-            "profit": 4.78,
-            "strategy": "SOV-5859"
-        },
-        {
-            "time": "21:01",
-            "date": "2026-06-02",
-            "pair": "CHFJPY",
-            "dir": "BUY",
-            "result": "WIN",
-            "pips": 8.5,
-            "profit": 2.55,
-            "strategy": "SOV-7977"
         }
     ],
     "terminal_logs": [
