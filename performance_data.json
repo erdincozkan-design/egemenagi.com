@@ -1,15 +1,15 @@
 {
-    "last_updated": "2026-06-02T03:46:35Z",
+    "last_updated": "2026-06-02T04:46:38Z",
     "account": {
-        "balance": 810.69,
-        "equity": 796.87,
-        "daily_pnl": 10.69,
-        "weekly_pnl": 42.76,
+        "balance": 810.79,
+        "equity": 794.4,
+        "daily_pnl": 10.79,
+        "weekly_pnl": 43.16,
         "monthly_pnl": 323.04,
         "total_pnl": 969.13,
         "win_rate": 0.1,
         "total_trades": 792,
-        "active_positions": 94,
+        "active_positions": 99,
         "active_bots": 47,
         "pairs_traded": 16
     },
@@ -55,7 +55,7 @@
         770.0,
         778.0,
         786.0,
-        794.0,
+        795.0,
         803.0,
         811.0,
         819.0,
@@ -64,7 +64,7 @@
         843.0,
         851.0,
         859.0,
-        867.0,
+        868.0,
         876.0,
         884.0,
         892.0,
@@ -73,7 +73,7 @@
         916.0,
         924.0,
         932.0,
-        940.0,
+        941.0,
         949.0,
         957.0,
         965.0,
@@ -83,7 +83,7 @@
         997.0,
         1005.0,
         1013.0,
-        1021.0,
+        1022.0,
         1030.0,
         1038.0,
         1046.0,
@@ -92,7 +92,7 @@
         1070.0,
         1078.0,
         1086.0,
-        1094.0,
+        1095.0,
         1103.0,
         1111.0,
         1119.0,
@@ -161,6 +161,26 @@
         }
     },
     "recent_trades": [
+        {
+            "time": "06:59",
+            "date": "2026-06-02",
+            "pair": "AUDCHF",
+            "dir": "BUY",
+            "result": "WIN",
+            "pips": 0.4,
+            "profit": 0.04,
+            "strategy": "SOV-4396"
+        },
+        {
+            "time": "06:47",
+            "date": "2026-06-02",
+            "pair": "AUDJPY",
+            "dir": "BUY",
+            "result": "WIN",
+            "pips": 0.6,
+            "profit": 0.06,
+            "strategy": "SOV-9626"
+        },
         {
             "time": "06:37",
             "date": "2026-06-02",
@@ -439,26 +459,6 @@
             "result": "WIN",
             "pips": 9.7,
             "profit": 0.97,
-            "strategy": "SOV-9333"
-        },
-        {
-            "time": "22:50",
-            "date": "2026-06-01",
-            "pair": "AUDCAD",
-            "dir": "SELL",
-            "result": "WIN",
-            "pips": 7.1,
-            "profit": 0.71,
-            "strategy": "SOV-9333"
-        },
-        {
-            "time": "22:50",
-            "date": "2026-06-01",
-            "pair": "AUDCAD",
-            "dir": "SELL",
-            "result": "WIN",
-            "pips": 5.0,
-            "profit": 0.5,
             "strategy": "SOV-9333"
         }
     ],
