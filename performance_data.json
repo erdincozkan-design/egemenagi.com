@@ -1,39 +1,39 @@
 {
-    "last_updated": "2026-06-02T04:57:28Z",
+    "last_updated": "2026-06-02T05:57:35Z",
     "account": {
-        "balance": 810.79,
-        "equity": 790.57,
-        "daily_pnl": 10.79,
-        "weekly_pnl": 43.16,
+        "balance": 810.83,
+        "equity": 786.35,
+        "daily_pnl": 10.83,
+        "weekly_pnl": 43.32,
         "monthly_pnl": 0,
-        "total_pnl": -55497.35,
+        "total_pnl": -55587.01,
         "win_rate": 0.0,
-        "total_trades": 10391,
-        "active_positions": 118,
-        "active_bots": 1653,
+        "total_trades": 10185,
+        "active_positions": 141,
+        "active_bots": 1589,
         "pairs_traded": 23
     },
     "veteran_strategies": [],
     "monthly_returns": [
         {
             "month": "Jan",
-            "pnl": -8325.0
+            "pnl": -8338.0
         },
         {
             "month": "Feb",
-            "pnl": -5550.0
+            "pnl": -5559.0
         },
         {
             "month": "Mar",
-            "pnl": -13874.0
+            "pnl": -13897.0
         },
         {
             "month": "Apr",
-            "pnl": -11099.0
+            "pnl": -11117.0
         },
         {
             "month": "May",
-            "pnl": -16649.0
+            "pnl": -16676.0
         }
     ],
     "equity_curve": [
@@ -45,7 +45,7 @@
         689.0,
         697.0,
         705.0,
-        713.0,
+        714.0,
         722.0,
         730.0,
         738.0,
@@ -54,7 +54,7 @@
         762.0,
         770.0,
         778.0,
-        786.0,
+        787.0,
         795.0,
         803.0,
         811.0,
@@ -82,7 +82,7 @@
         989.0,
         997.0,
         1005.0,
-        1013.0,
+        1014.0,
         1022.0,
         1030.0,
         1038.0,
@@ -91,7 +91,7 @@
         1062.0,
         1070.0,
         1078.0,
-        1086.0,
+        1087.0,
         1095.0,
         1103.0,
         1111.0,
@@ -161,6 +161,16 @@
         }
     },
     "recent_trades": [
+        {
+            "time": "08:16",
+            "date": "2026-06-02",
+            "pair": "EURAUD",
+            "dir": "BUY",
+            "result": "WIN",
+            "pips": 0.4,
+            "profit": 0.04,
+            "strategy": "SOV-2154"
+        },
         {
             "time": "06:59",
             "date": "2026-06-02",
@@ -449,16 +459,6 @@
             "result": "WIN",
             "pips": 8.1,
             "profit": 0.81,
-            "strategy": "SOV-3959"
-        },
-        {
-            "time": "22:50",
-            "date": "2026-06-01",
-            "pair": "AUDCAD",
-            "dir": "SELL",
-            "result": "WIN",
-            "pips": 9.7,
-            "profit": 0.97,
             "strategy": "SOV-3959"
         }
     ],
