@@ -1,54 +1,54 @@
 {
-    "last_updated": "2026-06-02T10:58:05Z",
+    "last_updated": "2026-06-02T11:58:09Z",
     "account": {
-        "balance": 2902.74,
-        "equity": 2805.11,
-        "daily_pnl": 102.74,
-        "weekly_pnl": 410.96,
+        "balance": 2903.02,
+        "equity": 2798.11,
+        "daily_pnl": 103.02,
+        "weekly_pnl": 412.08,
         "monthly_pnl": 0,
-        "total_pnl": -56480.97,
+        "total_pnl": -56400.85,
         "win_rate": 0.0,
-        "total_trades": 10150,
-        "active_positions": 187,
-        "active_bots": 1589,
+        "total_trades": 10154,
+        "active_positions": 196,
+        "active_bots": 1518,
         "pairs_traded": 23
     },
     "veteran_strategies": [],
     "monthly_returns": [
         {
             "month": "Jan",
-            "pnl": -8472.0
+            "pnl": -8460.0
         },
         {
             "month": "Feb",
-            "pnl": -5648.0
+            "pnl": -5640.0
         },
         {
             "month": "Mar",
-            "pnl": -14120.0
+            "pnl": -14100.0
         },
         {
             "month": "Apr",
-            "pnl": -11296.0
+            "pnl": -11280.0
         },
         {
             "month": "May",
-            "pnl": -16944.0
+            "pnl": -16920.0
         }
     ],
     "equity_curve": [
         2322.0,
         2351.0,
         2380.0,
-        2409.0,
-        2438.0,
-        2467.0,
-        2496.0,
-        2525.0,
-        2554.0,
-        2583.0,
-        2612.0,
-        2641.0,
+        2410.0,
+        2439.0,
+        2468.0,
+        2497.0,
+        2526.0,
+        2555.0,
+        2584.0,
+        2613.0,
+        2642.0,
         2671.0,
         2700.0,
         2729.0,
@@ -73,18 +73,18 @@
         3280.0,
         3309.0,
         3338.0,
-        3367.0,
-        3396.0,
-        3425.0,
-        3454.0,
-        3483.0,
-        3512.0,
-        3541.0,
-        3570.0,
-        3599.0,
-        3628.0,
-        3657.0,
-        3686.0,
+        3368.0,
+        3397.0,
+        3426.0,
+        3455.0,
+        3484.0,
+        3513.0,
+        3542.0,
+        3571.0,
+        3600.0,
+        3629.0,
+        3658.0,
+        3687.0,
         3716.0,
         3745.0,
         3774.0,
@@ -161,6 +161,26 @@
         }
     },
     "recent_trades": [
+        {
+            "time": "14:52",
+            "date": "2026-06-02",
+            "pair": "EURUSD",
+            "dir": "BUY",
+            "result": "WIN",
+            "pips": 0.2,
+            "profit": 0.06,
+            "strategy": "SOV-4915"
+        },
+        {
+            "time": "14:20",
+            "date": "2026-06-02",
+            "pair": "GBPAUD",
+            "dir": "SELL",
+            "result": "WIN",
+            "pips": 0.7,
+            "profit": 0.22,
+            "strategy": "SOV-5574"
+        },
         {
             "time": "13:55",
             "date": "2026-06-02",
@@ -440,26 +460,6 @@
             "pips": 3.6,
             "profit": 0.36,
             "strategy": "SOV-3503"
-        },
-        {
-            "time": "12:00",
-            "date": "2026-06-02",
-            "pair": "GBPJPY",
-            "dir": "BUY",
-            "result": "WIN",
-            "pips": 4.3,
-            "profit": 0.43,
-            "strategy": "SOV-3503"
-        },
-        {
-            "time": "11:49",
-            "date": "2026-06-02",
-            "pair": "EURAUD",
-            "dir": "BUY",
-            "result": "WIN",
-            "pips": 21.1,
-            "profit": 2.11,
-            "strategy": "SOV-7780"
         }
     ],
     "terminal_logs": [
