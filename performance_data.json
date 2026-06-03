@@ -1,144 +1,104 @@
 {
-    "last_updated": "2026-06-03T14:17:35Z",
+    "last_updated": "2026-06-03T14:55:48Z",
     "account": {
-        "balance": 4928.57,
-        "equity": 4642.93,
-        "daily_pnl": 503.59,
-        "weekly_pnl": 2014.36,
+        "balance": 4875.16,
+        "equity": 4716.44,
+        "daily_pnl": 416.08,
+        "weekly_pnl": 1664.32,
         "monthly_pnl": 0,
-        "total_pnl": -50317.07,
+        "total_pnl": -50774.57,
         "win_rate": 0.0,
-        "total_trades": 11058,
-        "active_positions": 202,
-        "active_bots": 1607,
+        "total_trades": 11065,
+        "active_positions": 272,
+        "active_bots": 1707,
         "pairs_traded": 23
     },
     "veteran_strategies": [],
     "monthly_returns": [
         {
             "month": "Jan",
-            "pnl": -7548.0
+            "pnl": -7616.0
         },
         {
             "month": "Feb",
-            "pnl": -5032.0
+            "pnl": -5077.0
         },
         {
             "month": "Mar",
-            "pnl": -12579.0
+            "pnl": -12694.0
         },
         {
             "month": "Apr",
-            "pnl": -10063.0
+            "pnl": -10155.0
         },
         {
             "month": "May",
-            "pnl": -15095.0
+            "pnl": -15232.0
         }
     ],
     "equity_curve": [
-        3943.0,
-        3992.0,
-        4041.0,
-        4091.0,
-        4140.0,
-        4189.0,
-        4239.0,
-        4288.0,
-        4337.0,
-        4386.0,
+        3900.0,
+        3949.0,
+        3998.0,
+        4046.0,
+        4095.0,
+        4144.0,
+        4193.0,
+        4241.0,
+        4290.0,
+        4339.0,
+        4388.0,
         4436.0,
         4485.0,
         4534.0,
-        4584.0,
-        4633.0,
-        4682.0,
-        4731.0,
-        4781.0,
-        4830.0,
-        4879.0,
-        4929.0,
-        4978.0,
-        5027.0,
-        5076.0,
-        5126.0,
-        5175.0,
-        5224.0,
-        5274.0,
-        5323.0,
-        5372.0,
-        5421.0,
-        5471.0,
-        5520.0,
-        5569.0,
-        5619.0,
-        5668.0,
-        5717.0,
-        5766.0,
-        5816.0,
-        5865.0,
-        5914.0,
-        5964.0,
-        6013.0,
-        6062.0,
-        6111.0,
-        6161.0,
-        6210.0,
-        6259.0,
-        6309.0,
-        6358.0,
-        6407.0,
-        6456.0,
-        6506.0,
-        6555.0,
-        6604.0,
-        6654.0,
-        6703.0,
-        6752.0,
-        6801.0,
-        6851.0
+        4583.0,
+        4631.0,
+        4680.0,
+        4729.0,
+        4778.0,
+        4826.0,
+        4875.0,
+        4924.0,
+        4973.0,
+        5021.0,
+        5070.0,
+        5119.0,
+        5168.0,
+        5216.0,
+        5265.0,
+        5314.0,
+        5363.0,
+        5411.0,
+        5460.0,
+        5509.0,
+        5558.0,
+        5606.0,
+        5655.0,
+        5704.0,
+        5753.0,
+        5801.0,
+        5850.0,
+        5899.0,
+        5948.0,
+        5996.0,
+        6045.0,
+        6094.0,
+        6143.0,
+        6191.0,
+        6240.0,
+        6289.0,
+        6338.0,
+        6386.0,
+        6435.0,
+        6484.0,
+        6533.0,
+        6581.0,
+        6630.0,
+        6679.0,
+        6728.0,
+        6776.0
     ],
     "pair_performance": {
-        "AUDCHF": {
-            "trades": 50,
-            "winrate": 0.0,
-            "pnl": 100
-        },
-        "GBPUSD": {
-            "trades": 50,
-            "winrate": 0.0,
-            "pnl": 100
-        },
-        "EURAUD": {
-            "trades": 50,
-            "winrate": 0.0,
-            "pnl": 100
-        },
-        "USDCHF": {
-            "trades": 50,
-            "winrate": 0.0,
-            "pnl": 100
-        },
-        "NZDCHF": {
-            "trades": 50,
-            "winrate": 0.0,
-            "pnl": 100
-        },
-        "GBPJPY": {
-            "trades": 50,
-            "winrate": 0.0,
-            "pnl": 100
-        },
-        "AUDJPY": {
-            "trades": 50,
-            "winrate": 0.0,
-            "pnl": 100
-        },
-        "CHFJPY": {
-            "trades": 50,
-            "winrate": 0.0,
-            "pnl": 100
-        },
         "EURJPY": {
             "trades": 50,
             "winrate": 0.0,
@@ -149,18 +109,128 @@
             "winrate": 0.0,
             "pnl": 100
         },
-        "EURGBP": {
+        "GBPJPY": {
             "trades": 50,
             "winrate": 0.0,
             "pnl": 100
         },
-        "NZDCAD": {
+        "AUDCHF": {
+            "trades": 50,
+            "winrate": 0.0,
+            "pnl": 100
+        },
+        "AUDCAD": {
+            "trades": 50,
+            "winrate": 0.0,
+            "pnl": 100
+        },
+        "USDCAD": {
+            "trades": 50,
+            "winrate": 0.0,
+            "pnl": 100
+        },
+        "AUDNZD": {
+            "trades": 50,
+            "winrate": 0.0,
+            "pnl": 100
+        },
+        "EURCHF": {
+            "trades": 50,
+            "winrate": 0.0,
+            "pnl": 100
+        },
+        "USDJPY": {
+            "trades": 50,
+            "winrate": 0.0,
+            "pnl": 100
+        },
+        "GBPUSD": {
+            "trades": 50,
+            "winrate": 0.0,
+            "pnl": 100
+        },
+        "CHFJPY": {
+            "trades": 50,
+            "winrate": 0.0,
+            "pnl": 100
+        },
+        "GBPAUD": {
             "trades": 50,
             "winrate": 0.0,
             "pnl": 100
         }
     },
     "recent_trades": [
+        {
+            "time": "17:53",
+            "date": "2026-06-03",
+            "pair": "EURAUD",
+            "dir": "BUY",
+            "result": "WIN",
+            "pips": 6.5,
+            "profit": 3.25,
+            "strategy": "SOV-8212"
+        },
+        {
+            "time": "17:51",
+            "date": "2026-06-03",
+            "pair": "EURAUD",
+            "dir": "BUY",
+            "result": "WIN",
+            "pips": 0.7,
+            "profit": 0.36,
+            "strategy": "SOV-6423"
+        },
+        {
+            "time": "17:45",
+            "date": "2026-06-03",
+            "pair": "EURUSD",
+            "dir": "SELL",
+            "result": "LOSS",
+            "pips": -30.0,
+            "profit": -12.0,
+            "strategy": "SOV-5171"
+        },
+        {
+            "time": "17:44",
+            "date": "2026-06-03",
+            "pair": "USDCHF",
+            "dir": "BUY",
+            "result": "LOSS",
+            "pips": -37.9,
+            "profit": -15.17,
+            "strategy": "SOV-8404"
+        },
+        {
+            "time": "17:44",
+            "date": "2026-06-03",
+            "pair": "USDCHF",
+            "dir": "BUY",
+            "result": "LOSS",
+            "pips": -37.9,
+            "profit": -15.17,
+            "strategy": "SOV-6584"
+        },
+        {
+            "time": "17:44",
+            "date": "2026-06-03",
+            "pair": "USDCHF",
+            "dir": "BUY",
+            "result": "LOSS",
+            "pips": -37.9,
+            "profit": -15.18,
+            "strategy": "SOV-8668"
+        },
+        {
+            "time": "17:44",
+            "date": "2026-06-03",
+            "pair": "GBPUSD",
+            "dir": "BUY",
+            "result": "WIN",
+            "pips": 1.0,
+            "profit": 0.5,
+            "strategy": "SOV-2949"
+        },
         {
             "time": "17:01",
             "date": "2026-06-03",
@@ -169,7 +239,7 @@
             "result": "WIN",
             "pips": 21.0,
             "profit": 10.5,
-            "strategy": "SOV-7225"
+            "strategy": "SOV-6349"
         },
         {
             "time": "17:01",
@@ -179,7 +249,7 @@
             "result": "WIN",
             "pips": 16.8,
             "profit": 1.68,
-            "strategy": "SOV-7225"
+            "strategy": "SOV-6349"
         },
         {
             "time": "17:01",
@@ -189,7 +259,7 @@
             "result": "WIN",
             "pips": 16.7,
             "profit": 15.02,
-            "strategy": "SOV-6600"
+            "strategy": "SOV-2190"
         },
         {
             "time": "17:00",
@@ -199,7 +269,7 @@
             "result": "WIN",
             "pips": 0.5,
             "profit": 0.25,
-            "strategy": "SOV-7600"
+            "strategy": "SOV-0510"
         },
         {
             "time": "17:00",
@@ -209,7 +279,7 @@
             "result": "WIN",
             "pips": 3.7,
             "profit": 0.37,
-            "strategy": "SOV-0610"
+            "strategy": "SOV-4172"
         },
         {
             "time": "17:00",
@@ -219,7 +289,7 @@
             "result": "WIN",
             "pips": 0.4,
             "profit": 0.2,
-            "strategy": "SOV-5453"
+            "strategy": "SOV-9739"
         },
         {
             "time": "16:52",
@@ -229,7 +299,7 @@
             "result": "WIN",
             "pips": 0.1,
             "profit": 0.04,
-            "strategy": "SOV-9141"
+            "strategy": "SOV-3136"
         },
         {
             "time": "16:50",
@@ -239,7 +309,7 @@
             "result": "LOSS",
             "pips": -40.0,
             "profit": -12.0,
-            "strategy": "SOV-6878"
+            "strategy": "SOV-5486"
         },
         {
             "time": "16:50",
@@ -249,7 +319,7 @@
             "result": "WIN",
             "pips": 60.0,
             "profit": 6.0,
-            "strategy": "SOV-3103"
+            "strategy": "SOV-6994"
         },
         {
             "time": "16:49",
@@ -259,7 +329,7 @@
             "result": "LOSS",
             "pips": -30.0,
             "profit": -15.0,
-            "strategy": "SOV-6903"
+            "strategy": "SOV-1099"
         },
         {
             "time": "16:46",
@@ -269,7 +339,7 @@
             "result": "WIN",
             "pips": 16.0,
             "profit": 1.6,
-            "strategy": "SOV-0233"
+            "strategy": "SOV-7025"
         },
         {
             "time": "16:46",
@@ -279,7 +349,7 @@
             "result": "WIN",
             "pips": 16.0,
             "profit": 1.6,
-            "strategy": "SOV-8257"
+            "strategy": "SOV-2787"
         },
         {
             "time": "16:46",
@@ -289,7 +359,7 @@
             "result": "LOSS",
             "pips": -21.6,
             "profit": -8.65,
-            "strategy": "SOV-5184"
+            "strategy": "SOV-8936"
         },
         {
             "time": "16:46",
@@ -299,7 +369,7 @@
             "result": "WIN",
             "pips": 16.0,
             "profit": 1.6,
-            "strategy": "SOV-6639"
+            "strategy": "SOV-7504"
         },
         {
             "time": "16:46",
@@ -309,7 +379,7 @@
             "result": "LOSS",
             "pips": -21.4,
             "profit": -10.72,
-            "strategy": "SOV-4970"
+            "strategy": "SOV-5898"
         },
         {
             "time": "16:46",
@@ -319,7 +389,7 @@
             "result": "LOSS",
             "pips": -21.4,
             "profit": -6.43,
-            "strategy": "SOV-2108"
+            "strategy": "SOV-5954"
         },
         {
             "time": "16:45",
@@ -329,7 +399,7 @@
             "result": "WIN",
             "pips": 16.0,
             "profit": 1.6,
-            "strategy": "SOV-3716"
+            "strategy": "SOV-9302"
         },
         {
             "time": "16:45",
@@ -339,7 +409,7 @@
             "result": "WIN",
             "pips": 16.0,
             "profit": 1.6,
-            "strategy": "SOV-3716"
+            "strategy": "SOV-9302"
         },
         {
             "time": "16:43",
@@ -349,7 +419,7 @@
             "result": "WIN",
             "pips": 43.3,
             "profit": 4.33,
-            "strategy": "SOV-5336"
+            "strategy": "SOV-9850"
         },
         {
             "time": "16:43",
@@ -359,7 +429,7 @@
             "result": "WIN",
             "pips": 16.0,
             "profit": 1.6,
-            "strategy": "SOV-8634"
+            "strategy": "SOV-4797"
         },
         {
             "time": "16:43",
@@ -369,7 +439,7 @@
             "result": "WIN",
             "pips": 16.0,
             "profit": 1.6,
-            "strategy": "SOV-8634"
+            "strategy": "SOV-4797"
         },
         {
             "time": "16:42",
@@ -379,7 +449,7 @@
             "result": "LOSS",
             "pips": -21.4,
             "profit": -10.72,
-            "strategy": "SOV-7850"
+            "strategy": "SOV-0579"
         },
         {
             "time": "16:42",
@@ -389,83 +459,13 @@
             "result": "LOSS",
             "pips": -21.4,
             "profit": -6.43,
-            "strategy": "SOV-7850"
-        },
-        {
-            "time": "16:36",
-            "date": "2026-06-03",
-            "pair": "EURUSD",
-            "dir": "BUY",
-            "result": "WIN",
-            "pips": 7.1,
-            "profit": 3.55,
-            "strategy": "SOV-3901"
-        },
-        {
-            "time": "16:32",
-            "date": "2026-06-03",
-            "pair": "USDCAD",
-            "dir": "SELL",
-            "result": "WIN",
-            "pips": 18.7,
-            "profit": 1.87,
-            "strategy": "SOV-5551"
-        },
-        {
-            "time": "16:30",
-            "date": "2026-06-03",
-            "pair": "USDCHF",
-            "dir": "SELL",
-            "result": "WIN",
-            "pips": 30.1,
-            "profit": 18.08,
-            "strategy": "SOV-9557"
-        },
-        {
-            "time": "16:29",
-            "date": "2026-06-03",
-            "pair": "EURAUD",
-            "dir": "BUY",
-            "result": "LOSS",
-            "pips": -21.4,
-            "profit": -10.72,
-            "strategy": "SOV-6080"
-        },
-        {
-            "time": "16:26",
-            "date": "2026-06-03",
-            "pair": "NZDUSD",
-            "dir": "SELL",
-            "result": "LOSS",
-            "pips": -30.0,
-            "profit": -15.0,
-            "strategy": "SOV-0090"
-        },
-        {
-            "time": "16:23",
-            "date": "2026-06-03",
-            "pair": "GBPUSD",
-            "dir": "SELL",
-            "result": "WIN",
-            "pips": 0.4,
-            "profit": 0.2,
-            "strategy": "SOV-6709"
-        },
-        {
-            "time": "16:23",
-            "date": "2026-06-03",
-            "pair": "GBPUSD",
-            "dir": "SELL",
-            "result": "WIN",
-            "pips": 0.4,
-            "profit": 0.2,
-            "strategy": "SOV-6709"
+            "strategy": "SOV-0579"
         }
     ],
     "terminal_logs": [
         "[{time}] APEX | Scanning markets across all modules...",
         "[{time}] XRAY | \u2588\u2588\u2588\u2588\u2588\u2588 DNA analysis complete \u2192 Score: \u2588\u2588/100",
-        "[{time}] APEX | AUDCHF signal evaluated \u2192 Confidence: \u2588\u2588\u2588\u2588",
+        "[{time}] APEX | EURJPY signal evaluated \u2192 Confidence: \u2588\u2588\u2588\u2588",
         "[{time}] GUARD | Position risk limits verified",
         "[{time}] FLOW | Institutional order flow analysis: \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588",
         "[{time}] HMM  | Market regime detected: \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588",
