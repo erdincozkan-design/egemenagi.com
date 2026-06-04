@@ -1,15 +1,15 @@
 {
-    "last_updated": "2026-06-04T22:34:03Z",
+    "last_updated": "2026-06-04T23:34:06Z",
     "account": {
         "balance": 618.09,
-        "equity": 600.93,
-        "daily_pnl": -2259.52,
-        "weekly_pnl": -9038.08,
+        "equity": 599.99,
+        "daily_pnl": -2302.8,
+        "weekly_pnl": -9211.2,
         "monthly_pnl": 3836.99,
         "total_pnl": 11510.98,
         "win_rate": 0.0,
         "total_trades": 3245,
-        "active_positions": 61,
+        "active_positions": 63,
         "active_bots": 577,
         "pairs_traded": 22
     },
