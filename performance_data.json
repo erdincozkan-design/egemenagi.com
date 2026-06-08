@@ -1,12 +1,12 @@
 {
-    "last_updated": "2026-06-08T16:10:45Z",
+    "last_updated": "2026-06-08T17:10:48Z",
     "account": {
         "balance": 0.0,
         "equity": 0.0,
         "daily_pnl": 0.0,
         "weekly_pnl": 0.0,
-        "monthly_pnl": 3255.83,
-        "total_pnl": 9767.48,
+        "monthly_pnl": 3256.15,
+        "total_pnl": 9768.45,
         "win_rate": 0.0,
         "total_trades": 2289,
         "active_positions": 0,
@@ -29,11 +29,11 @@
         },
         {
             "month": "Apr",
-            "pnl": 1953.0
+            "pnl": 1954.0
         },
         {
             "month": "May",
-            "pnl": 2930.0
+            "pnl": 2931.0
         }
     ],
     "equity_curve": [
