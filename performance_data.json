@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-08-24T22:56:53Z",
+  "last_updated": "2026-08-24T22:58:26Z",
   "account": {
     "balance": 540.73,
-    "equity": 579.47,
-    "system_floating": -30.51,
-    "margin_level": 300.5,
+    "equity": 581.9,
+    "system_floating": -30.53,
+    "margin_level": 301.7,
     "total_trades": 1,
     "win_rate": 0.0,
     "active_bots": 1,
@@ -20,7 +20,7 @@
     {
       "date": "2026-08-25",
       "balance": 540.73,
-      "equity": 579.47,
+      "equity": 581.9,
       "net": 0.0,
       "trades": 0
     }
@@ -60,51 +60,51 @@
   "market": [
     {
       "pair": "EURUSD",
-      "bid": 1.16636,
+      "bid": 1.16634,
       "change": 0.0,
-      "spread": 20,
+      "spread": 22,
       "active": true
     },
     {
       "pair": "GBPUSD",
       "bid": 1.36325,
       "change": 0.03,
-      "spread": 28,
+      "spread": 27,
       "active": false
     },
     {
       "pair": "USDJPY",
-      "bid": 159.088,
+      "bid": 159.089,
       "change": 0.02,
-      "spread": 31,
+      "spread": 29,
       "active": false
     },
     {
       "pair": "USDCHF",
       "bid": 0.8022,
       "change": 0.03,
-      "spread": 29,
+      "spread": 30,
       "active": false
     },
     {
       "pair": "AUDUSD",
-      "bid": 0.71486,
+      "bid": 0.71487,
       "change": 0.01,
       "spread": 26,
       "active": true
     },
     {
       "pair": "USDCAD",
-      "bid": 1.38417,
+      "bid": 1.38418,
       "change": 0.0,
       "spread": 34,
       "active": false
     },
     {
       "pair": "NZDUSD",
-      "bid": 0.59591,
+      "bid": 0.59593,
       "change": 0.03,
-      "spread": 30,
+      "spread": 29,
       "active": true
     },
     {
@@ -116,86 +116,86 @@
     },
     {
       "pair": "EURJPY",
-      "bid": 185.573,
+      "bid": 185.572,
       "change": 0.04,
       "spread": 35,
       "active": false
     },
     {
       "pair": "GBPJPY",
-      "bid": 216.898,
+      "bid": 216.897,
       "change": 0.04,
-      "spread": 44,
+      "spread": 43,
       "active": true
     },
     {
       "pair": "CHFJPY",
-      "bid": 198.267,
+      "bid": 198.27,
       "change": 0.04,
-      "spread": 62,
+      "spread": 57,
       "active": false
     },
     {
       "pair": "AUDJPY",
       "bid": 113.739,
       "change": 0.05,
-      "spread": 39,
+      "spread": 40,
       "active": false
     },
     {
       "pair": "EURCHF",
-      "bid": 0.93573,
+      "bid": 0.93572,
       "change": 0.01,
-      "spread": 36,
+      "spread": 37,
       "active": true
     },
     {
       "pair": "GBPCHF",
-      "bid": 1.09363,
+      "bid": 1.09364,
       "change": 0.06,
-      "spread": 55,
+      "spread": 54,
       "active": false
     },
     {
       "pair": "EURAUD",
-      "bid": 1.63118,
+      "bid": 1.63117,
       "change": 0.04,
-      "spread": 47,
+      "spread": 48,
       "active": false
     },
     {
       "pair": "GBPAUD",
-      "bid": 1.90652,
+      "bid": 1.90649,
       "change": 0.06,
-      "spread": 62,
+      "spread": 65,
       "active": false
     },
     {
       "pair": "EURNZD",
-      "bid": 1.95663,
+      "bid": 1.95659,
       "change": 0.01,
-      "spread": 64,
+      "spread": 61,
       "active": false
     },
     {
       "pair": "AUDCAD",
-      "bid": 0.98954,
+      "bid": 0.98957,
       "change": 0.0,
-      "spread": 43,
+      "spread": 42,
       "active": false
     },
     {
       "pair": "AUDNZD",
-      "bid": 1.19932,
+      "bid": 1.19928,
       "change": 0.01,
-      "spread": 43,
+      "spread": 47,
       "active": true
     }
   ],
   "terminal_logs": [
     "[{time}] SCANNER   | Market scan complete — 19 pairs quoted",
     "[{time}] RISK      | 29 open positions · margin level verified ✓",
-    "[{time}] PORTFOLIO | Floating P&L $-30.51 · exposure within limits",
+    "[{time}] PORTFOLIO | Floating P&L $-30.53 · exposure within limits",
     "[{time}] EXECUTION | 0 positions closed today",
     "[{time}] GUARD     | News and session guards active ✓",
     "[{time}] LEDGER    | 1 trades recorded · win rate 0.0%",
