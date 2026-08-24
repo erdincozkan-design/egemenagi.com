@@ -485,27 +485,26 @@ body::before {
   letter-spacing: 1px;
 }
 
-.live-badge {
+.update-badge {
   display: flex;
   align-items: center;
   gap: 5px;
   font-size: 0.65rem;
-  color: var(--accent-green);
+  color: var(--accent-blue);
   font-family: var(--font-mono);
+  padding: 3px 10px;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 100px;
 }
 
-.live-badge .pulse {
-  width: 6px; height: 6px;
-  background: var(--accent-green);
-  border-radius: 50%;
-  animation: pulse-green 1.5s infinite;
-}
+.update-icon { font-size: 0.7rem; }
 
 .trades-list { padding: 0; }
 
 .trade-row {
   display: grid;
-  grid-template-columns: 70px 80px 50px 50px 1fr;
+  grid-template-columns: 55px 75px 75px 45px 45px 1fr;
   gap: 8px;
   padding: 10px 20px;
   border-bottom: 1px solid rgba(255,255,255,0.02);
@@ -517,6 +516,7 @@ body::before {
 
 .trade-row:hover { background: rgba(255,255,255,0.02); }
 .trade-row .time { color: var(--text-muted); }
+.trade-row .strategy { color: var(--accent-purple); font-weight: 600; font-size: 0.65rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .trade-row .pair { color: var(--text-primary); font-weight: 600; }
 .trade-row .dir { font-weight: 700; text-transform: uppercase; }
 .trade-row .dir.buy { color: var(--accent-green); }
@@ -525,6 +525,14 @@ body::before {
 .trade-row .result.win { color: var(--accent-green); }
 .trade-row .result.loss { color: var(--accent-red); }
 .trade-row .pips { text-align: right; font-weight: 500; }
+
+.trades-empty {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.trades-empty .empty-icon { font-size: 2rem; margin-bottom: 0.75rem; opacity: 0.5; }
+.trades-empty .empty-text { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem; }
+.trades-empty .empty-sub { color: var(--text-muted); font-size: 0.7rem; }
 
 /* ═══════════════════════════════════════════
    QUANTUM VISION (High Frequency Sim)
@@ -597,6 +605,25 @@ body::before {
 
 .scanner-cell.flash-buy::after { background: rgba(0, 255, 136, 0.2); opacity: 1; }
 .scanner-cell.flash-sell::after { background: rgba(255, 51, 85, 0.2); opacity: 1; }
+
+/* Sistemin su an acik pozisyonu olan pariteler (gercek veri) */
+.scanner-cell.holding {
+  background: rgba(0, 212, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(0, 212, 255, 0.25);
+}
+.sc-dot {
+  display: inline-block;
+  width: 5px; height: 5px;
+  background: var(--accent-blue);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-left: 3px;
+  animation: pulse-cyan 1.8s infinite;
+}
+@keyframes pulse-cyan {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
 
 .sc-pair { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
 .sc-val { font-family: var(--font-mono); font-size: 0.6rem; color: var(--accent-green); }
@@ -908,6 +935,24 @@ body::before {
   font-style: italic;
 }
 
+.built-with {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 1.25rem 0 0.25rem;
+  padding: 5px 12px;
+  border: 1px solid var(--border-glass);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: border-color 0.25s, color 0.25s;
+}
+.built-with:hover { border-color: rgba(217, 119, 87, 0.45); color: var(--text-secondary); }
+.built-with svg { width: 13px; height: 13px; flex: 0 0 auto; }
+
 .footer-disclaimer {
   font-size: 0.65rem;
   color: var(--text-muted);
@@ -955,5 +1000,57 @@ body::before {
   .hero-stats { flex-direction: column; align-items: center; }
   .nav-links { display: none; }
   .nav-status { display: none; }
-  .trade-row { grid-template-columns: 60px 70px 40px 40px 1fr; font-size: 0.65rem; }
+  .trade-row { grid-template-columns: 45px 55px 60px 35px 35px 1fr; font-size: 0.6rem; padding: 8px 12px; }
+}
+
+/* ═══════════════════════════════════════════
+   AGENT NETWORK
+   ═══════════════════════════════════════════ */
+.agent-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px);
+  overflow-x: auto;
+}
+#agent-svg { width: 100%; height: auto; display: block; min-width: 520px; }
+
+.ag-link { stroke: rgba(0, 212, 255, 0.18); stroke-width: 1.2; fill: none; }
+.ag-flow {
+  stroke: var(--accent-blue);
+  stroke-width: 1.6;
+  fill: none;
+  stroke-dasharray: 5 95;
+  opacity: 0.75;
+  animation: ag-dash 3.4s linear infinite;
+}
+@keyframes ag-dash { to { stroke-dashoffset: -100; } }
+
+.ag-node { fill: #0b0b16; stroke: rgba(0, 212, 255, 0.28); stroke-width: 1.2; }
+.ag-node-sup { fill: #0d0a18; stroke: var(--accent-purple); stroke-width: 1.8; }
+.ag-ring {
+  fill: none; stroke: var(--accent-purple); stroke-width: 1.2;
+  opacity: 0.35; animation: ag-ring 3s ease-out infinite;
+}
+@keyframes ag-ring {
+  0%   { r: 44; opacity: 0.5; }
+  100% { r: 66; opacity: 0; }
+}
+.ag-icon  { font-size: 17px; text-anchor: middle; dominant-baseline: central; }
+.ag-name  { font-family: var(--font-mono); font-size: 9.5px; fill: var(--text-secondary);
+            text-anchor: middle; letter-spacing: 0.4px; }
+.ag-val   { font-family: var(--font-mono); font-size: 11px; fill: var(--accent-blue);
+            text-anchor: middle; font-weight: 700; }
+.ag-sup-name { font-family: var(--font-display); font-size: 11px; fill: #fff;
+            text-anchor: middle; letter-spacing: 1.2px; }
+.ag-sup-val  { font-family: var(--font-mono); font-size: 10px; fill: var(--accent-purple);
+            text-anchor: middle; }
+.ag-caption { font-family: var(--font-mono); font-size: 9px; fill: var(--text-muted);
+            text-anchor: middle; }
+
+@media (max-width: 700px) {
+  .agent-wrap { padding: 0.5rem; }
 }
