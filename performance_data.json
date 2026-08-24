@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-08-24T22:49:15Z",
+  "last_updated": "2026-08-24T22:56:53Z",
   "account": {
     "balance": 540.73,
-    "equity": 581.78,
-    "system_floating": -30.65,
-    "margin_level": 301.7,
+    "equity": 579.47,
+    "system_floating": -30.51,
+    "margin_level": 300.5,
     "total_trades": 1,
     "win_rate": 0.0,
     "active_bots": 1,
@@ -20,7 +20,7 @@
     {
       "date": "2026-08-25",
       "balance": 540.73,
-      "equity": 581.78,
+      "equity": 579.47,
       "net": 0.0,
       "trades": 0
     }
@@ -62,84 +62,84 @@
       "pair": "EURUSD",
       "bid": 1.16636,
       "change": 0.0,
-      "spread": 22,
+      "spread": 20,
       "active": true
     },
     {
       "pair": "GBPUSD",
-      "bid": 1.36323,
+      "bid": 1.36325,
+      "change": 0.03,
+      "spread": 28,
+      "active": false
+    },
+    {
+      "pair": "USDJPY",
+      "bid": 159.088,
+      "change": 0.02,
+      "spread": 31,
+      "active": false
+    },
+    {
+      "pair": "USDCHF",
+      "bid": 0.8022,
       "change": 0.03,
       "spread": 29,
       "active": false
     },
     {
-      "pair": "USDJPY",
-      "bid": 159.087,
-      "change": 0.02,
-      "spread": 32,
-      "active": false
-    },
-    {
-      "pair": "USDCHF",
-      "bid": 0.80219,
-      "change": 0.03,
-      "spread": 30,
-      "active": false
-    },
-    {
       "pair": "AUDUSD",
-      "bid": 0.71487,
+      "bid": 0.71486,
       "change": 0.01,
       "spread": 26,
       "active": true
     },
     {
       "pair": "USDCAD",
-      "bid": 1.38416,
+      "bid": 1.38417,
       "change": 0.0,
-      "spread": 35,
+      "spread": 34,
       "active": false
     },
     {
       "pair": "NZDUSD",
-      "bid": 0.59597,
-      "change": 0.04,
+      "bid": 0.59591,
+      "change": 0.03,
       "spread": 30,
       "active": true
     },
     {
       "pair": "EURGBP",
-      "bid": 0.85546,
+      "bid": 0.85544,
       "change": 0.0,
-      "spread": 24,
+      "spread": 25,
       "active": false
     },
     {
       "pair": "EURJPY",
-      "bid": 185.575,
+      "bid": 185.573,
       "change": 0.04,
       "spread": 35,
       "active": false
     },
     {
       "pair": "GBPJPY",
-      "bid": 216.895,
+      "bid": 216.898,
       "change": 0.04,
-      "spread": 45,
+      "spread": 44,
       "active": true
     },
     {
       "pair": "CHFJPY",
-      "bid": 198.27,
+      "bid": 198.267,
       "change": 0.04,
-      "spread": 59,
+      "spread": 62,
       "active": false
     },
     {
       "pair": "AUDJPY",
-      "bid": 113.74,
+      "bid": 113.739,
       "change": 0.05,
-      "spread": 38,
+      "spread": 39,
       "active": false
     },
     {
@@ -151,51 +151,51 @@
     },
     {
       "pair": "GBPCHF",
-      "bid": 1.09361,
+      "bid": 1.09363,
       "change": 0.06,
-      "spread": 56,
+      "spread": 55,
       "active": false
     },
     {
       "pair": "EURAUD",
-      "bid": 1.6312,
+      "bid": 1.63118,
       "change": 0.04,
-      "spread": 43,
+      "spread": 47,
       "active": false
     },
     {
       "pair": "GBPAUD",
-      "bid": 1.90648,
+      "bid": 1.90652,
       "change": 0.06,
-      "spread": 65,
+      "spread": 62,
       "active": false
     },
     {
       "pair": "EURNZD",
-      "bid": 1.95644,
-      "change": 0.0,
-      "spread": 63,
+      "bid": 1.95663,
+      "change": 0.01,
+      "spread": 64,
       "active": false
     },
     {
       "pair": "AUDCAD",
-      "bid": 0.98955,
+      "bid": 0.98954,
       "change": 0.0,
       "spread": 43,
       "active": false
     },
     {
       "pair": "AUDNZD",
-      "bid": 1.1992,
-      "change": 0.0,
-      "spread": 46,
+      "bid": 1.19932,
+      "change": 0.01,
+      "spread": 43,
       "active": true
     }
   ],
   "terminal_logs": [
     "[{time}] SCANNER   | Market scan complete — 19 pairs quoted",
     "[{time}] RISK      | 29 open positions · margin level verified ✓",
-    "[{time}] PORTFOLIO | Floating P&L $-30.65 · exposure within limits",
+    "[{time}] PORTFOLIO | Floating P&L $-30.51 · exposure within limits",
     "[{time}] EXECUTION | 0 positions closed today",
     "[{time}] GUARD     | News and session guards active ✓",
     "[{time}] LEDGER    | 1 trades recorded · win rate 0.0%",

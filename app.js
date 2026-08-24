@@ -5,7 +5,10 @@
 let DATA = null;
 
 // ─── DATA LOADING ───
-const REFRESH_MS = 5 * 60 * 1000;
+// Veri saatte bir uretilir (44_web_sync_engine.py -> SYNC_INTERVAL_MINUTES=60),
+// bu yuzden tarayici da SAATTE BIR okur. Daha sik okumak ayni dosyayi
+// bosuna cekmek olurdu. Bu iki deger BIRLIKTE degistirilmeli.
+const REFRESH_MS = 60 * 60 * 1000;
 
 async function loadData(isRefresh) {
     try {
@@ -212,7 +215,8 @@ function renderRecentTrades() {
         else if (diffMin < 60) ago = `${diffMin}m ago`;
         else if (diffMin < 1440) ago = `${Math.floor(diffMin/60)}h ago`;
         else ago = `${Math.floor(diffMin/1440)}d ago`;
-        badge.innerHTML = `<span class="update-icon">⏱</span> ${ago}`;
+        badge.innerHTML = `<span class="update-icon">⏱</span> ${ago} · hourly`;
+        badge.title = 'This page is refreshed once an hour from the live account';
     }
 
     // Empty state
