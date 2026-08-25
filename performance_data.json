@@ -1,28 +1,28 @@
 {
-  "last_updated": "2026-08-25T10:07:13Z",
+  "last_updated": "2026-08-25T11:07:18Z",
   "account": {
-    "balance": 638.31,
-    "equity": 765.23,
-    "system_floating": -33.67,
-    "margin_level": 1638.6,
-    "total_trades": 32,
-    "win_rate": 81.2,
-    "active_bots": 4,
-    "pairs_traded": 4,
-    "active_positions": 18,
-    "open_positions": 18,
-    "daily_pnl": 31.6,
-    "weekly_pnl": 29.4,
-    "monthly_pnl": 29.4,
-    "total_pnl": 29.4
+    "balance": 638.5,
+    "equity": 765.1,
+    "system_floating": -33.99,
+    "margin_level": 2047.4,
+    "total_trades": 33,
+    "win_rate": 78.8,
+    "active_bots": 5,
+    "pairs_traded": 5,
+    "active_positions": 17,
+    "open_positions": 17,
+    "daily_pnl": 25.58,
+    "weekly_pnl": 23.38,
+    "monthly_pnl": 23.38,
+    "total_pnl": 23.38
   },
   "daily": [
     {
       "date": "2026-08-25",
-      "balance": 638.31,
-      "equity": 765.23,
-      "net": 31.6,
-      "trades": 31
+      "balance": 638.5,
+      "equity": 765.1,
+      "net": 25.58,
+      "trades": 32
     }
   ],
   "pair_performance": {
@@ -45,6 +45,11 @@
       "winrate": 0.0,
       "trades": 1,
       "pnl": -2.2
+    },
+    "NZDUSD": {
+      "winrate": 0.0,
+      "trades": 1,
+      "pnl": -6.02
     }
   },
   "veteran_strategies": [
@@ -75,15 +80,30 @@
       "winrate": 0.0,
       "pnl": -2.2,
       "pairs": 1
+    },
+    {
+      "code": "SOV-1F52",
+      "trades": 1,
+      "winrate": 0.0,
+      "pnl": -6.02,
+      "pairs": 1
     }
   ],
   "monthly_returns": [
     {
       "month": "2026-08",
-      "pnl": 29.4
+      "pnl": 23.38
     }
   ],
   "recent_trades": [
+    {
+      "time": "25.08 16:11",
+      "strategy": "SOV-1F52",
+      "pair": "NZDUSD",
+      "dir": "BUY",
+      "result": "LOSS",
+      "pnl": -6.02
+    },
     {
       "time": "25.08 15:05",
       "strategy": "SOV-4FD8",
@@ -195,172 +215,164 @@
       "dir": "SELL",
       "result": "WIN",
       "pnl": 0.18
-    },
-    {
-      "time": "25.08 12:50",
-      "strategy": "SOV-D3FF",
-      "pair": "GBPJPY",
-      "dir": "SELL",
-      "result": "WIN",
-      "pnl": 0.12
     }
   ],
   "market": [
     {
       "pair": "EURUSD",
-      "bid": 1.16665,
-      "change": 0.03,
+      "bid": 1.166,
+      "change": -0.03,
       "spread": 19,
       "active": true
     },
     {
       "pair": "GBPUSD",
-      "bid": 1.364,
-      "change": 0.09,
-      "spread": 24,
+      "bid": 1.36287,
+      "change": 0.0,
+      "spread": 23,
       "active": false
     },
     {
       "pair": "USDJPY",
-      "bid": 159.289,
-      "change": 0.14,
+      "bid": 159.272,
+      "change": 0.13,
       "spread": 23,
       "active": false
     },
     {
       "pair": "USDCHF",
-      "bid": 0.80245,
-      "change": 0.06,
-      "spread": 25,
+      "bid": 0.80278,
+      "change": 0.1,
+      "spread": 26,
       "active": false
     },
     {
       "pair": "AUDUSD",
-      "bid": 0.71511,
-      "change": 0.05,
+      "bid": 0.71505,
+      "change": 0.04,
       "spread": 23,
       "active": true
     },
     {
       "pair": "USDCAD",
-      "bid": 1.38553,
+      "bid": 1.38556,
       "change": 0.1,
-      "spread": 31,
+      "spread": 30,
       "active": true
     },
     {
       "pair": "NZDUSD",
-      "bid": 0.59588,
-      "change": 0.03,
+      "bid": 0.59618,
+      "change": 0.08,
       "spread": 28,
       "active": true
     },
     {
       "pair": "EURGBP",
-      "bid": 0.8552,
-      "change": -0.03,
+      "bid": 0.85544,
+      "change": 0.0,
       "spread": 24,
       "active": false
     },
     {
       "pair": "EURJPY",
-      "bid": 185.848,
-      "change": 0.19,
-      "spread": 30,
+      "bid": 185.724,
+      "change": 0.12,
+      "spread": 31,
       "active": false
     },
     {
       "pair": "GBPJPY",
-      "bid": 217.288,
-      "change": 0.22,
-      "spread": 36,
+      "bid": 217.083,
+      "change": 0.12,
+      "spread": 33,
       "active": true
     },
     {
       "pair": "CHFJPY",
-      "bid": 198.47,
-      "change": 0.14,
-      "spread": 36,
-      "active": true
+      "bid": 198.367,
+      "change": 0.09,
+      "spread": 34,
+      "active": false
     },
     {
       "pair": "AUDJPY",
-      "bid": 113.919,
-      "change": 0.2,
-      "spread": 35,
+      "bid": 113.897,
+      "change": 0.18,
+      "spread": 33,
       "active": false
     },
     {
       "pair": "EURCHF",
-      "bid": 0.93622,
-      "change": 0.06,
+      "bid": 0.9361,
+      "change": 0.05,
       "spread": 33,
       "active": true
     },
     {
       "pair": "GBPCHF",
-      "bid": 1.09461,
-      "change": 0.15,
+      "bid": 1.09414,
+      "change": 0.11,
       "spread": 41,
       "active": false
     },
     {
       "pair": "EURAUD",
-      "bid": 1.63111,
-      "change": 0.04,
-      "spread": 37,
+      "bid": 1.63034,
+      "change": -0.01,
+      "spread": 36,
       "active": false
     },
     {
       "pair": "GBPAUD",
-      "bid": 1.90703,
-      "change": 0.09,
-      "spread": 47,
+      "bid": 1.90559,
+      "change": 0.01,
+      "spread": 45,
       "active": false
     },
     {
       "pair": "EURNZD",
-      "bid": 1.95732,
-      "change": 0.05,
-      "spread": 53,
+      "bid": 1.95524,
+      "change": -0.06,
+      "spread": 51,
       "active": false
     },
     {
       "pair": "AUDCAD",
-      "bid": 0.99084,
+      "bid": 0.99079,
       "change": 0.13,
-      "spread": 37,
+      "spread": 35,
       "active": false
     },
     {
       "pair": "NZDJPY",
-      "bid": 94.926,
-      "change": 0.19,
-      "spread": 39,
+      "bid": 94.963,
+      "change": 0.23,
+      "spread": 38,
       "active": false
     },
     {
       "pair": "CADJPY",
-      "bid": 114.948,
-      "change": 0.07,
+      "bid": 114.933,
+      "change": 0.06,
       "spread": 40,
       "active": false
     },
     {
       "pair": "AUDNZD",
-      "bid": 1.19981,
-      "change": 0.05,
-      "spread": 42,
+      "bid": 1.19911,
+      "change": -0.01,
+      "spread": 41,
       "active": true
     }
   ],
   "terminal_logs": [
     "[{time}] SCANNER   | Market scan complete — 21 pairs quoted",
-    "[{time}] RISK      | 18 open positions · margin level verified ✓",
-    "[{time}] PORTFOLIO | Floating P&L $-33.67 · exposure within limits",
-    "[{time}] EXECUTION | 31 positions closed today",
+    "[{time}] RISK      | 17 open positions · margin level verified ✓",
+    "[{time}] PORTFOLIO | Floating P&L $-33.99 · exposure within limits",
+    "[{time}] EXECUTION | 32 positions closed today",
     "[{time}] GUARD     | News and session guards active ✓",
-    "[{time}] LEDGER    | 32 trades recorded · win rate 81.2%",
+    "[{time}] LEDGER    | 33 trades recorded · win rate 78.8%",
     "[{time}] SIZING    | Position size recalculated from account equity ✓"
   ],
   "disclaimer": "Tum sayilar canli hesaptan olculmustur. Gecmis performans gelecegi garanti etmez."
