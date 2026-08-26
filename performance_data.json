@@ -1,16 +1,16 @@
 {
-  "last_updated": "2026-08-26T06:08:51Z",
+  "last_updated": "2026-08-26T07:08:56Z",
   "account": {
-    "balance": 648.65,
-    "equity": 1206.45,
-    "system_floating": -40.08,
-    "margin_level": 237.8,
+    "balance": 645.53,
+    "equity": 982.54,
+    "system_floating": -37.65,
+    "margin_level": 142.1,
     "total_trades": 80,
     "win_rate": 75.0,
     "active_bots": 19,
     "pairs_traded": 9,
-    "active_positions": 94,
-    "open_positions": 94,
+    "active_positions": 96,
+    "open_positions": 96,
     "daily_pnl": -26.45,
     "weekly_pnl": 15.68,
     "monthly_pnl": 15.68,
@@ -26,8 +26,8 @@
     },
     {
       "date": "2026-08-26",
-      "balance": 648.65,
-      "equity": 1206.45,
+      "balance": 645.53,
+      "equity": 982.54,
       "net": -26.45,
       "trades": 26
     }
@@ -296,156 +296,156 @@
   "market": [
     {
       "pair": "EURUSD",
-      "bid": 1.16626,
-      "change": -0.09,
-      "spread": 20,
+      "bid": 1.16668,
+      "change": -0.05,
+      "spread": 19,
       "active": true
     },
     {
       "pair": "GBPUSD",
-      "bid": 1.3631,
-      "change": -0.11,
-      "spread": 23,
+      "bid": 1.36363,
+      "change": -0.07,
+      "spread": 24,
       "active": true
     },
     {
       "pair": "USDJPY",
-      "bid": 159.036,
-      "change": -0.07,
-      "spread": 26,
+      "bid": 158.981,
+      "change": -0.11,
+      "spread": 24,
       "active": true
     },
     {
       "pair": "USDCHF",
-      "bid": 0.80331,
-      "change": 0.26,
-      "spread": 26,
+      "bid": 0.80317,
+      "change": 0.24,
+      "spread": 25,
       "active": false
     },
     {
       "pair": "AUDUSD",
-      "bid": 0.71818,
-      "change": 0.31,
+      "bid": 0.71777,
+      "change": 0.25,
       "spread": 23,
       "active": true
     },
     {
       "pair": "USDCAD",
-      "bid": 1.38585,
-      "change": 0.17,
-      "spread": 30,
+      "bid": 1.3862,
+      "change": 0.2,
+      "spread": 32,
       "active": true
     },
     {
       "pair": "NZDUSD",
-      "bid": 0.59517,
-      "change": -0.35,
+      "bid": 0.59479,
+      "change": -0.41,
       "spread": 28,
       "active": true
     },
     {
       "pair": "EURGBP",
-      "bid": 0.85548,
-      "change": 0.05,
+      "bid": 0.85545,
+      "change": 0.04,
       "spread": 24,
       "active": false
     },
     {
       "pair": "EURJPY",
-      "bid": 185.492,
+      "bid": 185.494,
       "change": -0.16,
-      "spread": 33,
+      "spread": 30,
       "active": true
     },
     {
       "pair": "GBPJPY",
-      "bid": 216.798,
-      "change": -0.21,
-      "spread": 41,
+      "bid": 216.808,
+      "change": -0.2,
+      "spread": 37,
       "active": true
     },
     {
       "pair": "CHFJPY",
-      "bid": 197.943,
-      "change": -0.29,
-      "spread": 41,
+      "bid": 197.903,
+      "change": -0.31,
+      "spread": 40,
       "active": true
     },
     {
       "pair": "AUDJPY",
-      "bid": 114.226,
-      "change": 0.3,
-      "spread": 35,
+      "bid": 114.121,
+      "change": 0.2,
+      "spread": 34,
       "active": false
     },
     {
       "pair": "EURCHF",
-      "bid": 0.93692,
-      "change": 0.16,
-      "spread": 33,
+      "bid": 0.93711,
+      "change": 0.18,
+      "spread": 32,
       "active": true
     },
     {
       "pair": "GBPCHF",
-      "bid": 1.09501,
-      "change": 0.17,
-      "spread": 46,
+      "bid": 1.09529,
+      "change": 0.19,
+      "spread": 44,
       "active": true
     },
     {
       "pair": "EURAUD",
-      "bid": 1.62359,
-      "change": -0.33,
-      "spread": 36,
+      "bid": 1.62513,
+      "change": -0.23,
+      "spread": 34,
       "active": false
     },
     {
       "pair": "GBPAUD",
-      "bid": 1.89761,
-      "change": -0.35,
-      "spread": 45,
-      "active": false
-    },
-    {
-      "pair": "EURNZD",
-      "bid": 1.95896,
-      "change": 0.32,
-      "spread": 54,
-      "active": false
-    },
-    {
-      "pair": "AUDCAD",
-      "bid": 0.99534,
-      "change": 0.45,
-      "spread": 36,
-      "active": false
-    },
-    {
-      "pair": "NZDJPY",
-      "bid": 94.665,
-      "change": -0.41,
-      "spread": 40,
-      "active": false
-    },
-    {
-      "pair": "CADJPY",
-      "bid": 114.737,
-      "change": -0.2,
+      "bid": 1.89946,
+      "change": -0.25,
       "spread": 44,
       "active": false
     },
     {
+      "pair": "EURNZD",
+      "bid": 1.96097,
+      "change": 0.43,
+      "spread": 52,
+      "active": false
+    },
+    {
+      "pair": "AUDCAD",
+      "bid": 0.99505,
+      "change": 0.42,
+      "spread": 35,
+      "active": false
+    },
+    {
+      "pair": "NZDJPY",
+      "bid": 94.571,
+      "change": -0.5,
+      "spread": 36,
+      "active": false
+    },
+    {
+      "pair": "CADJPY",
+      "bid": 114.667,
+      "change": -0.26,
+      "spread": 41,
+      "active": false
+    },
+    {
       "pair": "AUDNZD",
-      "bid": 1.20638,
+      "bid": 1.20648,
       "change": 0.74,
-      "spread": 43,
+      "spread": 40,
       "active": false
     }
   ],
   "terminal_logs": [
     "[{time}] SCANNER   | Market scan complete — 21 pairs quoted",
-    "[{time}] RISK      | 94 open positions · margin level verified ✓",
-    "[{time}] PORTFOLIO | Floating P&L $-40.08 · exposure within limits",
+    "[{time}] RISK      | 96 open positions · margin level verified ✓",
+    "[{time}] PORTFOLIO | Floating P&L $-37.65 · exposure within limits",
     "[{time}] EXECUTION | 26 positions closed today",
     "[{time}] GUARD     | News and session guards active ✓",
     "[{time}] LEDGER    | 80 trades recorded · win rate 75.0%",
