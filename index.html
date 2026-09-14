@@ -4,40 +4,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Egemen AGI — Kovan</title>
-<meta name="description" content="7 Arı Konseyi ve Kraliçe Arı canlı performans panosu.">
-<link rel="stylesheet" href="style.css?v=c0b59826">
+<meta name="description" content="7 Arı Konseyi ve Kraliçe Arı canlı performans komuta merkezi.">
+<link rel="stylesheet" href="style.css?v=119ea82e">
 </head>
 <body>
 <div class="wrap">
 
   <header class="top">
     <div class="brand">
-      <span class="logo">🐝</span>
+      <span class="logo">⬡</span>
       <div>
-        <h1>Egemen AGI — Kovan</h1>
-        <small>7 Arı Konseyi · Kraliçe Arı · canlı sinyal ağı · canlı hesap performansı</small>
+        <h1>EGEMEN AGI // KOVAN</h1>
+        <small>7-Ajan Konseyi · Kraliçe Arı Komuta Birimi · dağıtık sinyal ağı</small>
       </div>
     </div>
     <div class="updated">
-      <span class="dot-live"></span>Son güncelleme: <b id="lastUpdated">—</b><br>
+      <span class="dot-live"></span>SYNC <b id="lastUpdated">—</b><br>
       <span id="staleNote" style="display:none;color:var(--bad);">⚠ veri saatlerdir yenilenmedi</span>
     </div>
   </header>
 
   <section class="hero">
     <div class="hero-balance">
-      <div class="hero-lbl">Kovan Canlı Bakiye</div>
+      <div class="hero-lbl">// Kovan Canlı Bakiye</div>
       <div class="hero-val"><span class="cur">$</span><span id="heroBalance">—</span></div>
       <div class="hero-sub">equity <span id="heroEquity">—</span> · güncellendi <span id="heroUpdated">—</span></div>
+      <div class="hero-mini"><svg id="heroMini" width="100%" height="46" viewBox="0 0 400 46" preserveAspectRatio="none"></svg></div>
     </div>
-    <div class="hero-verify">
-      <div class="vlbl"><span class="check">✓</span>Bağımsız Doğrulanmış Kayıt</div>
-      <p>Bu hesabın tüm işlemleri, aynı XM hesabından çekilen ham veriyle üçüncü taraf
-        bir izleme kuruluşunda da şeffaf şekilde yayınlanıyor — gizlenen kayıp yok, seçilmiş sonuç yok.</p>
-      <a class="verified-badge" href="https://www.myfxbook.com/portfolio/aibee/12201664" target="_blank" rel="noopener noreferrer">
-        myfxbook.com/portfolio/aibee →
-      </a>
-    </div>
+    <a class="hero-verify" href="https://www.myfxbook.com/members/mtumtu/aibee/12201664" target="_blank" rel="noopener noreferrer">
+      <div class="vlbl"><span class="check">✓</span>THIRD-PARTY VERIFIED</div>
+      <div class="vbig">Myfxbook üzerinde canlı takip ediliyor</div>
+      <p>Aynı XM hesabının ham verisi, bağımsız bir izleme kuruluşunda da yayınlanıyor —
+        seçilmiş sonuç yok, gizlenen kayıp yok. Tıkla, kendin doğrula.</p>
+      <div class="verify-cta">myfxbook.com/members/mtumtu/aibee/12201664 →</div>
+    </a>
   </section>
 
   <section class="stats" id="statsGrid">
@@ -51,41 +51,45 @@
 
   <section class="hive-stage" id="hiveStage">
     <svg id="signalNet"></svg>
-    <div class="stage-title">Komuta Ağı — 7 Arı Konseyi Kraliçe Arı'yı Sürekli Bilgilendiriyor</div>
+    <div class="stage-title">// KOMUTA AĞI — 7 Ajan Kraliçe Arı'yı Sürekli Bilgilendiriyor</div>
 
-    <div class="queen-row">
-      <div class="queen-box">
-        <div class="queen-label-row">
-          <div class="queen-bee" id="queenBee">
-            <div class="queen-pulse-ring"></div>
-            <svg viewBox="0 0 100 100">
-              <ellipse class="agent-wing left" cx="30" cy="42" rx="20" ry="12" fill="#c9b8ff" opacity="0.5"/>
-              <ellipse class="agent-wing right" cx="70" cy="42" rx="20" ry="12" fill="#c9b8ff" opacity="0.5"/>
-              <ellipse cx="50" cy="58" rx="24" ry="30" fill="#8b5cf6"/>
-              <rect x="27" y="47" width="46" height="8" fill="#1a1130"/>
-              <rect x="27" y="63" width="46" height="8" fill="#1a1130"/>
-              <circle cx="50" cy="27" r="14" fill="#1a1130"/>
-              <path d="M40 15 L46 22 M60 15 L54 22" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="queen-name">KRALİÇE ARI</div>
-          <div class="queen-sub">Komutan — hesabı yönetir</div>
-          <div class="queen-role-pill">merkezi karar birimi</div>
-        </div>
-        <div class="queen-screen" id="queenScreenBox">
-          <span class="tag">Komuta Ekranı</span>
-          <span class="tag live">● canlı</span>
-          <canvas id="queenChart" width="320" height="160"></canvas>
-        </div>
+    <div class="orbit" id="orbit">
+      <div class="queen-node" id="queenBee">
+        <div class="queen-pulse-ring"></div>
+        <div class="queen-pulse-ring r2"></div>
+        <svg viewBox="0 0 100 100">
+          <ellipse class="agent-wing left" cx="30" cy="42" rx="20" ry="12" fill="#c9b8ff" opacity="0.5"/>
+          <ellipse class="agent-wing right" cx="70" cy="42" rx="20" ry="12" fill="#c9b8ff" opacity="0.5"/>
+          <ellipse cx="50" cy="58" rx="24" ry="30" fill="#8b5cf6"/>
+          <rect x="27" y="47" width="46" height="8" fill="#1a1130"/>
+          <rect x="27" y="63" width="46" height="8" fill="#1a1130"/>
+          <circle cx="50" cy="27" r="14" fill="#1a1130"/>
+          <path d="M40 15 L46 22 M60 15 L54 22" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <div class="queen-tag">KRALİÇE ARI</div>
       </div>
+      <div class="queen-screen hud-screen" id="queenScreenBox">
+        <div class="hud-corner tl"></div><div class="hud-corner tr"></div>
+        <div class="hud-corner bl"></div><div class="hud-corner br"></div>
+        <div class="hud-scan"></div>
+        <span class="tag">CMD-CORE // KOMUTA EKRANI</span>
+        <span class="tag live">● LIVE</span>
+        <canvas id="queenChart" width="320" height="160"></canvas>
+        <div class="hud-readout" id="queenReadout"></div>
+      </div>
+      <div class="council" id="council"></div>
     </div>
+  </section>
 
-    <div class="council" id="council"></div>
+  <section class="panel network-panel">
+    <h2><span class="tagdot red"></span>// UZAK SUNUCU AĞI — 7 Ajan Farklı Node'lardan Veri Çekiyor</h2>
+    <div class="chart-wrap"><svg id="networkMap" width="1180" height="280"></svg></div>
+    <div class="network-note">Görselleştirme amaçlıdır — ajanların hangi iç modülden veri okuduğu (mimari, parametre, kriter) yayınlanmaz.</div>
   </section>
 
   <section class="panel">
-    <h2><span class="tagdot"></span>Günlük Bakiye Geçmişi (gerçek)</h2>
-    <div class="chart-wrap"><svg id="dailyChart" width="1180" height="220"></svg></div>
+    <h2><span class="tagdot"></span>Günlük Bakiye vs Equity (gerçek)</h2>
+    <div class="chart-wrap"><svg id="dailyChart" width="1180" height="240"></svg></div>
   </section>
 
   <div class="grid2">
@@ -96,6 +100,17 @@
     <section class="panel">
       <h2><span class="tagdot"></span>Strateji Kovanı (gerçek, takma adlı)</h2>
       <div class="chart-wrap"><svg id="stratChart" width="560" height="240"></svg></div>
+    </section>
+  </div>
+
+  <div class="grid2">
+    <section class="panel">
+      <h2><span class="tagdot"></span>Kazanç / Kayıp Dağılımı (gerçek)</h2>
+      <div class="chart-wrap"><svg id="winDonut" width="560" height="240"></svg></div>
+    </section>
+    <section class="panel">
+      <h2><span class="tagdot red"></span>Sistem Durumu</h2>
+      <div class="status-grid" id="statusGrid"></div>
     </section>
   </div>
 
@@ -119,12 +134,12 @@
 
   <footer>
     <div id="disclaimer">Tüm sayılar canlı hesaptan ölçülmüştür. Geçmiş performans geleceği garanti etmez.</div>
-    <div>7 Arı Konseyi + Kraliçe Arı görsel temsilidir; yöntem/parametre paylaşılmaz.</div>
+    <div>7 Ajan Konseyi + Kraliçe Arı görsel temsilidir; yöntem/parametre paylaşılmaz.</div>
     <div>No fabricated data, no hidden losses — real results, independently tracked on
-      <a href="https://www.myfxbook.com/portfolio/aibee/12201664" target="_blank" rel="noopener noreferrer">myfxbook.com/portfolio/aibee</a>.</div>
+      <a href="https://www.myfxbook.com/members/mtumtu/aibee/12201664" target="_blank" rel="noopener noreferrer">myfxbook.com/members/mtumtu/aibee</a>.</div>
   </footer>
 
 </div>
-<script src="app.js?v=e4799190"></script>
+<script src="app.js?v=38932cfc"></script>
 </body>
 </html>

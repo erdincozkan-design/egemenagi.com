@@ -36,7 +36,7 @@ function fmtUsd(v){
 }
 function cls(v){ return Number(v) > 0 ? "pos" : (Number(v) < 0 ? "neg" : ""); }
 
-/* ============ 7 ARI KONSEYİ + kendi ekranları ============ */
+/* ============ 7 AJAN — Kraliçe'nin etrafında DAİRESEL yerleşim ============ */
 function renderCouncil(){
   const el = document.getElementById("council");
   el.innerHTML = BEES.map(b => `
@@ -58,6 +58,9 @@ function renderCouncil(){
     </div>
   `).join("");
 
+  positionOrbit();
+  window.addEventListener("resize", positionOrbit);
+
   BEES.forEach((b, i) => {
     let idx = 0;
     setInterval(() => {
@@ -71,6 +74,38 @@ function renderCouncil(){
     }, 3200 + i * 450);
     animateMiniChart(`chart-${b.key}`, b.color, 900 + i * 130);
   });
+}
+
+/* Kraliçenin çevresinde 7 ajanı eşit açıyla dairesel yerleştirir. */
+function positionOrbit(){
+  const orbit = document.getElementById("orbit");
+  if (!orbit) return;
+  const w = orbit.clientWidth, h = orbit.clientHeight;
+  const cx = w / 2, cy = h / 2;
+  const radius = Math.min(w, h) / 2 - 90;
+  BEES.forEach((b, i) => {
+    const card = document.querySelector(`.bee-card[data-key="${b.key}"]`);
+    if (!card) return;
+    const angle = (-90 + i * (360 / BEES.length)) * (Math.PI / 180);
+    const x = cx + radius * Math.cos(angle);
+    const y = cy + radius * Math.sin(angle);
+    card.style.left = `${x}px`;
+    card.style.top = `${y}px`;
+  });
+}
+
+/* Kraliçenin komuta ekranındaki dönen HUD satırları — dekoratif teknik "gürültü". */
+function animateQueenReadout(){
+  const el = document.getElementById("queenReadout");
+  if (!el) return;
+  const words = ["SIG-LOCK", "UPLINK", "SYNC", "NODE-04", "AUTH-OK", "STREAM"];
+  function tick(){
+    const w1 = words[Math.floor(Math.random() * words.length)];
+    const pct = (95 + Math.random() * 4.9).toFixed(1);
+    el.innerHTML = `<span>${w1}</span><span>${pct}%</span>`;
+  }
+  tick();
+  setInterval(tick, 1400);
 }
 
 /* Dekoratif mini "analiz" grafiği — her arının kendi ekranı. Sanal veri. */
@@ -220,6 +255,199 @@ function drawSignalNet(){
   setInterval(render, 4000); // düzen kayarsa (veri güncellenince) yeniden hizala
 }
 
+/* ============ Uzak sunucu ağı — tamamen dekoratif Terminator-esque harita ============ */
+function renderNetworkMap(){
+  const svg = document.getElementById("networkMap");
+  if (!svg) return;
+  const W = svg.width.baseVal.value, H = svg.height.baseVal.value;
+  const ns = "http://www.w3.org/2000/svg";
+  svg.innerHTML = "";
+
+  const cx = W / 2, cy = H / 2;
+  const nodes = BEES.map((b, i) => {
+    const angle = (i / BEES.length) * Math.PI * 2 - Math.PI / 2;
+    const rx = W * 0.42, ry = H * 0.36;
+    return { ...b, x: cx + rx * Math.cos(angle), y: cy + ry * Math.sin(angle) };
+  });
+
+  // arka plan ızgara
+  const grid = document.createElementNS(ns, "g");
+  for (let gx = 0; gx < W; gx += 40) {
+    const l = document.createElementNS(ns, "line");
+    l.setAttribute("x1", gx); l.setAttribute("x2", gx); l.setAttribute("y1", 0); l.setAttribute("y2", H);
+    l.setAttribute("stroke", "rgba(239,68,68,0.05)");
+    grid.appendChild(l);
+  }
+  for (let gy = 0; gy < H; gy += 40) {
+    const l = document.createElementNS(ns, "line");
+    l.setAttribute("x1", 0); l.setAttribute("x2", W); l.setAttribute("y1", gy); l.setAttribute("y2", gy);
+    l.setAttribute("stroke", "rgba(239,68,68,0.05)");
+    grid.appendChild(l);
+  }
+  svg.appendChild(grid);
+
+  // node <-> kraliçe bağlantı çizgileri
+  nodes.forEach((n, i) => {
+    const path = document.createElementNS(ns, "path");
+    const midx = (n.x + cx) / 2, midy = (n.y + cy) / 2 + (i % 2 === 0 ? -14 : 14);
+    path.setAttribute("d", `M${n.x},${n.y} Q${midx},${midy} ${cx},${cy}`);
+    path.setAttribute("fill", "none"); path.setAttribute("stroke", n.color);
+    path.setAttribute("stroke-width", "1"); path.setAttribute("opacity", "0.45");
+    path.setAttribute("class", "sig-line");
+    path.style.animationDuration = `${1.2 + (i % 4) * 0.3}s`;
+    svg.appendChild(path);
+  });
+
+  // merkez: Kraliçe / Komuta çekirdeği
+  const core = document.createElementNS(ns, "g");
+  const coreCircle = document.createElementNS(ns, "circle");
+  coreCircle.setAttribute("cx", cx); coreCircle.setAttribute("cy", cy); coreCircle.setAttribute("r", 22);
+  coreCircle.setAttribute("fill", "#1a1130"); coreCircle.setAttribute("stroke", "#8b5cf6"); coreCircle.setAttribute("stroke-width", "1.5");
+  core.appendChild(coreCircle);
+  const coreLabel = document.createElementNS(ns, "text");
+  coreLabel.setAttribute("x", cx); coreLabel.setAttribute("y", cy + 40);
+  coreLabel.setAttribute("fill", "#8b5cf6"); coreLabel.setAttribute("font-size", "10");
+  coreLabel.setAttribute("font-family", "Consolas,monospace"); coreLabel.setAttribute("text-anchor", "middle");
+  coreLabel.textContent = "CMD-CORE";
+  core.appendChild(coreLabel);
+  svg.appendChild(core);
+
+  // her ajan için "uzak node" kutusu
+  nodes.forEach((n, i) => {
+    const g = document.createElementNS(ns, "g");
+    const rect = document.createElementNS(ns, "rect");
+    rect.setAttribute("x", n.x - 34); rect.setAttribute("y", n.y - 16);
+    rect.setAttribute("width", 68); rect.setAttribute("height", 32);
+    rect.setAttribute("rx", 5); rect.setAttribute("fill", "#03060b");
+    rect.setAttribute("stroke", n.color); rect.setAttribute("stroke-width", "1");
+    g.appendChild(rect);
+
+    const label = document.createElementNS(ns, "text");
+    label.setAttribute("x", n.x); label.setAttribute("y", n.y - 2);
+    label.setAttribute("fill", n.color); label.setAttribute("font-size", "9");
+    label.setAttribute("font-family", "Consolas,monospace"); label.setAttribute("text-anchor", "middle");
+    label.setAttribute("font-weight", "700");
+    label.textContent = `NODE-0${i + 1}`;
+    g.appendChild(label);
+
+    const sub = document.createElementNS(ns, "text");
+    sub.setAttribute("x", n.x); sub.setAttribute("y", n.y + 10);
+    sub.setAttribute("fill", "#6b7280"); sub.setAttribute("font-size", "7.5");
+    sub.setAttribute("font-family", "Consolas,monospace"); sub.setAttribute("text-anchor", "middle");
+    sub.textContent = n.name.replace("Bee", "");
+    g.appendChild(sub);
+
+    const dot = document.createElementNS(ns, "circle");
+    dot.setAttribute("r", "2"); dot.setAttribute("fill", n.color); dot.setAttribute("class", "sig-pulse");
+    dot.style.animationDelay = `${i * 0.2}s`;
+    const anim = document.createElementNS(ns, "animateMotion");
+    anim.setAttribute("dur", `${1.4 + (i % 3) * 0.3}s`); anim.setAttribute("repeatCount", "indefinite");
+    const midx = (n.x + cx) / 2, midy = (n.y + cy) / 2 + (i % 2 === 0 ? -14 : 14);
+    anim.setAttribute("path", `M${n.x},${n.y} Q${midx},${midy} ${cx},${cy}`);
+    dot.appendChild(anim);
+    svg.appendChild(dot);
+
+    svg.appendChild(g);
+  });
+}
+
+/* Bakiye hero kartındaki küçük gerçek trend çizgisi (son N gün). */
+function renderHeroMini(daily){
+  const svg = document.getElementById("heroMini");
+  if (!svg) return;
+  svg.innerHTML = "";
+  if (!daily || daily.length < 2) return;
+  const W = 400, H = 46;
+  const vals = daily.map(d => Number(d.balance) || 0);
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const range = (max - min) || 1;
+  const stepX = W / (daily.length - 1);
+  const pts = daily.map((d, i) => `${(i * stepX).toFixed(1)},${(H - ((d.balance - min) / range) * H).toFixed(1)}`);
+  const ns = "http://www.w3.org/2000/svg";
+  const path = document.createElementNS(ns, "polyline");
+  path.setAttribute("points", pts.join(" "));
+  path.setAttribute("fill", "none"); path.setAttribute("stroke", "#f59e0b");
+  path.setAttribute("stroke-width", "2"); path.setAttribute("opacity", "0.85");
+  svg.appendChild(path);
+}
+
+/* Kazanç/kayıp dairesel grafik — GERÇEK veriden (recent_trades yeterli değilse strateji toplamı kullanılır). */
+function renderWinDonut(recent, strategies){
+  const svg = document.getElementById("winDonut");
+  const W = svg.width.baseVal.value, H = svg.height.baseVal.value;
+  svg.innerHTML = "";
+  let wins = 0, losses = 0;
+  (recent || []).forEach(r => r.result === "WIN" ? wins++ : losses++);
+  if (wins + losses === 0) {
+    (strategies || []).forEach(s => s.pnl >= 0 ? wins++ : losses++);
+  }
+  if (wins + losses === 0) { emptyState("winDonut", "Henüz sonuçlanmış işlem yok"); return; }
+
+  const total = wins + losses;
+  const cx = W * 0.32, cy = H / 2, r = 70, stroke = 22;
+  const ns = "http://www.w3.org/2000/svg";
+  const circumference = 2 * Math.PI * r;
+  const winFrac = wins / total;
+
+  const bg = document.createElementNS(ns, "circle");
+  bg.setAttribute("cx", cx); bg.setAttribute("cy", cy); bg.setAttribute("r", r);
+  bg.setAttribute("fill", "none"); bg.setAttribute("stroke", "#ef4444"); bg.setAttribute("stroke-width", stroke);
+  bg.setAttribute("opacity", "0.35");
+  svg.appendChild(bg);
+
+  const fg = document.createElementNS(ns, "circle");
+  fg.setAttribute("cx", cx); fg.setAttribute("cy", cy); fg.setAttribute("r", r);
+  fg.setAttribute("fill", "none"); fg.setAttribute("stroke", "#10b981"); fg.setAttribute("stroke-width", stroke);
+  fg.setAttribute("stroke-dasharray", `${circumference * winFrac} ${circumference}`);
+  fg.setAttribute("stroke-linecap", "round");
+  fg.setAttribute("transform", `rotate(-90 ${cx} ${cy})`);
+  svg.appendChild(fg);
+
+  const label = document.createElementNS(ns, "text");
+  label.setAttribute("x", cx); label.setAttribute("y", cy - 4);
+  label.setAttribute("fill", "#e5e7eb"); label.setAttribute("font-size", "22"); label.setAttribute("font-weight", "800");
+  label.setAttribute("font-family", "Consolas,monospace"); label.setAttribute("text-anchor", "middle");
+  label.textContent = `%${(winFrac * 100).toFixed(0)}`;
+  svg.appendChild(label);
+  const sub = document.createElementNS(ns, "text");
+  sub.setAttribute("x", cx); sub.setAttribute("y", cy + 16);
+  sub.setAttribute("fill", "#6b7280"); sub.setAttribute("font-size", "9.5");
+  sub.setAttribute("font-family", "Consolas,monospace"); sub.setAttribute("text-anchor", "middle");
+  sub.textContent = "isabet";
+  svg.appendChild(sub);
+
+  const legendX = W * 0.62;
+  [["Kazanan", wins, "#10b981"], ["Kaybeden", losses, "#ef4444"]].forEach(([lbl, n, col], i) => {
+    const y = cy - 16 + i * 28;
+    const dot = document.createElementNS(ns, "circle");
+    dot.setAttribute("cx", legendX); dot.setAttribute("cy", y); dot.setAttribute("r", 5); dot.setAttribute("fill", col);
+    svg.appendChild(dot);
+    const t = document.createElementNS(ns, "text");
+    t.setAttribute("x", legendX + 12); t.setAttribute("y", y + 4);
+    t.setAttribute("fill", "#e5e7eb"); t.setAttribute("font-size", "12"); t.setAttribute("font-family", "Consolas,monospace");
+    t.textContent = `${lbl}: ${n}`;
+    svg.appendChild(t);
+  });
+}
+
+function renderStatusGrid(data){
+  const el = document.getElementById("statusGrid");
+  if (!el) return;
+  const a = data.account || {};
+  const t = data.last_updated ? new Date(data.last_updated) : null;
+  const rows = [
+    ["Kraliçe Arı (Komutan)", "sembolik — görsel katman"],
+    ["Web Sync Engine", "saatte bir otomatik yayın"],
+    ["Son senkronizasyon", (t && !isNaN(t)) ? t.toLocaleTimeString("tr-TR") : "—"],
+    ["Takip edilen parite", `${a.pairs_traded ?? 0}`],
+    ["Açık pozisyon", `${a.open_positions ?? 0}`],
+    ["Bağımsız doğrulama", "myfxbook — aktif"],
+  ];
+  el.innerHTML = rows.map(([k, v]) => `
+    <div class="status-row"><span class="sname"><span class="sdot"></span>${k}</span><span class="sval">${v}</span></div>
+  `).join("");
+}
+
 function renderHero(data){
   const a = data.account || {};
   document.getElementById("heroBalance").textContent = (a.balance ?? 0).toFixed(2);
@@ -265,7 +493,7 @@ function renderDailyChart(daily){
   const pad = { l: 60, r: 20, t: 16, b: 30 };
   svg.innerHTML = "";
   if (!daily || !daily.length) { emptyState("dailyChart", "Henüz günlük veri yok"); return; }
-  const vals = daily.map(d => Number(d.balance) || 0);
+  const vals = daily.map(d => Number(d.balance) || 0).concat(daily.map(d => Number(d.equity) || 0));
   const min = Math.min(...vals, 0), max = Math.max(...vals, 1);
   const range = (max - min) || 1;
   const stepX = (W - pad.l - pad.r) / Math.max(daily.length - 1, 1);
@@ -306,9 +534,25 @@ function renderDailyChart(daily){
 
   const line = document.createElementNS(ns, "path");
   line.setAttribute("d", path); line.setAttribute("fill", "none");
-  line.setAttribute("stroke", "#37e6ff"); line.setAttribute("stroke-width", "2.2");
-  line.setAttribute("style", "filter:drop-shadow(0 0 5px rgba(55,230,255,.6))");
+  line.setAttribute("stroke", "#f59e0b"); line.setAttribute("stroke-width", "2.4");
+  line.setAttribute("style", "filter:drop-shadow(0 0 5px rgba(245,158,11,.5))");
   g.appendChild(line);
+
+  const eqPath = daily.map((d, i) => `${i === 0 ? "M" : "L"}${x(i).toFixed(1)},${y(d.equity).toFixed(1)}`).join(" ");
+  const eqLine = document.createElementNS(ns, "path");
+  eqLine.setAttribute("d", eqPath); eqLine.setAttribute("fill", "none");
+  eqLine.setAttribute("stroke", "#06b6d4"); eqLine.setAttribute("stroke-width", "1.6");
+  eqLine.setAttribute("stroke-dasharray", "4,3"); eqLine.setAttribute("opacity", "0.85");
+  g.appendChild(eqLine);
+
+  // lejant
+  const leg = document.createElementNS(ns, "g");
+  leg.innerHTML = `
+    <circle cx="${W - 168}" cy="${pad.t + 4}" r="4" fill="#f59e0b"/>
+    <text x="${W - 158}" y="${pad.t + 8}" fill="#9ca3af" font-size="10" font-family="Consolas,monospace">bakiye</text>
+    <circle cx="${W - 96}" cy="${pad.t + 4}" r="4" fill="#06b6d4"/>
+    <text x="${W - 86}" y="${pad.t + 8}" fill="#9ca3af" font-size="10" font-family="Consolas,monospace">equity</text>`;
+  g.appendChild(leg);
 
   daily.forEach((d, i) => {
     const c = document.createElementNS(ns, "circle");
@@ -428,11 +672,14 @@ async function load(){
     const res = await fetch(`performance_data.json?v=${Date.now()}`, { cache: "no-store" });
     const data = await res.json();
     renderHero(data);
+    renderHeroMini(data.daily);
     renderUpdated(data);
     renderStats(data);
     renderDailyChart(data.daily);
     renderPairChart(data.pair_performance);
     renderStratChart(data.veteran_strategies);
+    renderWinDonut(data.recent_trades, data.veteran_strategies);
+    renderStatusGrid(data);
     renderTicker(data.market);
     renderTrades(data.recent_trades);
     renderLogs(data.terminal_logs, data.last_updated);
@@ -444,6 +691,8 @@ async function load(){
 
 renderCouncil();
 animateQueenChart();
+animateQueenReadout();
+renderNetworkMap();
 drawSignalNet();
 load();
 setInterval(load, 5 * 60 * 1000); // veri saatte 1 yenilense de, tarayıcı 5 dk'da bir kontrol eder
