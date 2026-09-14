@@ -344,8 +344,58 @@ header.top{
 .sig-pulse{animation:sigPulse 1.8s ease-in-out infinite;}
 @keyframes sigPulse{0%,100%{opacity:.2;}50%{opacity:.85;}}
 
+/* ---------- KAYAN SİNYAL ŞERİDİ (marquee) — tamamen dekoratif şov ---------- */
+.marquee-wrap{
+  overflow:hidden;border:1px solid var(--panel-border);border-radius:10px;
+  background:var(--panel);margin-bottom:14px;padding:10px 0;position:relative;
+}
+.marquee-wrap::before, .marquee-wrap::after{
+  content:"";position:absolute;top:0;bottom:0;width:40px;z-index:2;pointer-events:none;
+}
+.marquee-wrap::before{left:0;background:linear-gradient(90deg,var(--panel),transparent);}
+.marquee-wrap::after{right:0;background:linear-gradient(-90deg,var(--panel),transparent);}
+.marquee-track{display:flex;gap:28px;white-space:nowrap;animation:marqueeScroll 38s linear infinite;width:max-content;}
+@keyframes marqueeScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.marquee-item{font-size:12px;font-family:var(--mono);display:flex;align-items:center;gap:6px;color:var(--text-dim);}
+.marquee-item b{color:var(--text);}
+.marquee-item .sig-buy{color:var(--emerald);font-weight:800;}
+.marquee-item .sig-sell{color:var(--red);font-weight:800;}
+.marquee-item .pip-up{color:var(--emerald);}
+.marquee-item .pip-down{color:var(--red);}
+
+/* ---------- SİNYAL DUVARI — çok sayıda küçük ekran, dekoratif şov ---------- */
+.signal-wall{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;
+  padding:0 18px 16px;
+}
+.sig-cell{
+  background:#03060b;border:1px solid var(--panel-border);border-radius:7px;
+  padding:8px;text-align:center;position:relative;overflow:hidden;
+}
+.sig-cell .sc-pair{font-size:10px;color:var(--text-dim);font-family:var(--mono);font-weight:700;}
+.sig-cell .sc-price{font-size:12px;color:var(--text);font-family:var(--mono);margin:3px 0;}
+.sig-cell .sc-badge{
+  font-size:9px;font-weight:800;font-family:var(--mono);padding:2px 8px;border-radius:4px;
+  display:inline-block;animation:sigCellPulse 1.6s ease-in-out infinite;
+}
+.sig-cell .sc-badge.buy{color:var(--emerald);background:rgba(16,185,129,.14);}
+.sig-cell .sc-badge.sell{color:var(--red);background:rgba(239,68,68,.14);}
+@keyframes sigCellPulse{0%,100%{opacity:.7;}50%{opacity:1;}}
+
+/* ---------- MOBİL: dairesel yerleşim yerine akışkan dikey düzen ---------- */
 @media (max-width:760px){
-  .orbit{height:1120px;max-width:440px;}
+  .orbit{
+    height:auto;max-width:100%;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  #signalNet{display:none;}
+  .queen-node{position:relative;left:auto;top:auto;transform:none;margin:0 auto 34px;}
+  .queen-screen{position:relative;left:auto;top:auto;transform:none;margin:0 auto 22px;width:100%;max-width:320px;}
+  .council{position:static;display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;}
+  .bee-card{position:static;transform:none;width:100%;}
+}
+@media (max-width:420px){
+  .council{grid-template-columns:1fr;}
 }
 
 /* ---------- UZAK SUNUCU AĞI (Terminator-esque, tamamen dekoratif) ---------- */

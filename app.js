@@ -125,6 +125,14 @@ function animateBeeReadout(elId, seed){
 function positionOrbit(){
   const orbit = document.getElementById("orbit");
   if (!orbit) return;
+  if (window.innerWidth <= 760) {
+    // Mobilde CSS akışkan (grid) düzeni devrede — JS konumlandırma gerekmez.
+    BEES.forEach(b => {
+      const card = document.querySelector(`.bee-card[data-key="${b.key}"]`);
+      if (card) { card.style.left = ""; card.style.top = ""; }
+    });
+    return;
+  }
   const w = orbit.clientWidth, h = orbit.clientHeight;
   const cx = w / 2, cy = h / 2;
   const radius = Math.min(w, h) / 2 - 125;
@@ -706,6 +714,53 @@ function renderNewswire(logs, ts){
   }).join("");
 }
 
+/* ============ KAYAN SİNYAL ŞERİDİ — tamamen dekoratif şov ============ */
+const WALL_PAIRS = [
+  "EURUSD", "GBPUSD", "USDJPY", "USDCHF", "AUDUSD", "USDCAD", "NZDUSD",
+  "EURGBP", "EURJPY", "GBPJPY", "CHFJPY", "AUDJPY", "EURCHF", "GBPCHF",
+  "EURAUD", "GBPAUD", "EURNZD", "GBPNZD", "AUDCAD", "NZDJPY", "CADJPY", "AUDNZD",
+];
+function renderMarquee(){
+  const el = document.getElementById("marqueeTrack");
+  if (!el) return;
+  function item(){
+    const pair = WALL_PAIRS[Math.floor(Math.random() * WALL_PAIRS.length)];
+    const buy = Math.random() > 0.5;
+    const pips = (Math.random() * 30).toFixed(1);
+    return `<span class="marquee-item"><b>${pair}</b>
+      <span class="${buy ? "sig-buy" : "sig-sell"}">${buy ? "▲ BUY" : "▼ SELL"}</span>
+      <span class="${buy ? "pip-up" : "pip-down"}">${buy ? "+" : "-"}${pips}p</span></span>`;
+  }
+  const items = Array.from({ length: 24 }, item);
+  el.innerHTML = items.join("") + items.join(""); // döngü kesintisiz olsun diye ikiye katla
+}
+
+/* ============ SİNYAL DUVARI — çok sayıda küçük dekoratif ekran ============ */
+function renderSignalWall(){
+  const el = document.getElementById("signalWall");
+  if (!el) return;
+  function cellHtml(pair){
+    const price = (0.6 + Math.random() * 1.0).toFixed(4);
+    const buy = Math.random() > 0.5;
+    return `<div class="sig-cell" data-p="${pair}">
+      <div class="sc-pair">${pair}</div>
+      <div class="sc-price">${price}</div>
+      <div class="sc-badge ${buy ? "buy" : "sell"}">${buy ? "BUY" : "SELL"}</div>
+    </div>`;
+  }
+  el.innerHTML = WALL_PAIRS.map(cellHtml).join("");
+  setInterval(() => {
+    const cells = el.querySelectorAll(".sig-cell");
+    // her turda birkaç hücreyi tazele (hepsini değil) — daha canlı, performanslı
+    for (let i = 0; i < 4; i++) {
+      const c = cells[Math.floor(Math.random() * cells.length)];
+      if (!c) continue;
+      const pair = c.dataset.p;
+      c.outerHTML = cellHtml(pair);
+    }
+  }, 1200);
+}
+
 function renderHero(data){
   const a = data.account || {};
   document.getElementById("heroBalance").textContent = (a.balance ?? 0).toFixed(2);
@@ -962,5 +1017,7 @@ animateBrainCloud();
 animateBrainStats();
 renderWaves();
 renderRangeBtns();
+renderMarquee();
+renderSignalWall();
 load();
 setInterval(load, 5 * 60 * 1000); // veri saatte 1 yenilense de, tarayıcı 5 dk'da bir kontrol eder
