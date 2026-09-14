@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Egemen AGI — Kovan</title>
 <meta name="description" content="7 Arı Konseyi ve Kraliçe Arı canlı performans panosu.">
-<link rel="stylesheet" href="style.css?v=7c63218b">
+<link rel="stylesheet" href="style.css?v=fadee0ac">
 </head>
 <body>
 <div class="wrap">
@@ -14,8 +14,8 @@
     <div class="brand">
       <span class="logo">🐝</span>
       <div>
-        <h1>EGEMEN AGI — KOVAN</h1>
-        <small>7 Arı Konseyi · Kraliçe Arı · canlı hesap performansı</small>
+        <h1>EGEMEN AGI // KOVAN</h1>
+        <small>7 Arı Konseyi · Kraliçe Arı · canlı sinyal ağı · canlı hesap performansı</small>
       </div>
     </div>
     <div class="updated">
@@ -23,6 +23,12 @@
       <span id="staleNote" style="display:none;color:var(--bad);">⚠ veri saatlerdir yenilenmedi</span>
     </div>
   </header>
+
+  <section class="hero-balance">
+    <div class="hero-lbl">🐝 KOVAN CANLI BAKİYE</div>
+    <div class="hero-val" id="heroBalance">$—</div>
+    <div class="hero-sub">equity <span id="heroEquity">—</span> · <span class="dot-live"></span><span id="heroUpdated">—</span></div>
+  </section>
 
   <section class="stats" id="statsGrid">
     <div class="stat balance"><div class="lbl">Bakiye</div><div class="val" id="sBalance">—</div></div>
@@ -35,45 +41,60 @@
     <div class="stat"><div class="lbl">Açık Pozisyon</div><div class="val" id="sOpen">—</div></div>
   </section>
 
-  <section class="hive-stage">
+  <section class="hive-stage" id="hiveStage">
+    <svg id="signalNet"></svg>
+
     <div class="queen-row">
       <div class="queen-title">👑 Kraliçe Arı — Komutan</div>
       <div class="queen-box">
         <div>
           <div class="queen-bee" id="queenBee">
+            <div class="queen-pulse-ring"></div>
             <span class="crown">👑</span>
             <svg viewBox="0 0 100 100">
-              <ellipse class="queen-wing left" cx="30" cy="42" rx="22" ry="13" fill="#fff6e0" opacity="0.85"/>
-              <ellipse class="queen-wing right" cx="70" cy="42" rx="22" ry="13" fill="#fff6e0" opacity="0.85"/>
-              <ellipse cx="50" cy="58" rx="26" ry="32" fill="#ff5fae"/>
-              <rect x="26" y="46" width="48" height="9" fill="#1b1406"/>
-              <rect x="26" y="62" width="48" height="9" fill="#1b1406"/>
-              <rect x="26" y="78" width="48" height="8" fill="#1b1406"/>
-              <circle cx="50" cy="26" r="16" fill="#2a1c08"/>
-              <circle cx="44" cy="24" r="2.4" fill="#fff"/>
-              <circle cx="56" cy="24" r="2.4" fill="#fff"/>
+              <ellipse class="queen-wing left" cx="30" cy="42" rx="22" ry="13" fill="#dff6ff" opacity="0.8"/>
+              <ellipse class="queen-wing right" cx="70" cy="42" rx="22" ry="13" fill="#dff6ff" opacity="0.8"/>
+              <ellipse cx="50" cy="58" rx="26" ry="32" fill="#ff4fd8"/>
+              <rect x="26" y="46" width="48" height="9" fill="#050810"/>
+              <rect x="26" y="62" width="48" height="9" fill="#050810"/>
+              <rect x="26" y="78" width="48" height="8" fill="#050810"/>
+              <circle cx="50" cy="26" r="16" fill="#0a0f1c"/>
+              <circle cx="44" cy="24" r="2.4" fill="#37e6ff"/>
+              <circle cx="56" cy="24" r="2.4" fill="#37e6ff"/>
             </svg>
           </div>
           <div style="text-align:center;">
             <div class="queen-name">KRALİÇE ARI</div>
-            <div class="queen-sub">hesabı yönetir · kovanı bilgilendirir</div>
+            <div class="queen-sub">kovandan gelen sinyalleri işliyor</div>
           </div>
         </div>
-        <div class="queen-screen">
-          <span class="tag">SANAL GRAFİK</span>
-          <canvas id="queenChart" width="230" height="140"></canvas>
+        <div class="queen-screen" id="queenScreenBox">
+          <span class="tag">KOMUTA EKRANI</span>
+          <span class="tag live">● CANLI</span>
+          <canvas id="queenChart" width="300" height="170"></canvas>
         </div>
       </div>
     </div>
 
-    <div class="council-title">🐝 7 Arı Konseyi</div>
+    <div class="council-title">🐝 7 Arı Konseyi — sürekli sinyal gönderiyor</div>
     <div class="council" id="council"></div>
   </section>
 
   <section class="panel">
     <h2>📈 Günlük Bakiye Geçmişi (gerçek)</h2>
-    <div class="chart-wrap"><svg id="dailyChart" width="1140" height="220"></svg></div>
+    <div class="chart-wrap"><svg id="dailyChart" width="1180" height="220"></svg></div>
   </section>
+
+  <div class="grid2">
+    <section class="panel">
+      <h2>💠 Parite Bazlı Performans (gerçek)</h2>
+      <div class="chart-wrap"><svg id="pairChart" width="560" height="240"></svg></div>
+    </section>
+    <section class="panel">
+      <h2>🧬 Strateji Kovanı (gerçek, takma adlı)</h2>
+      <div class="chart-wrap"><svg id="stratChart" width="560" height="240"></svg></div>
+    </section>
+  </div>
 
   <section class="panel">
     <h2>💱 Piyasa</h2>
@@ -99,6 +120,6 @@
   </footer>
 
 </div>
-<script src="app.js?v=cfcd7ff2"></script>
+<script src="app.js?v=f52ea6d4"></script>
 </body>
 </html>
