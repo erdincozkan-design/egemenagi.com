@@ -94,6 +94,17 @@ header.top{
   margin-top:10px;font-size:12.5px;color:var(--text-dim);font-family:Consolas,monospace;
 }
 .hero-sub span#heroEquity{color:var(--cyan);}
+.verified-badge{
+  display:inline-flex;align-items:center;gap:6px;margin-top:16px;
+  padding:8px 16px;border-radius:999px;text-decoration:none;
+  background:rgba(61,255,176,.08);border:1px solid rgba(61,255,176,.45);
+  color:var(--good);font-size:12px;font-family:Consolas,monospace;letter-spacing:.3px;
+  box-shadow:0 0 14px rgba(61,255,176,.15);transition:box-shadow .2s, background .2s;
+}
+.verified-badge:hover{background:rgba(61,255,176,.16);box-shadow:0 0 22px rgba(61,255,176,.3);}
+
+footer a{color:var(--cyan);text-decoration:none;}
+footer a:hover{text-decoration:underline;}
 
 /* ---------- BALANCE STRIP ---------- */
 .stats{
