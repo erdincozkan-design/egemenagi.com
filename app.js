@@ -43,30 +43,38 @@ function renderCouncil(){
   const el = document.getElementById("council");
   el.innerHTML = BEES.map((b, i) => `
     <div class="bee-card ws-card" data-key="${b.key}" style="--bee-color:${b.color};">
-      <div class="ws-top">
-        <div class="ws-avatar">
-          <svg viewBox="0 0 100 100">
-            <ellipse class="agent-wing left" cx="30" cy="42" rx="18" ry="10" fill="${b.color}" opacity="0.35"/>
-            <ellipse class="agent-wing right" cx="70" cy="42" rx="18" ry="10" fill="${b.color}" opacity="0.35"/>
-            <ellipse cx="50" cy="58" rx="22" ry="26" fill="${b.color}"/>
-            <rect x="29" y="48" width="42" height="7" fill="#0a0e1a"/>
-            <rect x="29" y="63" width="42" height="7" fill="#0a0e1a"/>
-            <circle cx="50" cy="30" r="12" fill="#0a0e1a"/>
-          </svg>
-          <span class="ws-live-dot"></span>
-        </div>
-        <div class="ws-info">
-          <div class="bee-name">${b.name}</div>
-          <div class="bee-role">${b.role}</div>
-          <div class="ws-pair" style="color:${b.color}">${PAIRS6[i % PAIRS6.length]}</div>
-        </div>
-        <div class="ws-brain-box"><canvas id="brain-${b.key}" width="56" height="48"></canvas></div>
-      </div>
+      <div class="bee-name">${b.name}</div>
+      <div class="bee-role">${b.role}</div>
 
-      <div class="mon-grid">
-        <div class="mon-tile"><span class="mon-tag">${PAIRS6[i % PAIRS6.length].replace("/", "")}</span><canvas id="chart-${b.key}" width="140" height="56"></canvas></div>
+      <!-- Arı yan profilden, ekrana bakıyor; başının üstünde yanıp sönen "beyin". -->
+      <div class="ws-scene">
+        <div class="ws-bee-figure">
+          <div class="ws-brain-glow"><span class="ws-brain-pulse"></span></div>
+          <svg viewBox="0 0 90 100" class="bee-profile-svg">
+            <ellipse class="ws-wing" cx="24" cy="47" rx="15" ry="9" fill="#dfe7f5" opacity="0.3" transform="rotate(-18 24 47)"/>
+            <line x1="32" y1="88" x2="26" y2="98" stroke="#0a0e1a" stroke-width="3" stroke-linecap="round"/>
+            <line x1="42" y1="90" x2="42" y2="99" stroke="#0a0e1a" stroke-width="3" stroke-linecap="round"/>
+            <line x1="52" y1="88" x2="58" y2="98" stroke="#0a0e1a" stroke-width="3" stroke-linecap="round"/>
+            <rect x="24" y="45" width="32" height="46" rx="15" fill="${b.color}"/>
+            <rect x="24" y="58" width="32" height="6" fill="#0a0e1a"/>
+            <rect x="24" y="72" width="32" height="6" fill="#0a0e1a"/>
+            <circle cx="46" cy="33" r="15" fill="#0a0e1a"/>
+            <path d="M50 20 Q58 10 64 14" stroke="${b.color}" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M46 19 Q50 8 57 6" stroke="${b.color}" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <circle cx="53" cy="31" r="4" fill="${b.color}"/>
+            <circle cx="54.3" cy="29.7" r="1.3" fill="#fff"/>
+          </svg>
+        </div>
+        <div class="ws-monitor">
+          <span class="mon-tag">${PAIRS6[i % PAIRS6.length].replace("/", "")}</span><span class="mon-tag live">●</span>
+          <canvas id="chart-${b.key}" width="150" height="92"></canvas>
+          <div class="ws-gaze"></div>
+        </div>
+      </div>
+      <div class="ws-pair" style="color:${b.color}">${PAIRS6[i % PAIRS6.length]}</div>
+
+      <div class="mon-grid mon-grid2">
         <div class="mon-tile"><span class="mon-tag">TREND</span><canvas id="line-${b.key}" width="140" height="56"></canvas></div>
-        <div class="mon-tile mon-gauges" id="gauges-${b.key}"></div>
         <div class="mon-tile mon-heat" id="heat-${b.key}"></div>
       </div>
 
@@ -98,8 +106,6 @@ function renderCouncil(){
     }, 3200 + i * 450);
     animateBeeCandles(`chart-${b.key}`, 900 + i * 130);
     animateMiniLine(`line-${b.key}`, b.color, 400 + i * 90);
-    animateMiniBrain(`brain-${b.key}`, b.color, 26);
-    renderMiniGauges(`gauges-${b.key}`, b.color);
     renderMiniHeat(`heat-${b.key}`, b.color);
     renderNeuroStrip(`neuro-${b.key}`);
     animateBeeReadout(`readout-${b.key}`, i);
