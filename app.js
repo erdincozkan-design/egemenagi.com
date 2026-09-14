@@ -6,25 +6,25 @@
 */
 
 const BEES = [
-  { key: "aggressor", name: "AggressorBee", emoji: "🔴", color: "#ff5d5d",
+  { key: "aggressor", name: "AggressorBee", color: "#ef4444",
     role: "Agresif kâr uzmanı",
     lines: ["Momentum taranıyor…", "Fırsat penceresi ölçülüyor…", "Zarar → fırsat değerlendiriliyor…"] },
-  { key: "defender", name: "DefenderBee", emoji: "🔵", color: "#5da8ff",
+  { key: "defender", name: "DefenderBee", color: "#3b82f6",
     role: "Risk yönetimi · veto yetkisi",
     lines: ["Teminat seviyesi izleniyor…", "Risk sınırları kontrol ediliyor…", "Kovan güvenliği doğrulanıyor…"] },
-  { key: "ranger", name: "RangerBee", emoji: "🟢", color: "#4fd67a",
+  { key: "ranger", name: "RangerBee", color: "#10b981",
     role: "Kurtarma (recovery) uzmanı",
     lines: ["Zarardaki hatlar izleniyor…", "Kurtarma fırsatı taranıyor…", "Destek hattı hesaplanıyor…"] },
-  { key: "analyst", name: "AnalystBee", emoji: "🟡", color: "#ffd24f",
+  { key: "analyst", name: "AnalystBee", color: "#f59e0b",
     role: "Piyasa / rejim analisti",
     lines: ["Piyasa rejimi okunuyor…", "Volatilite ölçülüyor…", "Trend gücü değerlendiriliyor…"] },
-  { key: "veteran", name: "VeteranBee", emoji: "🟣", color: "#c98bff",
+  { key: "veteran", name: "VeteranBee", color: "#8b5cf6",
     role: "Strateji değerlendirmeci",
     lines: ["Strateji geçmişi taranıyor…", "Güven skoru güncelleniyor…", "Tecrübeli hatlar öne çıkarılıyor…"] },
-  { key: "sniper", name: "SniperBee", emoji: "🟤", color: "#c99a5b",
+  { key: "sniper", name: "SniperBee", color: "#06b6d4",
     role: "Hassas giriş uzmanı",
     lines: ["Destek/direnç ölçülüyor…", "Giriş penceresi bekleniyor…", "Risk/ödül oranı hesaplanıyor…"] },
-  { key: "pyramid", name: "PyramidBee", emoji: "🟠", color: "#ff9d4f",
+  { key: "pyramid", name: "PyramidBee", color: "#f97316",
     role: "Piramit & ölçekleme uzmanı",
     lines: ["Kârdaki hatlar izleniyor…", "Ölçekleme fırsatı değerlendiriliyor…", "Kovan limiti kontrol ediliyor…"] },
 ];
@@ -40,21 +40,18 @@ function cls(v){ return Number(v) > 0 ? "pos" : (Number(v) < 0 ? "neg" : ""); }
 function renderCouncil(){
   const el = document.getElementById("council");
   el.innerHTML = BEES.map(b => `
-    <div class="bee-card" data-key="${b.key}" style="--bee-color:${b.color};--bee-glow:${b.color}66;">
+    <div class="bee-card" data-key="${b.key}" style="--bee-color:${b.color};">
       <div class="bee-icon">
         <svg viewBox="0 0 100 100">
-          <ellipse class="bee-wing left" cx="28" cy="40" rx="20" ry="11" fill="#dff6ff" opacity="0.8"/>
-          <ellipse class="bee-wing right" cx="72" cy="40" rx="20" ry="11" fill="#dff6ff" opacity="0.8"/>
-          <ellipse cx="50" cy="58" rx="24" ry="28" fill="${b.color}"/>
-          <rect x="27" y="46" width="46" height="8" fill="#050810"/>
-          <rect x="27" y="62" width="46" height="8" fill="#050810"/>
-          <rect x="27" y="76" width="46" height="7" fill="#050810"/>
-          <circle cx="50" cy="28" r="14" fill="#0a0f1c"/>
-          <circle cx="45" cy="26" r="2.1" fill="${b.color}"/>
-          <circle cx="55" cy="26" r="2.1" fill="${b.color}"/>
+          <ellipse class="agent-wing left" cx="30" cy="42" rx="18" ry="10" fill="${b.color}" opacity="0.35"/>
+          <ellipse class="agent-wing right" cx="70" cy="42" rx="18" ry="10" fill="${b.color}" opacity="0.35"/>
+          <ellipse cx="50" cy="58" rx="22" ry="26" fill="${b.color}"/>
+          <rect x="29" y="48" width="42" height="7" fill="#0a0e1a"/>
+          <rect x="29" y="63" width="42" height="7" fill="#0a0e1a"/>
+          <circle cx="50" cy="30" r="12" fill="#0a0e1a"/>
         </svg>
       </div>
-      <div class="bee-name">${b.emoji} ${b.name}</div>
+      <div class="bee-name">${b.name}</div>
       <div class="bee-role">${b.role}</div>
       <div class="bee-screen"><canvas id="chart-${b.key}" width="140" height="52"></canvas></div>
       <div class="bee-caption" id="cap-${b.key}">${b.lines[0]}</div>
@@ -225,7 +222,7 @@ function drawSignalNet(){
 
 function renderHero(data){
   const a = data.account || {};
-  document.getElementById("heroBalance").textContent = `$${(a.balance ?? 0).toFixed(2)}`;
+  document.getElementById("heroBalance").textContent = (a.balance ?? 0).toFixed(2);
   document.getElementById("heroEquity").textContent = `$${(a.equity ?? 0).toFixed(2)}`;
   const t = data.last_updated ? new Date(data.last_updated) : null;
   document.getElementById("heroUpdated").textContent = (t && !isNaN(t))
@@ -234,9 +231,6 @@ function renderHero(data){
 
 function renderStats(data){
   const a = data.account || {};
-  document.getElementById("sBalance").textContent = `$${(a.balance ?? 0).toFixed(2)}`;
-  document.getElementById("sEquity").textContent = `$${(a.equity ?? 0).toFixed(2)}`;
-
   const dEl = document.getElementById("sDaily");
   dEl.textContent = fmtUsd(a.daily_pnl); dEl.className = `val ${cls(a.daily_pnl)}`;
   const wEl = document.getElementById("sWeekly");
