@@ -46,7 +46,8 @@ function renderCouncil(){
       <div class="bee-name">${b.name}</div>
       <div class="bee-role">${b.role}</div>
 
-      <!-- Arı yan profilden, ekrana bakıyor; başının üstünde yanıp sönen "beyin". -->
+      <!-- Arı, insan gibi bilgisayar masasında; 4 ekranlı düzeneğe bakıp
+           fikirlerini kraliçeye gönderiyor. Kutu/çerçeve yok — sahne açık. -->
       <div class="ws-scene">
         <div class="ws-bee-figure">
           <div class="ws-brain-glow"><span class="ws-brain-pulse"></span></div>
@@ -65,20 +66,19 @@ function renderCouncil(){
             <circle cx="54.3" cy="29.7" r="1.3" fill="#fff"/>
           </svg>
         </div>
-        <div class="ws-monitor">
-          <span class="mon-tag">${PAIRS6[i % PAIRS6.length].replace("/", "")}</span><span class="mon-tag live">●</span>
-          <canvas id="chart-${b.key}" width="150" height="92"></canvas>
-          <div class="ws-gaze"></div>
+        <div class="ws-desk">
+          <div class="ws-monitors-4">
+            <div class="ws-mon"><span class="mon-tag">${PAIRS6[i % PAIRS6.length].replace("/", "")}</span><canvas id="chart-${b.key}" width="120" height="66"></canvas></div>
+            <div class="ws-mon"><span class="mon-tag">TREND</span><canvas id="line-${b.key}" width="120" height="66"></canvas></div>
+            <div class="ws-mon mon-heat" id="heat-${b.key}"></div>
+            <div class="ws-mon ws-mon-readout" id="mread-${b.key}"></div>
+          </div>
+          <div class="ws-desk-bar"></div>
         </div>
       </div>
       <div class="ws-pair" style="color:${b.color}">${PAIRS6[i % PAIRS6.length]}</div>
 
-      <div class="mon-grid mon-grid2">
-        <div class="mon-tile"><span class="mon-tag">TREND</span><canvas id="line-${b.key}" width="140" height="56"></canvas></div>
-        <div class="mon-tile mon-heat" id="heat-${b.key}"></div>
-      </div>
-
-      <div class="bee-sync" id="sync-${b.key}">◉ NÖRAL BAĞ → KRALİÇE ARI</div>
+      <div class="bee-sync" id="sync-${b.key}">◉ FİKİRLERİNİ KRALİÇE ARI'YA GÖNDERİYOR</div>
       <div class="neuro-strip" id="neuro-${b.key}"></div>
       <div class="bee-neurons"><b>${b.neurons}</b> <small>neurons</small></div>
       <div class="bee-readout" id="readout-${b.key}">
@@ -107,6 +107,7 @@ function renderCouncil(){
     animateBeeCandles(`chart-${b.key}`, 900 + i * 130);
     animateMiniLine(`line-${b.key}`, b.color, 400 + i * 90);
     renderMiniHeat(`heat-${b.key}`, b.color);
+    renderMiniReadoutScreen(`mread-${b.key}`, b.color, i);
     renderNeuroStrip(`neuro-${b.key}`);
     animateBeeReadout(`readout-${b.key}`, i);
   });
@@ -184,12 +185,28 @@ function renderMiniGauges(elId, color){
   setInterval(tick, 2000 + Math.random() * 800);
 }
 
+/* 4. ekran — küçük "terminal" okunumu: dönen sayılar. Dekoratif. */
+function renderMiniReadoutScreen(elId, color, seed){
+  const el = document.getElementById(elId);
+  if (!el) return;
+  function tick(){
+    const conf = (55 + Math.random() * 44).toFixed(0);
+    const lat = (4 + Math.random() * 9).toFixed(0);
+    el.innerHTML = `<span class="mon-tag">ANALİZ</span>
+      <div class="mread-line" style="color:${color}">GÜVEN <b>%${conf}</b></div>
+      <div class="mread-line" style="color:${color}">GECİKME <b>${lat}ms</b></div>
+      <div class="mread-line mread-blink" style="color:${color}">▮ İŞLENİYOR</div>`;
+  }
+  tick();
+  setInterval(tick, 1700 + seed * 60);
+}
+
 /* Küçük ısı ızgarası — ekranlardan biri. Dekoratif. */
 function renderMiniHeat(elId, color){
   const el = document.getElementById(elId);
   if (!el) return;
   function tick(){
-    const cells = Array.from({ length: 24 }, () => Math.random());
+    const cells = Array.from({ length: 18 }, () => Math.random());
     el.innerHTML = `<span class="mon-tag">ISI</span><div class="heat-grid">` +
       cells.map(v => `<span class="heat-cell" style="background:${color};opacity:${(0.12 + v * 0.75).toFixed(2)}"></span>`).join("") +
       `</div>`;
@@ -242,7 +259,7 @@ function positionOrbit(){
   }
   const w = orbit.clientWidth, h = orbit.clientHeight;
   const cx = w / 2, cy = h / 2;
-  const radius = Math.min(w, h) / 2 - 150;
+  const radius = Math.min(w, h) / 2 - 165;
   BEES.forEach((b, i) => {
     const card = document.querySelector(`.bee-card[data-key="${b.key}"]`);
     if (!card) return;

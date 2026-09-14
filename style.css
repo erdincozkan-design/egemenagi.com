@@ -253,17 +253,15 @@ header.top{
 
 /* ---------- 7 AGENT — orbit üzerinde JS ile konumlanır ---------- */
 .council{position:absolute;inset:0;}
+/* Kutu/çerçeve YOK — arı kendi sahnesinde açıkça duruyor, sadece hafif zemin parıltısı. */
 .bee-card{
-  position:absolute;width:224px;
-  background:var(--bg2);
-  border:2px solid color-mix(in srgb, var(--bee-color,var(--indigo)) 55%, var(--panel-border));
-  border-radius:14px;padding:16px 14px 12px;text-align:center;
-  transition:border-color .2s, transform .2s, box-shadow .2s;
+  position:absolute;width:250px;
+  background:radial-gradient(ellipse 140% 100% at 50% 30%, color-mix(in srgb, var(--bee-color,var(--indigo)) 10%, transparent), transparent 70%);
+  border:none;border-radius:0;padding:10px 6px;text-align:center;
+  transition:transform .2s;
   transform:translate(-50%,-50%);
-  box-shadow:0 0 0 1px rgba(255,255,255,.02), 0 0 22px color-mix(in srgb, var(--bee-color,var(--indigo)) 30%, transparent), 0 10px 24px rgba(0,0,0,.4);
 }
-.bee-card:hover{border-color:var(--bee-color,var(--indigo));z-index:5;
-  box-shadow:0 0 30px var(--bee-color,var(--indigo));}
+.bee-card:hover{z-index:5;transform:translate(-50%,-50%) scale(1.03);}
 /* ---------- WORKSTATION KARTI: avatar + mini-beyin + 4'lü monitör duvarı ---------- */
 .ws-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;text-align:left;}
 .ws-avatar{
@@ -308,14 +306,26 @@ header.top{
   0%,100%{opacity:.25;transform:scale(.85);}
   50%{opacity:1;transform:scale(1.15);box-shadow:0 0 14px 2px var(--bee-color,var(--indigo));}
 }
-.ws-monitor{
-  flex:1;min-width:0;height:104px;position:relative;overflow:hidden;
-  background:#03060b;border:2px solid #1c2536;border-radius:7px;
-  box-shadow:0 0 0 1px color-mix(in srgb, var(--bee-color,var(--indigo)) 30%, transparent), inset 0 0 14px rgba(0,0,0,.7);
+/* İnsan gibi masa: bilgisayar önünde 4 ekranlı düzenek */
+.ws-desk{flex:1;min-width:0;}
+.ws-monitors-4{
+  display:grid;grid-template-columns:1fr 1fr;gap:5px;
+  background:#050810;border-radius:8px;padding:6px;
+  box-shadow:0 0 0 1px color-mix(in srgb, var(--bee-color,var(--indigo)) 25%, transparent), inset 0 0 20px rgba(0,0,0,.6);
 }
-.ws-monitor canvas{width:100%;height:100%;display:block;}
-.ws-monitor .mon-tag{top:4px;}
-.ws-monitor .mon-tag.live{color:var(--emerald);}
+.ws-mon{
+  background:#03060b;border-radius:4px;position:relative;overflow:hidden;height:66px;
+  border:1px solid rgba(255,255,255,.04);
+}
+.ws-mon canvas{width:100%;height:100%;display:block;}
+.ws-mon-readout{padding:9px 6px 4px;}
+.mread-line{font-size:8px;font-family:var(--mono);line-height:1.7;text-align:left;}
+.mread-line b{font-weight:800;}
+.mread-blink{animation:syncBlink 1s ease-in-out infinite;}
+.ws-desk-bar{
+  height:5px;width:70%;margin:5px auto 0;border-radius:0 0 4px 4px;
+  background:linear-gradient(180deg,#1c2536,#0a0e1a);
+}
 
 .mon-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;}
 .mon-tile{
@@ -330,7 +340,7 @@ header.top{
 .mon-gauges{display:flex;flex-direction:column;justify-content:center;gap:6px;padding:10px 8px 4px;}
 .mini-gauge .mg-track{height:3px;border-radius:2px;background:var(--panel-border);overflow:hidden;}
 .mini-gauge .mg-fill{height:100%;border-radius:2px;transition:width .6s ease;}
-.mon-heat{padding-top:12px;}
+.mon-heat{padding-top:9px;}
 .heat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;padding:0 4px;}
 .heat-cell{display:block;aspect-ratio:1;border-radius:1px;}
 
@@ -446,9 +456,9 @@ header.top{
   }
   .bee-card{
     position:static;transform:none;
-    flex:0 0 78%;scroll-snap-align:center;
-    border-width:1px;border-top-width:3px;
-    box-shadow:0 8px 20px rgba(0,0,0,.4);
+    flex:0 0 82%;scroll-snap-align:center;
+    border-bottom:2px solid color-mix(in srgb, var(--bee-color,var(--indigo)) 45%, transparent);
+    padding-bottom:14px;
   }
 }
 
