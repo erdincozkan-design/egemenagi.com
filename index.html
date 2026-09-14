@@ -3,16 +3,102 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>egemenagi.com</title>
-<style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background: #ffffff;
-  }
-</style>
+<title>Egemen AGI — Kovan</title>
+<meta name="description" content="7 Arı Konseyi ve Kraliçe Arı canlı performans panosu.">
+<link rel="stylesheet" href="style.css?v=7c63218b">
 </head>
-<body></body>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <span class="logo">🐝</span>
+      <div>
+        <h1>EGEMEN AGI — KOVAN</h1>
+        <small>7 Arı Konseyi · Kraliçe Arı · canlı hesap performansı</small>
+      </div>
+    </div>
+    <div class="updated">
+      <span class="dot-live"></span>Son güncelleme: <b id="lastUpdated">—</b><br>
+      <span id="staleNote" style="display:none;color:var(--bad);">⚠ veri saatlerdir yenilenmedi</span>
+    </div>
+  </header>
+
+  <section class="stats" id="statsGrid">
+    <div class="stat balance"><div class="lbl">Bakiye</div><div class="val" id="sBalance">—</div></div>
+    <div class="stat"><div class="lbl">Equity</div><div class="val" id="sEquity">—</div></div>
+    <div class="stat"><div class="lbl">Günlük K/Z</div><div class="val" id="sDaily">—</div></div>
+    <div class="stat"><div class="lbl">Haftalık K/Z</div><div class="val" id="sWeekly">—</div></div>
+    <div class="stat"><div class="lbl">Aylık K/Z</div><div class="val" id="sMonthly">—</div></div>
+    <div class="stat"><div class="lbl">İsabet Oranı</div><div class="val" id="sWinrate">—</div></div>
+    <div class="stat"><div class="lbl">İşlem Sayısı</div><div class="val" id="sTrades">—</div></div>
+    <div class="stat"><div class="lbl">Açık Pozisyon</div><div class="val" id="sOpen">—</div></div>
+  </section>
+
+  <section class="hive-stage">
+    <div class="queen-row">
+      <div class="queen-title">👑 Kraliçe Arı — Komutan</div>
+      <div class="queen-box">
+        <div>
+          <div class="queen-bee" id="queenBee">
+            <span class="crown">👑</span>
+            <svg viewBox="0 0 100 100">
+              <ellipse class="queen-wing left" cx="30" cy="42" rx="22" ry="13" fill="#fff6e0" opacity="0.85"/>
+              <ellipse class="queen-wing right" cx="70" cy="42" rx="22" ry="13" fill="#fff6e0" opacity="0.85"/>
+              <ellipse cx="50" cy="58" rx="26" ry="32" fill="#ff5fae"/>
+              <rect x="26" y="46" width="48" height="9" fill="#1b1406"/>
+              <rect x="26" y="62" width="48" height="9" fill="#1b1406"/>
+              <rect x="26" y="78" width="48" height="8" fill="#1b1406"/>
+              <circle cx="50" cy="26" r="16" fill="#2a1c08"/>
+              <circle cx="44" cy="24" r="2.4" fill="#fff"/>
+              <circle cx="56" cy="24" r="2.4" fill="#fff"/>
+            </svg>
+          </div>
+          <div style="text-align:center;">
+            <div class="queen-name">KRALİÇE ARI</div>
+            <div class="queen-sub">hesabı yönetir · kovanı bilgilendirir</div>
+          </div>
+        </div>
+        <div class="queen-screen">
+          <span class="tag">SANAL GRAFİK</span>
+          <canvas id="queenChart" width="230" height="140"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="council-title">🐝 7 Arı Konseyi</div>
+    <div class="council" id="council"></div>
+  </section>
+
+  <section class="panel">
+    <h2>📈 Günlük Bakiye Geçmişi (gerçek)</h2>
+    <div class="chart-wrap"><svg id="dailyChart" width="1140" height="220"></svg></div>
+  </section>
+
+  <section class="panel">
+    <h2>💱 Piyasa</h2>
+    <div class="ticker" id="ticker"></div>
+  </section>
+
+  <section class="panel">
+    <h2>🧾 Son İşlemler</h2>
+    <table id="tradesTable">
+      <thead><tr><th>Saat</th><th>Strateji</th><th>Parite</th><th>Yön</th><th>Sonuç</th><th>P&amp;L</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <h2>🖥 Kovan Terminali</h2>
+    <div class="logs" id="logs"></div>
+  </section>
+
+  <footer>
+    <div id="disclaimer">Tüm sayılar canlı hesaptan ölçülmüştür. Geçmiş performans geleceği garanti etmez.</div>
+    <div>🐝 Egemen AGI Kovanı — 7 Arı Konseyi + Kraliçe Arı görsel temsilidir; yöntem/parametre paylaşılmaz.</div>
+  </footer>
+
+</div>
+<script src="app.js?v=cfcd7ff2"></script>
+</body>
 </html>
