@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Egemen AGI — Kovan</title>
 <meta name="description" content="7 Arı Konseyi ve Kraliçe Arı canlı performans komuta merkezi.">
-<link rel="stylesheet" href="style.css?v=6d5669d3">
+<link rel="stylesheet" href="style.css?v=7a0546ac">
 </head>
 <body>
 <div class="wrap">
@@ -78,7 +78,12 @@
         <span class="tag">CMD-CORE // KOMUTA EKRANI</span>
         <span class="tag live">● LIVE</span>
         <div class="queen-decision" id="queenDecision">WAIT</div>
-        <canvas id="queenChart" width="320" height="160"></canvas>
+        <canvas id="queenChart" width="320" height="118"></canvas>
+        <div class="queen-mini-row">
+          <div class="mon-tile"><span class="mon-tag">SIN.1</span><canvas id="qline1" width="90" height="42"></canvas></div>
+          <div class="mon-tile"><span class="mon-tag">SIN.2</span><canvas id="qline2" width="90" height="42"></canvas></div>
+          <div class="mon-tile mon-heat" id="qheat"></div>
+        </div>
         <div class="hud-readout" id="queenReadout"></div>
       </div>
       <div class="swipe-hint">← 7 ajanı kaydırarak gör →</div>
@@ -207,6 +212,6 @@
   </footer>
 
 </div>
-<script src="app.js?v=75543945"></script>
+<script src="app.js?v=18e768c5"></script>
 </body>
 </html>

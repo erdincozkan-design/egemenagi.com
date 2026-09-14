@@ -42,24 +42,35 @@ const PAIRS6 = ["EUR/USD", "GBP/USD", "USD/JPY", "USD/CHF", "AUD/USD", "USD/CAD"
 function renderCouncil(){
   const el = document.getElementById("council");
   el.innerHTML = BEES.map((b, i) => `
-    <div class="bee-card" data-key="${b.key}" style="--bee-color:${b.color};">
-      <div class="bee-icon">
-        <svg viewBox="0 0 100 100">
-          <ellipse class="agent-wing left" cx="30" cy="42" rx="18" ry="10" fill="${b.color}" opacity="0.35"/>
-          <ellipse class="agent-wing right" cx="70" cy="42" rx="18" ry="10" fill="${b.color}" opacity="0.35"/>
-          <ellipse cx="50" cy="58" rx="22" ry="26" fill="${b.color}"/>
-          <rect x="29" y="48" width="42" height="7" fill="#0a0e1a"/>
-          <rect x="29" y="63" width="42" height="7" fill="#0a0e1a"/>
-          <circle cx="50" cy="30" r="12" fill="#0a0e1a"/>
-        </svg>
+    <div class="bee-card ws-card" data-key="${b.key}" style="--bee-color:${b.color};">
+      <div class="ws-top">
+        <div class="ws-avatar">
+          <svg viewBox="0 0 100 100">
+            <ellipse class="agent-wing left" cx="30" cy="42" rx="18" ry="10" fill="${b.color}" opacity="0.35"/>
+            <ellipse class="agent-wing right" cx="70" cy="42" rx="18" ry="10" fill="${b.color}" opacity="0.35"/>
+            <ellipse cx="50" cy="58" rx="22" ry="26" fill="${b.color}"/>
+            <rect x="29" y="48" width="42" height="7" fill="#0a0e1a"/>
+            <rect x="29" y="63" width="42" height="7" fill="#0a0e1a"/>
+            <circle cx="50" cy="30" r="12" fill="#0a0e1a"/>
+          </svg>
+          <span class="ws-live-dot"></span>
+        </div>
+        <div class="ws-info">
+          <div class="bee-name">${b.name}</div>
+          <div class="bee-role">${b.role}</div>
+          <div class="ws-pair" style="color:${b.color}">${PAIRS6[i % PAIRS6.length]}</div>
+        </div>
+        <div class="ws-brain-box"><canvas id="brain-${b.key}" width="56" height="48"></canvas></div>
       </div>
-      <div class="bee-name">${b.name}</div>
-      <div class="bee-role">${b.role} · <span style="color:${b.color}">${PAIRS6[i % PAIRS6.length]}</span></div>
-      <div class="bee-screen">
-        <span class="node-tag">FX-${PAIRS6[i % PAIRS6.length].replace("/", "")}</span><span class="node-tag live">●</span>
-        <canvas id="chart-${b.key}" width="170" height="64"></canvas>
+
+      <div class="mon-grid">
+        <div class="mon-tile"><span class="mon-tag">${PAIRS6[i % PAIRS6.length].replace("/", "")}</span><canvas id="chart-${b.key}" width="140" height="56"></canvas></div>
+        <div class="mon-tile"><span class="mon-tag">TREND</span><canvas id="line-${b.key}" width="140" height="56"></canvas></div>
+        <div class="mon-tile mon-gauges" id="gauges-${b.key}"></div>
+        <div class="mon-tile mon-heat" id="heat-${b.key}"></div>
       </div>
-      <div class="bee-sync" id="sync-${b.key}">◉ SYNC → KRALİÇE ARI</div>
+
+      <div class="bee-sync" id="sync-${b.key}">◉ NÖRAL BAĞ → KRALİÇE ARI</div>
       <div class="neuro-strip" id="neuro-${b.key}"></div>
       <div class="bee-neurons"><b>${b.neurons}</b> <small>neurons</small></div>
       <div class="bee-readout" id="readout-${b.key}">
@@ -86,9 +97,99 @@ function renderCouncil(){
       capEl.textContent = b.lines[idx];
     }, 3200 + i * 450);
     animateBeeCandles(`chart-${b.key}`, 900 + i * 130);
+    animateMiniLine(`line-${b.key}`, b.color, 400 + i * 90);
+    animateMiniBrain(`brain-${b.key}`, b.color, 26);
+    renderMiniGauges(`gauges-${b.key}`, b.color);
+    renderMiniHeat(`heat-${b.key}`, b.color);
     renderNeuroStrip(`neuro-${b.key}`);
     animateBeeReadout(`readout-${b.key}`, i);
   });
+}
+
+/* Küçük trend çizgisi — ikinci "analiz ekranı". Dekoratif. */
+function animateMiniLine(canvasId, color, seed){
+  const cv = document.getElementById(canvasId);
+  if (!cv) return;
+  const ctx = cv.getContext("2d");
+  const W = cv.width, H = cv.height;
+  let pts = Array.from({ length: 30 }, (_, i) => H / 2 + Math.sin((i + seed) * 0.35) * H * 0.28);
+  function step(){
+    pts.shift();
+    const last = pts[pts.length - 1];
+    let next = last + (Math.random() - 0.5) * H * 0.28;
+    next = Math.max(3, Math.min(H - 3, next));
+    pts.push(next);
+    ctx.clearRect(0, 0, W, H);
+    ctx.strokeStyle = "rgba(255,255,255,0.06)"; ctx.lineWidth = 1;
+    for (let gx = 0; gx < W; gx += 18) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke(); }
+    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, color + "55"); grad.addColorStop(1, color + "00");
+    ctx.beginPath();
+    pts.forEach((p, i) => { const x = (i / (pts.length - 1)) * W; i === 0 ? ctx.moveTo(x, p) : ctx.lineTo(x, p); });
+    ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath();
+    ctx.fillStyle = grad; ctx.fill();
+    ctx.beginPath();
+    pts.forEach((p, i) => { const x = (i / (pts.length - 1)) * W; i === 0 ? ctx.moveTo(x, p) : ctx.lineTo(x, p); });
+    ctx.strokeStyle = color; ctx.lineWidth = 1.4; ctx.stroke();
+    setTimeout(() => requestAnimationFrame(step), 280);
+  }
+  step();
+}
+
+/* Küçük nöron bulutu — ajanın "beyni", kraliçeyle aynı görsel dilde. Dekoratif. */
+function animateMiniBrain(canvasId, color, count){
+  const cv = document.getElementById(canvasId);
+  if (!cv) return;
+  const ctx = cv.getContext("2d");
+  const W = cv.width, H = cv.height, cx = W / 2, cy = H / 2;
+  const dots = Array.from({ length: count }, () => {
+    const a = Math.random() * Math.PI * 2;
+    const r = Math.random() * Math.min(W, H) * 0.42 * Math.sqrt(Math.random());
+    return { x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r * 0.85, phase: Math.random() * Math.PI * 2 };
+  });
+  let t = Math.random() * 10;
+  function frame(){
+    t += 0.06;
+    ctx.clearRect(0, 0, W, H);
+    dots.forEach(d => {
+      const glow = 0.3 + 0.55 * Math.abs(Math.sin(t + d.phase));
+      ctx.fillStyle = color; ctx.globalAlpha = glow;
+      ctx.beginPath(); ctx.arc(d.x, d.y, 1.3, 0, Math.PI * 2); ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+/* Küçük gauge çifti — ekranlardan biri. Dekoratif. */
+function renderMiniGauges(elId, color){
+  const el = document.getElementById(elId);
+  if (!el) return;
+  function tick(){
+    const a = 20 + Math.random() * 75, b = 20 + Math.random() * 75;
+    el.innerHTML = `
+      <span class="mon-tag">METRİK</span>
+      <div class="mini-gauge"><div class="mg-track"><div class="mg-fill" style="width:${a.toFixed(0)}%;background:${color}"></div></div></div>
+      <div class="mini-gauge"><div class="mg-track"><div class="mg-fill" style="width:${b.toFixed(0)}%;background:${color}"></div></div></div>
+      <div class="mini-gauge"><div class="mg-track"><div class="mg-fill" style="width:${(100 - a).toFixed(0)}%;background:${color}"></div></div></div>`;
+  }
+  tick();
+  setInterval(tick, 2000 + Math.random() * 800);
+}
+
+/* Küçük ısı ızgarası — ekranlardan biri. Dekoratif. */
+function renderMiniHeat(elId, color){
+  const el = document.getElementById(elId);
+  if (!el) return;
+  function tick(){
+    const cells = Array.from({ length: 24 }, () => Math.random());
+    el.innerHTML = `<span class="mon-tag">ISI</span><div class="heat-grid">` +
+      cells.map(v => `<span class="heat-cell" style="background:${color};opacity:${(0.12 + v * 0.75).toFixed(2)}"></span>`).join("") +
+      `</div>`;
+  }
+  tick();
+  setInterval(tick, 1500);
 }
 
 /* Stonkfly-tarzı nöron ateşleme şeridi — yanıp sönen noktalar, tamamen dekoratif. */
@@ -135,7 +236,7 @@ function positionOrbit(){
   }
   const w = orbit.clientWidth, h = orbit.clientHeight;
   const cx = w / 2, cy = h / 2;
-  const radius = Math.min(w, h) / 2 - 125;
+  const radius = Math.min(w, h) / 2 - 150;
   BEES.forEach((b, i) => {
     const card = document.querySelector(`.bee-card[data-key="${b.key}"]`);
     if (!card) return;
@@ -1008,6 +1109,9 @@ async function load(){
 
 renderCouncil();
 animateQueenChart();
+animateMiniLine("qline1", "#8b5cf6", 12);
+animateMiniLine("qline2", "#06b6d4", 55);
+renderMiniHeat("qheat", "#8b5cf6");
 animateQueenReadout();
 animateQueenDecision();
 renderNetworkMap();
