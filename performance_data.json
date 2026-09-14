@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-09-14T23:11:27Z",
+  "last_updated": "2026-09-14T23:11:43Z",
   "account": {
     "balance": 506.63,
-    "equity": 1781.47,
+    "equity": 1776.87,
     "system_floating": 0,
-    "margin_level": 409.4,
+    "margin_level": 408.4,
     "total_trades": 0,
     "win_rate": 0.0,
     "active_bots": 0,
@@ -55,7 +55,7 @@
     {
       "date": "2026-09-15",
       "balance": 506.63,
-      "equity": 1781.47,
+      "equity": 1776.87,
       "net": 0.0,
       "trades": 0
     }
@@ -67,35 +67,35 @@
   "market": [
     {
       "pair": "EURUSD",
-      "bid": 1.15507,
+      "bid": 1.15504,
       "change": 0.03,
-      "spread": 16,
+      "spread": 22,
       "active": false
     },
     {
       "pair": "GBPUSD",
-      "bid": 1.35024,
+      "bid": 1.35029,
       "change": 0.05,
-      "spread": 26,
+      "spread": 17,
       "active": false
     },
     {
       "pair": "USDJPY",
-      "bid": 154.262,
+      "bid": 154.261,
       "change": -0.04,
-      "spread": 26,
+      "spread": 27,
       "active": false
     },
     {
       "pair": "USDCHF",
-      "bid": 0.81699,
-      "change": -0.02,
-      "spread": 23,
+      "bid": 0.81694,
+      "change": -0.03,
+      "spread": 32,
       "active": false
     },
     {
       "pair": "AUDUSD",
-      "bid": 0.71377,
+      "bid": 0.71378,
       "change": -0.01,
       "spread": 25,
       "active": false
@@ -109,9 +109,9 @@
     },
     {
       "pair": "NZDUSD",
-      "bid": 0.57778,
-      "change": 0.05,
-      "spread": 31,
+      "bid": 0.57777,
+      "change": 0.04,
+      "spread": 32,
       "active": false
     }
   ],
