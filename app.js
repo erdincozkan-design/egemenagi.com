@@ -140,6 +140,24 @@ function animateQueenReadout(){
   setInterval(tick, 1400);
 }
 
+/* Kraliçenin "kararı" — BUY/SELL/WAIT, komuta ekranının üstünde büyük rozet. Dekoratif. */
+function animateQueenDecision(){
+  const el = document.getElementById("queenDecision");
+  if (!el) return;
+  const options = [
+    { v: "BUY", cls: "buy" },
+    { v: "SELL", cls: "sell" },
+    { v: "WAIT", cls: "wait" },
+  ];
+  function tick(){
+    const pick = options[Math.floor(Math.random() * options.length)];
+    el.textContent = pick.v;
+    el.className = `queen-decision ${pick.cls}`;
+  }
+  tick();
+  setInterval(tick, 2600);
+}
+
 /* Dekoratif mini "analiz" grafiği — her arının kendi ekranı. Sanal veri. */
 function animateMiniChart(canvasId, color, seedShift){
   const cv = document.getElementById(canvasId);
@@ -724,6 +742,7 @@ async function load(){
 renderCouncil();
 animateQueenChart();
 animateQueenReadout();
+animateQueenDecision();
 renderNetworkMap();
 drawSignalNet();
 load();

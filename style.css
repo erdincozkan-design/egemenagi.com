@@ -231,6 +231,16 @@ header.top{
 .hud-corner.tr{top:4px;right:4px;border-left:none;border-bottom:none;}
 .hud-corner.bl{bottom:4px;left:4px;border-right:none;border-top:none;}
 .hud-corner.br{bottom:4px;right:4px;border-left:none;border-top:none;}
+.queen-decision{
+  position:absolute;top:26px;right:9px;z-index:3;
+  font-size:13px;font-weight:800;letter-spacing:1.5px;font-family:var(--mono);
+  padding:3px 10px;border-radius:5px;border:1px solid currentColor;
+  animation:fadeIn .4s ease;
+}
+.queen-decision.buy{color:var(--emerald);background:rgba(16,185,129,.12);text-shadow:0 0 8px rgba(16,185,129,.5);}
+.queen-decision.sell{color:var(--red);background:rgba(239,68,68,.12);text-shadow:0 0 8px rgba(239,68,68,.5);}
+.queen-decision.wait{color:var(--amber);background:rgba(245,158,11,.12);text-shadow:0 0 8px rgba(245,158,11,.5);}
+
 .hud-readout{
   position:absolute;bottom:6px;left:9px;right:9px;z-index:3;
   font-size:8.5px;color:rgba(16,185,129,.75);font-family:var(--mono);
