@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Egemen AGI — Kovan</title>
 <meta name="description" content="7 Arı Konseyi ve Kraliçe Arı canlı performans komuta merkezi.">
-<link rel="stylesheet" href="style.css?v=bcb28de3">
+<link rel="stylesheet" href="style.css?v=3abb428d">
 </head>
 <body>
 <div class="wrap">
@@ -89,6 +89,75 @@
     <div class="network-note">Görselleştirme amaçlıdır — ajanların hangi iç modülden veri okuduğu (mimari, parametre, kriter) yayınlanmaz.</div>
   </section>
 
+  <!-- ============ TERMİNAL IZGARASI — yoğun, numaralı panel düzeni ============ -->
+  <div class="term-grid">
+
+    <div class="term-panel tp-desk">
+      <div class="tp-head"><span class="tp-num">01</span><span class="tp-title">Komuta Masası</span>
+        <span class="tp-sub">Kraliçe Arı · GEN-07</span><span class="tp-ctl"><span></span><span></span></span></div>
+      <div class="tp-body">
+        <div class="gauge-row" id="deskGauges"></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;">
+          <div><div class="tp-sub" style="margin-left:0;">EQUITY</div>
+            <div style="font-size:20px;font-weight:800;color:var(--text);font-family:var(--mono);" id="deskEquity">—</div></div>
+          <div style="text-align:right;"><div class="tp-sub" style="margin-left:0;">GÜNLÜK</div>
+            <div style="font-size:16px;font-weight:800;font-family:var(--mono);" id="deskDaily">—</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="term-panel tp-neural">
+      <div class="tp-head"><span class="tp-num">04</span><span class="tp-title">Nöral Aktivite</span>
+        <span class="tp-sub">Kovan · D. apis</span><span class="tp-ctl"><span></span><span></span></span></div>
+      <div class="tp-body">
+        <div class="brain-wrap">
+          <div class="brain-canvas-box"><canvas id="brainCanvas" width="120" height="100"></canvas></div>
+          <div class="brain-stats">
+            <div class="brain-stat"><div class="blbl">Sinaps</div><div class="bval" id="brSyn">—</div></div>
+            <div class="brain-stat"><div class="blbl">Şu an ateşleyen</div><div class="bval" id="brSpiking">—</div></div>
+            <div class="brain-stat"><div class="blbl">Spikes/sn</div><div class="bval" id="brSpikes">—</div></div>
+            <div class="brain-stat"><div class="blbl">Karar gecikmesi</div><div class="bval" id="brLat">—</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="term-panel tp-orderbook">
+      <div class="tp-head"><span class="tp-num">02</span><span class="tp-title">Parite Defteri</span>
+        <span class="tp-sub">gerçek kotasyon</span><span class="tp-ctl"><span></span><span></span></span></div>
+      <div class="tp-body"><table class="ob-table" id="orderBook">
+        <thead><tr><th>Parite</th><th>Mark</th><th>Spread</th><th>24s</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+
+    <div class="term-panel tp-flow">
+      <div class="tp-head"><span class="tp-num">03</span><span class="tp-title">İşlem Akışı</span>
+        <span class="tp-sub">gerçek</span><span class="tp-ctl"><span></span><span></span></span></div>
+      <div class="tp-body"><table class="flow-table" id="orderFlow"><tbody></tbody></table></div>
+    </div>
+
+    <div class="term-panel tp-chart">
+      <div class="tp-head"><span class="tp-num">05</span><span class="tp-title">Bakiye Grafiği</span>
+        <span class="tp-sub">gerçek</span><span class="tp-ctl"><span></span><span></span></span></div>
+      <div class="range-btns" id="rangeBtns"></div>
+      <div class="tp-body" style="padding-top:0;"><div class="chart-wrap"><svg id="miniHistChart" width="340" height="150"></svg></div></div>
+    </div>
+
+    <div class="term-panel tp-waves">
+      <div class="tp-head"><span class="tp-num">06</span><span class="tp-title">Nöral Dalga Formları</span>
+        <span class="tp-sub">kovan · girdi yayılımı</span><span class="tp-ctl"><span></span><span></span></span></div>
+      <div class="tp-body" id="wavesBody"></div>
+    </div>
+
+    <div class="term-panel tp-news">
+      <div class="tp-head"><span class="tp-num">07</span><span class="tp-title">Haber Akışı</span>
+        <span class="tp-sub">kovan masası · gerçek</span><span class="tp-ctl"><span></span><span></span></span></div>
+      <div class="tp-body" id="newswireBody"></div>
+    </div>
+
+  </div>
+
   <section class="panel">
     <h2><span class="tagdot"></span>Günlük Bakiye vs Equity (gerçek)</h2>
     <div class="chart-wrap"><svg id="dailyChart" width="1180" height="240"></svg></div>
@@ -121,19 +190,6 @@
     <div class="ticker" id="ticker"></div>
   </section>
 
-  <section class="panel">
-    <h2><span class="tagdot"></span>Son İşlemler</h2>
-    <table id="tradesTable">
-      <thead><tr><th>Saat</th><th>Strateji</th><th>Parite</th><th>Yön</th><th>Sonuç</th><th>P&amp;L</th></tr></thead>
-      <tbody></tbody>
-    </table>
-  </section>
-
-  <section class="panel">
-    <h2><span class="tagdot"></span>Kovan Terminali</h2>
-    <div class="logs" id="logs"></div>
-  </section>
-
   <footer>
     <div id="disclaimer">Tüm sayılar canlı hesaptan ölçülmüştür. Geçmiş performans geleceği garanti etmez.</div>
     <div>7 Ajan Konseyi + Kraliçe Arı görsel temsilidir; yöntem/parametre paylaşılmaz.</div>
@@ -142,6 +198,6 @@
   </footer>
 
 </div>
-<script src="app.js?v=ef9bacf7"></script>
+<script src="app.js?v=705f3c86"></script>
 </body>
 </html>

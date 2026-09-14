@@ -520,6 +520,192 @@ function renderStatusGrid(data){
   `).join("");
 }
 
+/* ============ 01 KOMUTA MASASI — gauge çubukları (dekoratif) + gerçek equity/günlük ============ */
+function renderDeskGauges(){
+  const el = document.getElementById("deskGauges");
+  if (!el) return;
+  const gauges = [
+    { key: "conf", label: "Güven" },
+    { key: "risk", label: "Risk İştahı" },
+    { key: "reac", label: "Reaksiyon" },
+  ];
+  function tick(){
+    el.innerHTML = gauges.map(g => {
+      const pct = 30 + Math.random() * 65;
+      return `<div class="gauge"><span class="glabel">${g.label}</span>
+        <span class="gtrack"><span class="gfill" style="width:${pct.toFixed(0)}%"></span></span>
+        <span class="gval">${pct.toFixed(0)}%</span></div>`;
+    }).join("");
+  }
+  tick();
+  setInterval(tick, 2400);
+}
+function renderDeskStats(data){
+  const a = data.account || {};
+  const eqEl = document.getElementById("deskEquity");
+  const dEl = document.getElementById("deskDaily");
+  if (eqEl) eqEl.textContent = `$${(a.equity ?? 0).toFixed(2)}`;
+  if (dEl) { dEl.textContent = fmtUsd(a.daily_pnl); dEl.style.color = Number(a.daily_pnl) >= 0 ? "var(--emerald)" : "var(--red)"; }
+}
+
+/* ============ 04 NÖRAL AKTİVİTE — beyin bulutu canvası (tamamen dekoratif) ============ */
+function animateBrainCloud(){
+  const cv = document.getElementById("brainCanvas");
+  if (!cv) return;
+  const ctx = cv.getContext("2d");
+  const W = cv.width, H = cv.height;
+  const cx = W / 2, cy = H / 2;
+  const dots = Array.from({ length: 140 }, () => {
+    const a = Math.random() * Math.PI * 2;
+    const r = Math.random() * Math.min(W, H) * 0.42 * Math.sqrt(Math.random());
+    return { x: cx + Math.cos(a) * r * 1.15, y: cy + Math.sin(a) * r * 0.85, phase: Math.random() * Math.PI * 2 };
+  });
+  let t = 0;
+  function frame(){
+    t += 0.05;
+    ctx.clearRect(0, 0, W, H);
+    dots.forEach(d => {
+      const glow = 0.35 + 0.5 * Math.abs(Math.sin(t + d.phase));
+      ctx.fillStyle = `rgba(16,185,129,${glow.toFixed(2)})`;
+      ctx.beginPath(); ctx.arc(d.x, d.y, 1.4, 0, Math.PI * 2); ctx.fill();
+    });
+    requestAnimationFrame(frame);
+  }
+  frame();
+}
+function animateBrainStats(){
+  const syn = document.getElementById("brSyn"), spiking = document.getElementById("brSpiking");
+  const spikes = document.getElementById("brSpikes"), lat = document.getElementById("brLat");
+  if (!syn) return;
+  function tick(){
+    syn.textContent = (24 + Math.random() * 3).toFixed(1) + "M";
+    spiking.textContent = Math.floor(140 + Math.random() * 90);
+    spikes.textContent = Math.floor(560 + Math.random() * 220).toLocaleString("tr-TR");
+    lat.textContent = (6 + Math.random() * 6).toFixed(0) + " ms";
+  }
+  tick();
+  setInterval(tick, 1500);
+}
+
+/* ============ 02 PARİTE DEFTERİ — GERÇEK piyasa verisi, tablo görünümü ============ */
+function renderOrderBook(market){
+  const tbody = document.querySelector("#orderBook tbody");
+  if (!tbody) return;
+  if (!market || !market.length) { tbody.innerHTML = `<tr><td colspan="4" style="color:var(--text-faint);">veri yok</td></tr>`; return; }
+  const top = market.slice(0, 8);
+  tbody.innerHTML = top.map(m => `
+    <tr class="${m.active ? "active" : ""}">
+      <td>${m.pair}</td>
+      <td>${Number(m.bid).toFixed(5)}</td>
+      <td>${m.spread}</td>
+      <td class="${m.change >= 0 ? "up" : "down"}">${m.change >= 0 ? "+" : ""}${m.change}%</td>
+    </tr>
+  `).join("");
+}
+
+/* ============ 03 İŞLEM AKIŞI — GERÇEK son işlemler ============ */
+function renderOrderFlow(recent){
+  const tbody = document.querySelector("#orderFlow tbody");
+  if (!tbody) return;
+  if (!recent || !recent.length) { tbody.innerHTML = `<tr><td style="color:var(--text-faint);">henüz işlem yok</td></tr>`; return; }
+  tbody.innerHTML = recent.slice(0, 9).map(r => `
+    <tr>
+      <td style="color:var(--text-faint);">${r.time}</td>
+      <td>${r.pair}</td>
+      <td>${r.dir}</td>
+      <td class="${r.result === "WIN" ? "win" : "loss"}">${fmtUsd(r.pnl)}</td>
+    </tr>
+  `).join("");
+}
+
+/* ============ 05 mini bakiye grafiği — GERÇEK, aralık butonlu ============ */
+let __dailyFull = [];
+function renderMiniHistChart(daily, days){
+  const svg = document.getElementById("miniHistChart");
+  if (!svg) return;
+  const W = svg.width.baseVal.value, H = svg.height.baseVal.value;
+  svg.innerHTML = "";
+  const slice = days ? daily.slice(-days) : daily;
+  if (!slice || !slice.length) { emptyState("miniHistChart", "veri yok"); return; }
+  const vals = slice.map(d => Number(d.balance) || 0);
+  const min = Math.min(...vals, 0), max = Math.max(...vals, 1);
+  const range = (max - min) || 1;
+  const pad = { l: 6, r: 6, t: 6, b: 6 };
+  const stepX = (W - pad.l - pad.r) / Math.max(slice.length - 1, 1);
+  const x = i => pad.l + i * stepX;
+  const y = v => H - pad.b - ((v - min) / range) * (H - pad.t - pad.b);
+  const path = slice.map((d, i) => `${i === 0 ? "M" : "L"}${x(i).toFixed(1)},${y(d.balance).toFixed(1)}`).join(" ");
+  const ns = "http://www.w3.org/2000/svg";
+  const line = document.createElementNS(ns, "path");
+  line.setAttribute("d", path); line.setAttribute("fill", "none");
+  line.setAttribute("stroke", "#f59e0b"); line.setAttribute("stroke-width", "2");
+  svg.appendChild(line);
+}
+function renderRangeBtns(){
+  const el = document.getElementById("rangeBtns");
+  if (!el) return;
+  const opts = [["7g", 7], ["30g", 30], ["Tümü", null]];
+  el.innerHTML = opts.map(([lbl, n], i) => `<button data-n="${n ?? ""}" class="${i === 2 ? "on" : ""}">${lbl}</button>`).join("");
+  el.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      el.querySelectorAll("button").forEach(b => b.classList.remove("on"));
+      btn.classList.add("on");
+      const n = btn.dataset.n ? Number(btn.dataset.n) : null;
+      renderMiniHistChart(__dailyFull, n);
+    });
+  });
+}
+
+/* ============ 06 NÖRAL DALGA FORMLARI — dekoratif sparkline seti ============ */
+function renderWaves(){
+  const el = document.getElementById("wavesBody");
+  if (!el) return;
+  const rows = [
+    { key: "sensory", label: "Duyusal Girdi", color: "#06b6d4" },
+    { key: "burst", label: "Ateşleme Patlaması", color: "#f59e0b" },
+    { key: "mbon", label: "MBON Zarfı", color: "#8b5cf6" },
+  ];
+  el.innerHTML = rows.map(r => `
+    <div class="wave-row"><div class="wlbl">${r.label}</div><canvas id="wave-${r.key}" width="500" height="28"></canvas></div>
+  `).join("");
+  rows.forEach((r, i) => animateWave(`wave-${r.key}`, r.color, i));
+}
+function animateWave(id, color, seed){
+  const cv = document.getElementById(id);
+  if (!cv) return;
+  const ctx = cv.getContext("2d");
+  const W = cv.width, H = cv.height;
+  let pts = Array.from({ length: 60 }, (_, i) => H / 2 + Math.sin((i + seed * 10) * 0.3) * H * 0.3);
+  function step(){
+    pts.shift();
+    const last = pts[pts.length - 1];
+    let next = last + (Math.random() - 0.5) * H * 0.35;
+    next = Math.max(2, Math.min(H - 2, next));
+    pts.push(next);
+    ctx.clearRect(0, 0, W, H);
+    ctx.strokeStyle = color; ctx.lineWidth = 1.3; ctx.beginPath();
+    pts.forEach((p, i) => { const x = (i / (pts.length - 1)) * W; i === 0 ? ctx.moveTo(x, p) : ctx.lineTo(x, p); });
+    ctx.stroke();
+    setTimeout(() => requestAnimationFrame(step), 90);
+  }
+  step();
+}
+
+/* ============ 07 HABER AKIŞI — GERÇEK terminal_logs, newswire biçiminde ============ */
+function renderNewswire(logs, ts){
+  const el = document.getElementById("newswireBody");
+  if (!el) return;
+  const timeStr = ts ? new Date(ts).toLocaleTimeString("tr-TR") : "--:--";
+  if (!logs || !logs.length) { el.innerHTML = `<div style="color:var(--text-faint);font-size:11px;">kovan sessiz</div>`; return; }
+  el.innerHTML = logs.map(l => {
+    const clean = l.replace("{time}", timeStr);
+    const m = clean.match(/^\[(.*?)\]\s*([A-Z]+)\s*\|\s*(.*)$/);
+    const tag = m ? m[2] : "SYS";
+    const txt = m ? m[3] : clean;
+    return `<div class="newswire-row"><span class="nw-tag">${tag}</span><span class="nw-txt">${txt}</span></div>`;
+  }).join("");
+}
+
 function renderHero(data){
   const a = data.account || {};
   document.getElementById("heroBalance").textContent = (a.balance ?? 0).toFixed(2);
@@ -747,14 +933,18 @@ async function load(){
     renderHeroMini(data.daily);
     renderUpdated(data);
     renderStats(data);
+    renderDeskStats(data);
     renderDailyChart(data.daily);
     renderPairChart(data.pair_performance);
     renderStratChart(data.veteran_strategies);
     renderWinDonut(data.recent_trades, data.veteran_strategies);
     renderStatusGrid(data);
     renderTicker(data.market);
-    renderTrades(data.recent_trades);
-    renderLogs(data.terminal_logs, data.last_updated);
+    renderOrderBook(data.market);
+    renderOrderFlow(data.recent_trades);
+    renderNewswire(data.terminal_logs, data.last_updated);
+    __dailyFull = data.daily || [];
+    renderMiniHistChart(__dailyFull, null);
     if (data.disclaimer) document.getElementById("disclaimer").textContent = data.disclaimer;
   } catch (e) {
     document.getElementById("lastUpdated").textContent = "veri okunamadı";
@@ -767,5 +957,10 @@ animateQueenReadout();
 animateQueenDecision();
 renderNetworkMap();
 drawSignalNet();
+renderDeskGauges();
+animateBrainCloud();
+animateBrainStats();
+renderWaves();
+renderRangeBtns();
 load();
 setInterval(load, 5 * 60 * 1000); // veri saatte 1 yenilense de, tarayıcı 5 dk'da bir kontrol eder
