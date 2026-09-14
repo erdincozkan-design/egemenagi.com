@@ -37,9 +37,11 @@ function fmtUsd(v){
 function cls(v){ return Number(v) > 0 ? "pos" : (Number(v) < 0 ? "neg" : ""); }
 
 /* ============ 7 AJAN — Kraliçe'nin etrafında DAİRESEL yerleşim ============ */
+const PAIRS6 = ["EUR/USD", "GBP/USD", "USD/JPY", "USD/CHF", "AUD/USD", "USD/CAD"];
+
 function renderCouncil(){
   const el = document.getElementById("council");
-  el.innerHTML = BEES.map(b => `
+  el.innerHTML = BEES.map((b, i) => `
     <div class="bee-card" data-key="${b.key}" style="--bee-color:${b.color};">
       <div class="bee-icon">
         <svg viewBox="0 0 100 100">
@@ -52,8 +54,13 @@ function renderCouncil(){
         </svg>
       </div>
       <div class="bee-name">${b.name}</div>
-      <div class="bee-role">${b.role}</div>
-      <div class="bee-screen"><canvas id="chart-${b.key}" width="140" height="52"></canvas></div>
+      <div class="bee-role">${b.role} · <span style="color:${b.color}">${PAIRS6[i % PAIRS6.length]}</span></div>
+      <div class="bee-screen">
+        <span class="node-tag">NODE-0${i + 1}</span><span class="node-tag live">●</span>
+        <canvas id="chart-${b.key}" width="140" height="52"></canvas>
+      </div>
+      <div class="neuro-strip" id="neuro-${b.key}"></div>
+      <div class="bee-readout" id="readout-${b.key}"><span>spk/s <b>—</b></span><span><b>—</b></span></div>
       <div class="bee-caption" id="cap-${b.key}">${b.lines[0]}</div>
     </div>
   `).join("");
@@ -73,7 +80,32 @@ function renderCouncil(){
       capEl.textContent = b.lines[idx];
     }, 3200 + i * 450);
     animateMiniChart(`chart-${b.key}`, b.color, 900 + i * 130);
+    renderNeuroStrip(`neuro-${b.key}`);
+    animateBeeReadout(`readout-${b.key}`, i);
   });
+}
+
+/* Stonkfly-tarzı nöron ateşleme şeridi — yanıp sönen noktalar, tamamen dekoratif. */
+function renderNeuroStrip(elId){
+  const el = document.getElementById(elId);
+  if (!el) return;
+  el.innerHTML = Array.from({ length: 8 }, (_, i) =>
+    `<span class="neuro-dot" style="animation-delay:${(i * 0.11).toFixed(2)}s"></span>`
+  ).join("");
+}
+
+/* Ajan okunumu: spikes/s + BUY/SELL/WAIT-tarzı "karar" göstergesi. Dekoratif. */
+function animateBeeReadout(elId, seed){
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const decisions = ["WAIT", "SCAN", "HOLD", "WATCH"];
+  function tick(){
+    const spk = (8 + Math.random() * 34).toFixed(1);
+    const dec = decisions[Math.floor(Math.random() * decisions.length)];
+    el.innerHTML = `<span>spk/s <b>${spk}k</b></span><span><b>${dec}</b></span>`;
+  }
+  tick();
+  setInterval(tick, 1800 + seed * 90);
 }
 
 /* Kraliçenin çevresinde 7 ajanı eşit açıyla dairesel yerleştirir. */
@@ -82,7 +114,7 @@ function positionOrbit(){
   if (!orbit) return;
   const w = orbit.clientWidth, h = orbit.clientHeight;
   const cx = w / 2, cy = h / 2;
-  const radius = Math.min(w, h) / 2 - 90;
+  const radius = Math.min(w, h) / 2 - 105;
   BEES.forEach((b, i) => {
     const card = document.querySelector(`.bee-card[data-key="${b.key}"]`);
     if (!card) return;
