@@ -7,25 +7,25 @@
 
 const BEES = [
   { key: "aggressor", name: "AggressorBee", color: "#ef4444",
-    role: "Agresif kâr uzmanı",
+    role: "Agresif kâr uzmanı", neurons: "166,700",
     lines: ["Momentum taranıyor…", "Fırsat penceresi ölçülüyor…", "Zarar → fırsat değerlendiriliyor…"] },
   { key: "defender", name: "DefenderBee", color: "#3b82f6",
-    role: "Risk yönetimi · veto yetkisi",
+    role: "Risk yönetimi · veto yetkisi", neurons: "142,300",
     lines: ["Teminat seviyesi izleniyor…", "Risk sınırları kontrol ediliyor…", "Kovan güvenliği doğrulanıyor…"] },
   { key: "ranger", name: "RangerBee", color: "#10b981",
-    role: "Kurtarma (recovery) uzmanı",
+    role: "Kurtarma (recovery) uzmanı", neurons: "158,900",
     lines: ["Zarardaki hatlar izleniyor…", "Kurtarma fırsatı taranıyor…", "Destek hattı hesaplanıyor…"] },
   { key: "analyst", name: "AnalystBee", color: "#f59e0b",
-    role: "Piyasa / rejim analisti",
+    role: "Piyasa / rejim analisti", neurons: "171,200",
     lines: ["Piyasa rejimi okunuyor…", "Volatilite ölçülüyor…", "Trend gücü değerlendiriliyor…"] },
   { key: "veteran", name: "VeteranBee", color: "#8b5cf6",
-    role: "Strateji değerlendirmeci",
+    role: "Strateji değerlendirmeci", neurons: "149,600",
     lines: ["Strateji geçmişi taranıyor…", "Güven skoru güncelleniyor…", "Tecrübeli hatlar öne çıkarılıyor…"] },
   { key: "sniper", name: "SniperBee", color: "#06b6d4",
-    role: "Hassas giriş uzmanı",
+    role: "Hassas giriş uzmanı", neurons: "163,400",
     lines: ["Destek/direnç ölçülüyor…", "Giriş penceresi bekleniyor…", "Risk/ödül oranı hesaplanıyor…"] },
   { key: "pyramid", name: "PyramidBee", color: "#f97316",
-    role: "Piramit & ölçekleme uzmanı",
+    role: "Piramit & ölçekleme uzmanı", neurons: "154,800",
     lines: ["Kârdaki hatlar izleniyor…", "Ölçekleme fırsatı değerlendiriliyor…", "Kovan limiti kontrol ediliyor…"] },
 ];
 
@@ -56,11 +56,17 @@ function renderCouncil(){
       <div class="bee-name">${b.name}</div>
       <div class="bee-role">${b.role} · <span style="color:${b.color}">${PAIRS6[i % PAIRS6.length]}</span></div>
       <div class="bee-screen">
-        <span class="node-tag">NODE-0${i + 1}</span><span class="node-tag live">●</span>
-        <canvas id="chart-${b.key}" width="140" height="52"></canvas>
+        <span class="node-tag">FX-${PAIRS6[i % PAIRS6.length].replace("/", "")}</span><span class="node-tag live">●</span>
+        <canvas id="chart-${b.key}" width="170" height="64"></canvas>
       </div>
+      <div class="bee-sync" id="sync-${b.key}">◉ SYNC → KRALİÇE ARI</div>
       <div class="neuro-strip" id="neuro-${b.key}"></div>
-      <div class="bee-readout" id="readout-${b.key}"><span>spk/s <b>—</b></span><span><b>—</b></span></div>
+      <div class="bee-neurons"><b>${b.neurons}</b> <small>neurons</small></div>
+      <div class="bee-readout" id="readout-${b.key}">
+        <div><span class="rlbl">spk/s</span><b>—</b></div>
+        <div><span class="rlbl">syn</span><b>—</b></div>
+        <div><span class="rlbl">dec</span><b>—</b></div>
+      </div>
       <div class="bee-caption" id="cap-${b.key}">${b.lines[0]}</div>
     </div>
   `).join("");
@@ -79,7 +85,7 @@ function renderCouncil(){
       capEl.style.animation = "";
       capEl.textContent = b.lines[idx];
     }, 3200 + i * 450);
-    animateMiniChart(`chart-${b.key}`, b.color, 900 + i * 130);
+    animateBeeCandles(`chart-${b.key}`, 900 + i * 130);
     renderNeuroStrip(`neuro-${b.key}`);
     animateBeeReadout(`readout-${b.key}`, i);
   });
@@ -94,15 +100,22 @@ function renderNeuroStrip(elId){
   ).join("");
 }
 
-/* Ajan okunumu: spikes/s + BUY/SELL/WAIT-tarzı "karar" göstergesi. Dekoratif. */
+/* Ajan okunumu: spikes/s + synapses + BUY/SELL/WAIT-tarzı "karar" göstergesi. Dekoratif. */
 function animateBeeReadout(elId, seed){
   const el = document.getElementById(elId);
   if (!el) return;
-  const decisions = ["WAIT", "SCAN", "HOLD", "WATCH"];
+  const decisions = [
+    { v: "WAIT", cls: "" }, { v: "SCAN", cls: "" },
+    { v: "BUY", cls: "dec-buy" }, { v: "SELL", cls: "dec-sell" }, { v: "HOLD", cls: "" },
+  ];
   function tick(){
     const spk = (8 + Math.random() * 34).toFixed(1);
+    const syn = (18 + Math.random() * 9).toFixed(1);
     const dec = decisions[Math.floor(Math.random() * decisions.length)];
-    el.innerHTML = `<span>spk/s <b>${spk}k</b></span><span><b>${dec}</b></span>`;
+    el.innerHTML = `
+      <div><span class="rlbl">spk/s</span><b>${spk}k</b></div>
+      <div><span class="rlbl">syn</span><b>${syn}M</b></div>
+      <div><span class="rlbl">dec</span><b class="${dec.cls}">${dec.v}</b></div>`;
   }
   tick();
   setInterval(tick, 1800 + seed * 90);
@@ -114,7 +127,7 @@ function positionOrbit(){
   if (!orbit) return;
   const w = orbit.clientWidth, h = orbit.clientHeight;
   const cx = w / 2, cy = h / 2;
-  const radius = Math.min(w, h) / 2 - 105;
+  const radius = Math.min(w, h) / 2 - 125;
   BEES.forEach((b, i) => {
     const card = document.querySelector(`.bee-card[data-key="${b.key}"]`);
     if (!card) return;
@@ -158,39 +171,48 @@ function animateQueenDecision(){
   setInterval(tick, 2600);
 }
 
-/* Dekoratif mini "analiz" grafiği — her arının kendi ekranı. Sanal veri. */
-function animateMiniChart(canvasId, color, seedShift){
+/* Her arının önündeki forex terminal ekranı — kraliçeninkiyle aynı dilde
+   küçük mum grafiği. Tamamen dekoratif sanal veri, gerçek fiyat değil. */
+function animateBeeCandles(canvasId, seed){
   const cv = document.getElementById(canvasId);
   if (!cv) return;
   const ctx = cv.getContext("2d");
   const W = cv.width, H = cv.height;
-  let points = Array.from({length: 26}, (_, i) => H/2 + Math.sin((i + seedShift) * 0.4) * H * 0.22);
+  let candles = [];
+  let price = H * 0.5;
+  for (let i = 0; i < 22; i++) {
+    const open = price;
+    price += (Math.sin((i + seed) * 0.6) + (Math.random() - 0.5)) * H * 0.05;
+    price = Math.max(H * 0.12, Math.min(H * 0.88, price));
+    const close = price;
+    const high = Math.max(open, close) - Math.random() * H * 0.05;
+    const low = Math.min(open, close) + Math.random() * H * 0.05;
+    candles.push({ open, close, high, low });
+  }
   function step(){
-    points.shift();
-    const last = points[points.length - 1];
-    let next = last + (Math.random() - 0.5) * H * 0.3;
-    next = Math.max(H * 0.12, Math.min(H * 0.88, next));
-    points.push(next);
+    candles.shift();
+    const open = candles[candles.length - 1].close;
+    let close = open + (Math.random() - 0.48) * H * 0.09;
+    close = Math.max(H * 0.1, Math.min(H * 0.9, close));
+    const high = Math.min(open, close) - Math.random() * H * 0.04;
+    const low = Math.max(open, close) + Math.random() * H * 0.04;
+    candles.push({ open, close, high: Math.max(0, high), low: Math.min(H, low) });
+
     ctx.clearRect(0, 0, W, H);
-    // ince ızgara
-    ctx.strokeStyle = "rgba(55,230,255,0.08)";
-    ctx.lineWidth = 1;
-    for (let gx = 0; gx < W; gx += 20) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke(); }
-    // çizgi
-    ctx.strokeStyle = color; ctx.lineWidth = 1.6; ctx.shadowColor = color; ctx.shadowBlur = 4;
-    ctx.beginPath();
-    points.forEach((p, i) => {
-      const x = (i / (points.length - 1)) * W;
-      i === 0 ? ctx.moveTo(x, p) : ctx.lineTo(x, p);
+    ctx.strokeStyle = "rgba(16,185,129,0.08)"; ctx.lineWidth = 1;
+    for (let gy = 0; gy < H; gy += 16) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke(); }
+
+    const cw = W / candles.length;
+    candles.forEach((c, i) => {
+      const x = i * cw + cw / 2;
+      const up = c.close <= c.open;
+      const col = up ? "#10b981" : "#ef4444";
+      ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(x, c.high); ctx.lineTo(x, c.low); ctx.stroke();
+      const bodyTop = Math.min(c.open, c.close), bodyH = Math.max(1, Math.abs(c.close - c.open));
+      ctx.fillRect(x - cw * 0.34, bodyTop, cw * 0.68, bodyH);
     });
-    ctx.stroke();
-    ctx.shadowBlur = 0;
-    // son nokta imleci
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.arc(W, points[points.length - 1], 2.4, 0, Math.PI * 2);
-    ctx.fill();
-    setTimeout(() => requestAnimationFrame(step), 260);
+    setTimeout(() => requestAnimationFrame(step), 300);
   }
   step();
 }
