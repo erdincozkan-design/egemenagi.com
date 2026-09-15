@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-09-15T01:11:34Z",
+  "last_updated": "2026-09-15T02:11:38Z",
   "account": {
-    "balance": 506.63,
-    "equity": 1158.9,
+    "balance": 974.79,
+    "equity": 974.79,
     "system_floating": 0,
-    "margin_level": 266.3,
+    "margin_level": 0.0,
     "total_trades": 0,
     "win_rate": 0.0,
     "active_bots": 0,
@@ -54,8 +54,8 @@
     },
     {
       "date": "2026-09-15",
-      "balance": 506.63,
-      "equity": 1158.9,
+      "balance": 974.79,
+      "equity": 974.79,
       "net": 0.0,
       "trades": 0
     }
@@ -64,9 +64,31 @@
   "veteran_strategies": [],
   "monthly_returns": [],
   "recent_trades": [],
-  "market": [],
+  "market": [
+    {
+      "pair": "USDJPY",
+      "bid": 154.763,
+      "change": 0.28,
+      "spread": 27,
+      "active": false
+    },
+    {
+      "pair": "USDCHF",
+      "bid": 0.81796,
+      "change": 0.1,
+      "spread": 28,
+      "active": false
+    },
+    {
+      "pair": "USDCAD",
+      "bid": 1.39081,
+      "change": 0.06,
+      "spread": 32,
+      "active": false
+    }
+  ],
   "terminal_logs": [
-    "[{time}] SCANNER   | Market scan complete — 0 pairs quoted",
+    "[{time}] SCANNER   | Market scan complete — 3 pairs quoted",
     "[{time}] RISK      | 0 open positions · margin level verified ✓",
     "[{time}] PORTFOLIO | Floating P&L $+0.00 · exposure within limits",
     "[{time}] EXECUTION | 0 positions closed today",
