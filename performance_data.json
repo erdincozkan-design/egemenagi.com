@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-09-15T14:12:16Z",
+  "last_updated": "2026-09-15T15:12:19Z",
   "account": {
     "balance": 974.79,
-    "equity": 974.79,
+    "equity": 1178.26,
     "system_floating": 0,
-    "margin_level": 0.0,
+    "margin_level": 134.7,
     "total_trades": 0,
     "win_rate": 0.0,
     "active_bots": 0,
@@ -55,7 +55,7 @@
     {
       "date": "2026-09-15",
       "balance": 974.79,
-      "equity": 974.79,
+      "equity": 1178.26,
       "net": 0.0,
       "trades": 0
     }
@@ -66,29 +66,57 @@
   "recent_trades": [],
   "market": [
     {
+      "pair": "EURUSD",
+      "bid": 1.15429,
+      "change": -0.04,
+      "spread": 21,
+      "active": false
+    },
+    {
+      "pair": "GBPUSD",
+      "bid": 1.3487,
+      "change": -0.07,
+      "spread": 25,
+      "active": false
+    },
+    {
       "pair": "USDJPY",
-      "bid": 154.99,
-      "change": 0.43,
+      "bid": 155.074,
+      "change": 0.48,
       "spread": 25,
       "active": false
     },
     {
       "pair": "USDCHF",
-      "bid": 0.81889,
-      "change": 0.21,
-      "spread": 28,
+      "bid": 0.81894,
+      "change": 0.22,
+      "spread": 27,
+      "active": false
+    },
+    {
+      "pair": "AUDUSD",
+      "bid": 0.71291,
+      "change": -0.13,
+      "spread": 23,
       "active": false
     },
     {
       "pair": "USDCAD",
-      "bid": 1.39126,
-      "change": 0.09,
-      "spread": 31,
+      "bid": 1.39178,
+      "change": 0.13,
+      "spread": 29,
+      "active": false
+    },
+    {
+      "pair": "NZDUSD",
+      "bid": 0.57581,
+      "change": -0.3,
+      "spread": 28,
       "active": false
     }
   ],
   "terminal_logs": [
-    "[{time}] SCANNER   | Market scan complete — 3 pairs quoted",
+    "[{time}] SCANNER   | Market scan complete — 7 pairs quoted",
     "[{time}] RISK      | 0 open positions · margin level verified ✓",
     "[{time}] PORTFOLIO | Floating P&L $+0.00 · exposure within limits",
     "[{time}] EXECUTION | 0 positions closed today",
