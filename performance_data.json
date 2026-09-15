@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-15T05:11:48Z",
+  "last_updated": "2026-09-15T06:11:51Z",
   "account": {
     "balance": 974.79,
     "equity": 974.79,
@@ -67,23 +67,23 @@
   "market": [
     {
       "pair": "USDJPY",
-      "bid": 154.682,
-      "change": 0.23,
-      "spread": 26,
+      "bid": 154.74,
+      "change": 0.27,
+      "spread": 28,
       "active": false
     },
     {
       "pair": "USDCHF",
-      "bid": 0.81804,
-      "change": 0.11,
+      "bid": 0.8183,
+      "change": 0.14,
       "spread": 23,
       "active": false
     },
     {
       "pair": "USDCAD",
-      "bid": 1.39113,
-      "change": 0.08,
-      "spread": 32,
+      "bid": 1.39043,
+      "change": 0.03,
+      "spread": 31,
       "active": false
     }
   ],
