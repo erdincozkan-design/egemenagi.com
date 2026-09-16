@@ -1,217 +1,34 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Egemen AGI — Kovan</title>
-<meta name="description" content="7 Arı Konseyi ve Kraliçe Arı canlı performans komuta merkezi.">
-<link rel="stylesheet" href="style.css?v=9a558121">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>egemenagi.com</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+  }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  h1 {
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+</style>
 </head>
 <body>
-<div class="wrap">
-
-  <header class="top">
-    <div class="brand">
-      <span class="logo">⬡</span>
-      <div>
-        <h1>EGEMEN AGI // KOVAN</h1>
-        <small>7-Ajan Konseyi · Kraliçe Arı Komuta Birimi · dağıtık sinyal ağı</small>
-      </div>
-    </div>
-    <div class="updated">
-      <span class="dot-live"></span>SYNC <b id="lastUpdated">—</b><br>
-      <span id="staleNote" style="display:none;color:var(--bad);">⚠ veri saatlerdir yenilenmedi</span>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="hero-balance">
-      <div class="hero-lbl">// Kovan Canlı Bakiye</div>
-      <div class="hero-val"><span class="cur">$</span><span id="heroBalance">—</span></div>
-      <div class="hero-sub">equity <span id="heroEquity">—</span> · güncellendi <span id="heroUpdated">—</span></div>
-      <div class="hero-mini"><svg id="heroMini" width="100%" height="46" viewBox="0 0 400 46" preserveAspectRatio="none"></svg></div>
-    </div>
-    <a class="hero-verify" href="https://www.myfxbook.com/members/mtumtu/aibee/12201664" target="_blank" rel="noopener noreferrer">
-      <div class="vlbl"><span class="check">✓</span>THIRD-PARTY VERIFIED</div>
-      <div class="vbig">Myfxbook üzerinde canlı takip ediliyor</div>
-      <p>Aynı XM hesabının ham verisi, bağımsız bir izleme kuruluşunda da yayınlanıyor —
-        seçilmiş sonuç yok, gizlenen kayıp yok. Tıkla, kendin doğrula.</p>
-      <div class="verify-cta">myfxbook.com/members/mtumtu/aibee/12201664 →</div>
-    </a>
-  </section>
-
-  <div class="marquee-wrap"><div class="marquee-track" id="marqueeTrack"></div></div>
-
-  <section class="stats" id="statsGrid">
-    <div class="stat"><div class="lbl">Günlük K/Z</div><div class="val" id="sDaily">—</div></div>
-    <div class="stat"><div class="lbl">Haftalık K/Z</div><div class="val" id="sWeekly">—</div></div>
-    <div class="stat"><div class="lbl">Aylık K/Z</div><div class="val" id="sMonthly">—</div></div>
-    <div class="stat"><div class="lbl">İsabet Oranı</div><div class="val" id="sWinrate">—</div></div>
-    <div class="stat"><div class="lbl">İşlem Sayısı</div><div class="val" id="sTrades">—</div></div>
-    <div class="stat"><div class="lbl">Açık Pozisyon</div><div class="val" id="sOpen">—</div></div>
-  </section>
-
-  <section class="hive-stage" id="hiveStage">
-    <svg id="signalNet"></svg>
-    <div class="stage-title">// KOMUTA AĞI — 7 Ajan Kraliçe Arı'yı Sürekli Bilgilendiriyor</div>
-    <div class="stage-sub">6 majör parite üzerinde çalışan biyolojik-esinli sinir ağı simülasyonu: EUR/USD · GBP/USD · USD/JPY · USD/CHF · AUD/USD · USD/CAD — 7 ajan + 1 komuta birimi</div>
-
-    <div class="orbit" id="orbit">
-      <div class="queen-node" id="queenBee">
-        <div class="queen-pulse-ring"></div>
-        <div class="queen-pulse-ring r2"></div>
-        <svg viewBox="0 0 100 100">
-          <ellipse class="agent-wing left" cx="30" cy="42" rx="20" ry="12" fill="#c9b8ff" opacity="0.5"/>
-          <ellipse class="agent-wing right" cx="70" cy="42" rx="20" ry="12" fill="#c9b8ff" opacity="0.5"/>
-          <ellipse cx="50" cy="58" rx="24" ry="30" fill="#8b5cf6"/>
-          <rect x="27" y="47" width="46" height="8" fill="#1a1130"/>
-          <rect x="27" y="63" width="46" height="8" fill="#1a1130"/>
-          <circle cx="50" cy="27" r="14" fill="#1a1130"/>
-          <path d="M40 15 L46 22 M60 15 L54 22" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
-        </svg>
-        <div class="queen-tag">KRALİÇE ARI</div>
-      </div>
-      <div class="queen-screen hud-screen" id="queenScreenBox">
-        <div class="hud-corner tl"></div><div class="hud-corner tr"></div>
-        <div class="hud-corner bl"></div><div class="hud-corner br"></div>
-        <div class="hud-scan"></div>
-        <span class="tag">CMD-CORE // KOMUTA EKRANI</span>
-        <span class="tag live">● LIVE</span>
-        <div class="queen-decision" id="queenDecision">WAIT</div>
-        <canvas id="queenChart" width="320" height="118"></canvas>
-        <div class="queen-mini-row">
-          <div class="mon-tile"><span class="mon-tag">SIN.1</span><canvas id="qline1" width="90" height="42"></canvas></div>
-          <div class="mon-tile"><span class="mon-tag">SIN.2</span><canvas id="qline2" width="90" height="42"></canvas></div>
-          <div class="mon-tile mon-heat" id="qheat"></div>
-        </div>
-        <div class="hud-readout" id="queenReadout"></div>
-      </div>
-      <div class="swipe-hint">← 7 ajanı kaydırarak gör →</div>
-      <div class="council" id="council"></div>
-    </div>
-  </section>
-
-  <section class="panel network-panel">
-    <h2><span class="tagdot red"></span>// UZAK SUNUCU AĞI — 7 Ajan Farklı Node'lardan Veri Çekiyor</h2>
-    <div class="chart-wrap"><svg id="networkMap" width="1180" height="280"></svg></div>
-    <div class="network-note">Görselleştirme amaçlıdır — ajanların hangi iç modülden veri okuduğu (mimari, parametre, kriter) yayınlanmaz.</div>
-  </section>
-
-  <!-- ============ TERMİNAL IZGARASI — yoğun, numaralı panel düzeni ============ -->
-  <div class="term-grid">
-
-    <div class="term-panel tp-desk">
-      <div class="tp-head"><span class="tp-num">01</span><span class="tp-title">Komuta Masası</span>
-        <span class="tp-sub">Kraliçe Arı · GEN-07</span><span class="tp-ctl"><span></span><span></span></span></div>
-      <div class="tp-body">
-        <div class="gauge-row" id="deskGauges"></div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;">
-          <div><div class="tp-sub" style="margin-left:0;">EQUITY</div>
-            <div style="font-size:20px;font-weight:800;color:var(--text);font-family:var(--mono);" id="deskEquity">—</div></div>
-          <div style="text-align:right;"><div class="tp-sub" style="margin-left:0;">GÜNLÜK</div>
-            <div style="font-size:16px;font-weight:800;font-family:var(--mono);" id="deskDaily">—</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="term-panel tp-neural">
-      <div class="tp-head"><span class="tp-num">04</span><span class="tp-title">Nöral Aktivite</span>
-        <span class="tp-sub">Kovan · D. apis</span><span class="tp-ctl"><span></span><span></span></span></div>
-      <div class="tp-body">
-        <div class="brain-wrap">
-          <div class="brain-canvas-box"><canvas id="brainCanvas" width="120" height="100"></canvas></div>
-          <div class="brain-stats">
-            <div class="brain-stat"><div class="blbl">Sinaps</div><div class="bval" id="brSyn">—</div></div>
-            <div class="brain-stat"><div class="blbl">Şu an ateşleyen</div><div class="bval" id="brSpiking">—</div></div>
-            <div class="brain-stat"><div class="blbl">Spikes/sn</div><div class="bval" id="brSpikes">—</div></div>
-            <div class="brain-stat"><div class="blbl">Karar gecikmesi</div><div class="bval" id="brLat">—</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="term-panel tp-orderbook">
-      <div class="tp-head"><span class="tp-num">02</span><span class="tp-title">Parite Defteri</span>
-        <span class="tp-sub">gerçek kotasyon</span><span class="tp-ctl"><span></span><span></span></span></div>
-      <div class="tp-body"><table class="ob-table" id="orderBook">
-        <thead><tr><th>Parite</th><th>Mark</th><th>Spread</th><th>24s</th></tr></thead>
-        <tbody></tbody>
-      </table></div>
-    </div>
-
-    <div class="term-panel tp-flow">
-      <div class="tp-head"><span class="tp-num">03</span><span class="tp-title">İşlem Akışı</span>
-        <span class="tp-sub">gerçek</span><span class="tp-ctl"><span></span><span></span></span></div>
-      <div class="tp-body"><table class="flow-table" id="orderFlow"><tbody></tbody></table></div>
-    </div>
-
-    <div class="term-panel tp-chart">
-      <div class="tp-head"><span class="tp-num">05</span><span class="tp-title">Bakiye Grafiği</span>
-        <span class="tp-sub">gerçek</span><span class="tp-ctl"><span></span><span></span></span></div>
-      <div class="range-btns" id="rangeBtns"></div>
-      <div class="tp-body" style="padding-top:0;"><div class="chart-wrap"><svg id="miniHistChart" width="340" height="150"></svg></div></div>
-    </div>
-
-    <div class="term-panel tp-waves">
-      <div class="tp-head"><span class="tp-num">06</span><span class="tp-title">Nöral Dalga Formları</span>
-        <span class="tp-sub">kovan · girdi yayılımı</span><span class="tp-ctl"><span></span><span></span></span></div>
-      <div class="tp-body" id="wavesBody"></div>
-    </div>
-
-    <div class="term-panel tp-desk" style="grid-column:span 12;">
-      <div class="tp-head"><span class="tp-num">08</span><span class="tp-title">Sinyal Duvarı</span>
-        <span class="tp-sub">çoklu parite tarama · dekoratif</span><span class="tp-ctl"><span></span><span></span></span></div>
-      <div class="signal-wall" id="signalWall"></div>
-    </div>
-
-    <div class="term-panel tp-news">
-      <div class="tp-head"><span class="tp-num">07</span><span class="tp-title">Haber Akışı</span>
-        <span class="tp-sub">kovan masası · gerçek</span><span class="tp-ctl"><span></span><span></span></span></div>
-      <div class="tp-body" id="newswireBody"></div>
-    </div>
-
-  </div>
-
-  <section class="panel">
-    <h2><span class="tagdot"></span>Günlük Bakiye vs Equity (gerçek)</h2>
-    <div class="chart-wrap"><svg id="dailyChart" width="1180" height="240"></svg></div>
-  </section>
-
-  <div class="grid2">
-    <section class="panel">
-      <h2><span class="tagdot"></span>Parite Bazlı Performans (gerçek)</h2>
-      <div class="chart-wrap"><svg id="pairChart" width="560" height="240"></svg></div>
-    </section>
-    <section class="panel">
-      <h2><span class="tagdot"></span>Strateji Kovanı (gerçek, takma adlı)</h2>
-      <div class="chart-wrap"><svg id="stratChart" width="560" height="240"></svg></div>
-    </section>
-  </div>
-
-  <div class="grid2">
-    <section class="panel">
-      <h2><span class="tagdot"></span>Kazanç / Kayıp Dağılımı (gerçek)</h2>
-      <div class="chart-wrap"><svg id="winDonut" width="560" height="240"></svg></div>
-    </section>
-    <section class="panel">
-      <h2><span class="tagdot red"></span>Sistem Durumu</h2>
-      <div class="status-grid" id="statusGrid"></div>
-    </section>
-  </div>
-
-  <section class="panel">
-    <h2><span class="tagdot"></span>Piyasa</h2>
-    <div class="ticker" id="ticker"></div>
-  </section>
-
-  <footer>
-    <div id="disclaimer">Tüm sayılar canlı hesaptan ölçülmüştür. Geçmiş performans geleceği garanti etmez.</div>
-    <div>7 Ajan Konseyi + Kraliçe Arı görsel temsilidir; yöntem/parametre paylaşılmaz.</div>
-    <div>No fabricated data, no hidden losses — real results, independently tracked on
-      <a href="https://www.myfxbook.com/members/mtumtu/aibee/12201664" target="_blank" rel="noopener noreferrer">myfxbook.com/members/mtumtu/aibee</a>.</div>
-  </footer>
-
-</div>
-<script src="app.js?v=209e720a"></script>
+<h1>coming soon</h1>
 </body>
 </html>
