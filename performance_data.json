@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-09-16T17:14:35Z",
+  "last_updated": "2026-09-16T17:49:00Z",
   "account": {
-    "balance": 1354.78,
-    "equity": 1254.48,
+    "balance": 1416.39,
+    "equity": 1416.39,
     "system_floating": 0,
-    "margin_level": 147.6,
+    "margin_level": 0.0,
     "total_trades": 0,
     "win_rate": 0.0,
     "active_bots": 0,
@@ -61,8 +61,8 @@
     },
     {
       "date": "2026-09-16",
-      "balance": 1354.78,
-      "equity": 1254.48,
+      "balance": 1416.39,
+      "equity": 1416.39,
       "net": 0.0,
       "trades": 0
     }
@@ -74,50 +74,50 @@
   "market": [
     {
       "pair": "EURUSD",
-      "bid": 1.15299,
-      "change": -0.1,
-      "spread": 21,
+      "bid": 1.15328,
+      "change": 0.0,
+      "spread": 16,
       "active": false
     },
     {
       "pair": "GBPUSD",
-      "bid": 1.34387,
-      "change": -0.27,
+      "bid": 1.34425,
+      "change": -0.24,
       "spread": 27,
       "active": false
     },
     {
       "pair": "USDJPY",
-      "bid": 155.124,
+      "bid": 155.125,
       "change": 0.04,
-      "spread": 25,
+      "spread": 24,
       "active": false
     },
     {
       "pair": "USDCHF",
-      "bid": 0.81903,
-      "change": 0.07,
+      "bid": 0.8186,
+      "change": 0.02,
       "spread": 30,
       "active": false
     },
     {
       "pair": "AUDUSD",
-      "bid": 0.71274,
-      "change": -0.03,
+      "bid": 0.71284,
+      "change": -0.01,
       "spread": 26,
       "active": false
     },
     {
       "pair": "USDCAD",
-      "bid": 1.39407,
+      "bid": 1.39412,
       "change": 0.22,
-      "spread": 31,
+      "spread": 33,
       "active": false
     },
     {
       "pair": "NZDUSD",
-      "bid": 0.57537,
-      "change": -0.04,
+      "bid": 0.57557,
+      "change": -0.01,
       "spread": 31,
       "active": false
     }
