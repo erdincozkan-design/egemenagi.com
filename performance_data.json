@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-16T23:49:36Z",
+  "last_updated": "2026-09-17T00:49:39Z",
   "account": {
     "balance": 3.5,
     "equity": 3.5,
@@ -81,50 +81,50 @@
   "market": [
     {
       "pair": "EURUSD",
-      "bid": 1.14686,
-      "change": 0.05,
-      "spread": 21,
+      "bid": 1.14624,
+      "change": -0.01,
+      "spread": 22,
       "active": false
     },
     {
       "pair": "GBPUSD",
-      "bid": 1.33822,
-      "change": 0.07,
-      "spread": 27,
-      "active": false
-    },
-    {
-      "pair": "USDJPY",
-      "bid": 156.11,
-      "change": -0.08,
+      "bid": 1.33758,
+      "change": 0.02,
       "spread": 29,
       "active": false
     },
     {
+      "pair": "USDJPY",
+      "bid": 156.009,
+      "change": -0.15,
+      "spread": 28,
+      "active": false
+    },
+    {
       "pair": "USDCHF",
-      "bid": 0.82522,
-      "change": -0.01,
-      "spread": 32,
+      "bid": 0.82531,
+      "change": 0.0,
+      "spread": 30,
       "active": false
     },
     {
       "pair": "AUDUSD",
-      "bid": 0.70876,
-      "change": 0.03,
-      "spread": 26,
+      "bid": 0.70902,
+      "change": 0.06,
+      "spread": 25,
       "active": false
     },
     {
       "pair": "USDCAD",
-      "bid": 1.39866,
-      "change": 0.01,
+      "bid": 1.39912,
+      "change": 0.04,
       "spread": 35,
       "active": false
     },
     {
       "pair": "NZDUSD",
-      "bid": 0.57225,
-      "change": 0.18,
+      "bid": 0.57131,
+      "change": 0.01,
       "spread": 32,
       "active": false
     }
