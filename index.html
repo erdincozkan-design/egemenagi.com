@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Egemen AGI</title>
-<meta name="description" content="Egemen AGI: Python ve yapay zekâ ile çalışan otomatik işlem sistemi. Gerçek hesap performansı Myfxbook'ta canlı yayınlanıyor.">
+<meta name="description" content="Egemen AGI: yapay zekâ ile çalışan otomatik işlem sistemi. Gerçek hesap performansı Myfxbook'ta canlı yayınlanıyor.">
 <meta name="theme-color" content="#06080d">
 <style>
   :root {
@@ -126,16 +126,10 @@
   .act { width: 34px; height: 4px; border-radius: 2px; background: #0b0f18; overflow: hidden; position: relative; }
   .act::after { content: ""; position: absolute; inset: 0; width: 40%; background: var(--cyan); opacity: .8; animation: act 1.4s ease-in-out infinite; }
 
-  /* ---------- pipeline ---------- */
-  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; position: relative; }
-  .step { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 16px; backdrop-filter: blur(6px); }
-  .step .n { font-family: var(--mono); font-size: 11px; color: var(--brand); letter-spacing: .14em; }
-  .step h3 { margin: 6px 0 4px; font-size: 17px; }
-  .step p { margin: 0; color: var(--text2); font-size: 14px; }
-  .step svg { width: 34px; height: 34px; color: var(--cyan); margin-bottom: 4px; }
-  .step:not(:last-child)::after { content: ""; position: absolute; top: 50%; right: -14px; width: 14px; height: 2px;
-    background: linear-gradient(90deg, var(--cyan), transparent); }
-
+  .mesh-card { position: relative; height: 420px; border-radius: 18px; overflow: hidden;
+    background: radial-gradient(ellipse at 50% 50%, rgba(56, 214, 245, .06), rgba(10, 13, 20, .85) 70%);
+    border: 1px solid var(--line); box-shadow: 0 20px 60px rgba(0, 0, 0, .45); }
+  .mesh-card canvas { display: block; width: 100%; height: 100%; }
   .pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; }
   .pill { font-family: var(--mono); font-size: 12.5px; color: var(--text2); padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); }
   .pill b { color: var(--cyan); font-weight: 600; }
@@ -158,14 +152,12 @@
     .room { grid-template-columns: 1fr 1fr; }
     .room .monitor:first-child { grid-column: 1 / -1; }
     .servers { grid-template-columns: repeat(2, 1fr); }
-    .flow { grid-template-columns: 1fr 1fr; }
-    .step:nth-child(2)::after { display: none; }
   }
   @media (max-width: 620px) {
     header.hero { padding-top: 44px; }
-    .room, .flow { grid-template-columns: 1fr; }
-    .step::after { display: none; }
+    .room { grid-template-columns: 1fr; }
     .screen { height: 220px; }
+    .mesh-card { height: 360px; }
     .cta { padding: 18px 22px; width: 100%; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -185,9 +177,9 @@
       <polygon points="24,12 34,18 34,30 24,36 14,30 14,18" fill="#f5b301"/>
       <circle cx="24" cy="24" r="3.2" fill="#06080d"/>
     </svg>
-    <span class="chip"><i></i>PYTHON · YAPAY ZEKÂ · 7/24</span>
+    <span class="chip"><i></i>YAPAY ZEKÂ · 7/24 OTOMATİK</span>
     <h1>EGEMEN AGI</h1>
-    <p class="lead">Python ve yapay zekâ ile çalışan <b>otomatik işlem sistemi</b>.</p>
+    <p class="lead"><b>Yapay zekâ</b> ile çalışan otomatik işlem sistemi.</p>
 
     <a class="cta" href="https://www.myfxbook.com/members/mtumtu/aibee/12201664" rel="noopener">
       Canlı performansı Myfxbook'ta görün →
@@ -199,13 +191,13 @@
   <section class="sec">
     <div class="sec-head">
       <div class="k">// kontrol odası</div>
-      <h2>Kod, model ve piyasa verisi aynı masada</h2>
+      <h2>Yapay zekâ, piyasa verisi ve haber akışı aynı masada</h2>
     </div>
 
     <div class="room">
       <div class="monitor">
         <div class="screen">
-          <div class="bar"><i></i><i></i><i></i><span>strategy_lab.py</span></div>
+          <div class="bar"><i></i><i></i><i></i><span>ai_engine</span></div>
           <pre class="code" id="code"></pre>
         </div>
         <div class="stand"></div><div class="base"></div>
@@ -233,31 +225,18 @@
 
   <section class="sec">
     <div class="sec-head">
-      <div class="k">// nasıl çalışır</div>
-      <h2>Fikirden gerçek hesaba dört adım</h2>
+      <div class="k">// sistem ağı</div>
+      <h2>Yüzlerce script, tek bir yapay zekâ ağı</h2>
+      <p>İleri backtestler, veri analizleri ve haber takibi yapan yüzlerce script birbirine bağlı
+        olarak 7/24 birlikte çalışır.</p>
     </div>
-    <div class="flow">
-      <div class="step">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
-        <div class="n">01</div><h3>Veri</h3><p>Çok sayıda paritenin fiyat verisi sürekli toplanır ve temizlenir.</p>
-      </div>
-      <div class="step">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 11l3.5-4.5M7 13l3.5 4.5M14 6.5L17 11M14 17.5l3-4.5"/></svg>
-        <div class="n">02</div><h3>Üretim</h3><p>Python motorları ve yapay zekâ modelleri yeni strateji adayları üretir.</p>
-      </div>
-      <div class="step">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M6 12l3-3 3 2 5-4"/></svg>
-        <div class="n">03</div><h3>Demo ileri test</h3><p>Adaylar demo hesaplarda, gerçek piyasada canlı olarak sınanır.</p>
-      </div>
-      <div class="step">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-        <div class="n">04</div><h3>Gerçek hesap</h3><p>Yalnızca istikrarlı sonuç verenler küçük ve eşit lotla gerçek hesaba geçer.</p>
-      </div>
-    </div>
+    <div class="mesh-card"><canvas id="mesh"></canvas></div>
     <div class="pills">
-      <span class="pill"><b>Python</b> ile yazıldı</span>
-      <span class="pill"><b>Yapay zekâ</b> modelleri</span>
-      <span class="pill"><b>MetaTrader 5</b> bağlantısı</span>
+      <span class="pill"><b>Yapay zekâ</b> çekirdeği</span>
+      <span class="pill"><b>İleri backtest</b></span>
+      <span class="pill"><b>Veri analizi</b></span>
+      <span class="pill"><b>Haber takibi</b></span>
+      <span class="pill"><b>Yüzlerce</b> bağlantılı script</span>
       <span class="pill"><b>7/24</b> otomatik</span>
       <span class="pill"><b>Myfxbook</b> ile bağımsız takip</span>
     </div>
@@ -318,23 +297,18 @@
 
   /* ---------- kod ekranı (temsili) ---------- */
   var CODE = [
-    ['cm', '# strateji laboratuvarı — temsili kod'],
-    ['kw', 'import ', '', 'numpy ', 'kw', 'as ', '', 'np'],
-    ['kw', 'import ', '', 'pandas ', 'kw', 'as ', '', 'pd'],
-    ['kw', 'from ', '', 'lab ', 'kw', 'import ', '', 'Factory, ForwardTest'],
+    ['cm', '// yapay zekâ çekirdeği — temsili'],
+    ['', 'ai = ', 'fn', 'Engine', '', '(mode=', 'st', '"neural"', '', ')'],
     [''],
-    ['', 'data = ', 'fn', 'load_market', '', '(pairs, tf=', 'st', '"M5"', '', ')'],
-    ['', 'pool = ', 'fn', 'Factory', '', '(model=', 'st', '"neural"', '', ').', 'fn', 'generate', '', '()'],
+    ['', 'ai.', 'fn', 'connect', '', '(market_data, news_feed)'],
+    ['', 'ai.', 'fn', 'analyze', '', '(market_data)'],
+    ['', 'ai.', 'fn', 'backtest', '', '(mode=', 'st', '"forward"', '', ')'],
+    ['', 'ai.', 'fn', 'watch', '', '(news_feed)'],
     [''],
-    ['kw', 'for ', '', 's ', 'kw', 'in ', '', 'pool:'],
-    ['', '    s.', 'fn', 'train', '', '(data.history)'],
-    ['', '    r = ', 'fn', 'ForwardTest', '', '(s).', 'fn', 'run', '', '(account=', 'st', '"demo"', '', ')'],
-    ['', '    ', 'kw', 'if ', '', 'r.', 'fn', 'stable', '', '():'],
-    ['', '        ', 'fn', 'promote', '', '(s, to=', 'st', '"live"', '', ')'],
+    ['', 'signal = ai.', 'fn', 'decide', '', '()'],
     [''],
-    ['cm', '# 7/24 döngü'],
-    ['kw', 'while ', 'nu', 'True', '', ':'],
-    ['', '    ', 'fn', 'step', '', '()']
+    ['cm', '// yüzlerce modül, tek ağ · 7/24'],
+    ['kw', 'loop', '', '.', 'fn', 'forever', '', '(ai)']
   ];
   var codeEl = document.getElementById("code");
   function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
@@ -435,7 +409,7 @@
   }
 
   /* ---------- sunucu rafları ---------- */
-  var sv = document.getElementById("servers"), names = ["VERİ", "ÜRETİM", "TEST", "CANLI"], html = "";
+  var sv = document.getElementById("servers"), names = ["VERİ ANALİZİ", "BACKTEST", "HABER", "YAPAY ZEKÂ"], html = "";
   names.forEach(function (n, k) {
     html += '<div class="rack"><div class="rack-top"><b>NODE-0' + (k + 1) + '</b><span>' + n + '</span></div>';
     for (var u = 0; u < 6; u++) {
@@ -449,15 +423,83 @@
   sv.innerHTML = html;
   Array.prototype.forEach.call(sv.querySelectorAll(".act"), function (e) { e.style.setProperty("animation-delay", (Math.random()).toFixed(2) + "s"); });
 
+  /* ---------- sistem ağı (temsili) ---------- */
+  var cvM = document.getElementById("mesh"), M, hubs = [], subs = [], pulses = [];
+  var HUBS = ["YAPAY ZEKÂ", "İLERİ BACKTEST", "VERİ ANALİZİ", "HABER TAKİBİ", "RİSK", "EMİR"];
+  function initMesh() {
+    M = fit(cvM);
+    var cx = M.w / 2, cy = M.h / 2, R = Math.min(M.w * .36, M.h * .34);
+    hubs = HUBS.map(function (name, i) {
+      if (i === 0) return { name: name, x: cx, y: cy, r: 9, core: true };
+      var a = -Math.PI / 2 + (i - 1) * 2 * Math.PI / (HUBS.length - 1);
+      return { name: name, x: cx + Math.cos(a) * R * (M.w < 600 ? 1.05 : 1.25), y: cy + Math.sin(a) * R, r: 6 };
+    });
+    subs = [];
+    var per = M.w < 600 ? 26 : 44;
+    hubs.forEach(function (h, hi) {
+      for (var k = 0; k < per; k++) {
+        var a = Math.random() * 6.283, d = 18 + Math.random() * (h.core ? 60 : 52);
+        subs.push({ h: hi, x: h.x + Math.cos(a) * d * 1.3, y: h.y + Math.sin(a) * d, ph: Math.random() * 6.283 });
+      }
+    });
+    pulses = [];
+  }
+  function drawMesh(t) {
+    var c = M.c; c.clearRect(0, 0, M.w, M.h);
+    var core = hubs[0];
+    /* merkez <-> merkezler ve komsu merkezler */
+    for (var i = 1; i < hubs.length; i++) {
+      var h = hubs[i], n = hubs[i === hubs.length - 1 ? 1 : i + 1];
+      c.strokeStyle = "rgba(245,179,1,.28)"; c.lineWidth = 1.4;
+      c.beginPath(); c.moveTo(core.x, core.y); c.lineTo(h.x, h.y); c.stroke();
+      c.strokeStyle = "rgba(56,214,245,.16)"; c.lineWidth = 1;
+      c.beginPath(); c.moveTo(h.x, h.y); c.lineTo(n.x, n.y); c.stroke();
+    }
+    /* scriptler */
+    subs.forEach(function (s2) {
+      var h = hubs[s2.h], on = (Math.sin(t / 600 + s2.ph) + 1) / 2;
+      c.strokeStyle = "rgba(120,200,255," + (0.05 + on * 0.10).toFixed(3) + ")"; c.lineWidth = 1;
+      c.beginPath(); c.moveTo(s2.x, s2.y); c.lineTo(h.x, h.y); c.stroke();
+      c.fillStyle = "rgba(140,210,255," + (0.35 + on * 0.6).toFixed(3) + ")";
+      c.beginPath(); c.arc(s2.x, s2.y, 1.8, 0, 6.283); c.fill();
+    });
+    /* akan veri paketleri */
+    if (!reduce && Math.random() < .35) {
+      var from = Math.random() < .5 ? subs[Math.floor(Math.random() * subs.length)] : null;
+      var hi2 = 1 + Math.floor(Math.random() * (hubs.length - 1));
+      pulses.push(from ? { a: from, b: hubs[from.h], k: 0, col: "56,214,245" } : { a: hubs[hi2], b: core, k: 0, col: "245,179,1" });
+    }
+    pulses = pulses.filter(function (p) { return p.k < 1; });
+    pulses.forEach(function (p) {
+      p.k += .022;
+      var x = p.a.x + (p.b.x - p.a.x) * p.k, y = p.a.y + (p.b.y - p.a.y) * p.k;
+      c.fillStyle = "rgba(" + p.col + ",.95)"; c.shadowColor = "rgba(" + p.col + ",.9)"; c.shadowBlur = 8;
+      c.beginPath(); c.arc(x, y, 2.4, 0, 6.283); c.fill(); c.shadowBlur = 0;
+    });
+    /* merkez dugumler + etiketler */
+    hubs.forEach(function (h) {
+      var pr = h.r + (h.core ? 4 + Math.sin(t / 400) * 3 : 2 + Math.sin(t / 500 + h.x) * 1.5);
+      c.fillStyle = h.core ? "rgba(245,179,1,.18)" : "rgba(56,214,245,.14)";
+      c.beginPath(); c.arc(h.x, h.y, pr + 8, 0, 6.283); c.fill();
+      c.fillStyle = h.core ? "#f5b301" : "#38d6f5";
+      c.beginPath(); c.arc(h.x, h.y, h.r, 0, 6.283); c.fill();
+      c.font = (h.core ? "700 13px " : "600 11.5px ") + getComputedStyle(document.body).fontFamily;
+      c.textAlign = "center"; c.fillStyle = h.core ? "#ffe08a" : "#cfe9f5";
+      var ly = h.core ? h.y + 34 : (h.y < M.h / 2 ? h.y - 20 : h.y + 28);
+      var hw = c.measureText(h.name).width / 2 + 8;                       /* etiket kutudan taşmasın */
+      c.fillText(h.name, Math.min(M.w - hw, Math.max(hw, h.x)), ly);
+    });
+  }
+
   /* ---------- döngü ---------- */
-  function all() { initNet(); initCandles(); initBrain(); }
+  function all() { initNet(); initCandles(); initBrain(); initMesh(); }
   all();
   for (var i = 0; i < 40; i++) stepLoss();
   var acc = 0, prev = performance.now();
   function frame(t) {
     var dt = t - prev; prev = t; acc += dt;
     if (acc > 900) { acc = 0; stepCandles(); stepLoss(); }
-    drawNet(); drawCandles(t); drawBrain(t);
+    drawNet(); drawCandles(t); drawBrain(t); drawMesh(t);
     if (!reduce) requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
