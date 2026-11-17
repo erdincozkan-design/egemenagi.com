@@ -4,119 +4,468 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Egemen AGI</title>
-<meta name="description" content="Egemen AGI otomatik işlem sisteminin gerçek hesap performansı Myfxbook'ta canlı olarak yayınlanıyor.">
-<meta name="theme-color" content="#0b0d12">
+<meta name="description" content="Egemen AGI: Python ve yapay zekâ ile çalışan otomatik işlem sistemi. Gerçek hesap performansı Myfxbook'ta canlı yayınlanıyor.">
+<meta name="theme-color" content="#06080d">
 <style>
   :root {
-    --bg: #0b0d12;
-    --panel: #12151d;
-    --line: #232838;
-    --text: #e9ebf1;
-    --text2: #b7bccb;
-    --muted: #828aa0;
+    color-scheme: dark;
+    --bg: #06080d;
+    --panel: rgba(16, 20, 30, .78);
+    --panel-solid: #10141e;
+    --line: rgba(120, 140, 180, .18);
+    --text: #eef1f7;
+    --text2: #b4bccd;
+    --muted: #7c859b;
     --brand: #f5b301;
-    --brand-ink: #1a1300;
-  }
-  @media (prefers-color-scheme: light) {
-    :root {
-      --bg: #f4f5f8;
-      --panel: #ffffff;
-      --line: #e2e5ec;
-      --text: #12151d;
-      --text2: #3d4354;
-      --muted: #646b7e;
-      --brand: #f5b301;
-      --brand-ink: #1a1300;
-    }
+    --cyan: #38d6f5;
+    --blue: #3987e5;
+    --green: #2fd28b;
+    --red: #e66767;
+    --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
-    min-height: 100vh;
     background: var(--bg);
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-family: var(--sans);
     line-height: 1.6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 16px;
+    overflow-x: hidden;
   }
-  body::before {
-    content: "";
-    position: fixed; inset: 0; z-index: -1; pointer-events: none;
-    background: radial-gradient(800px 500px at 50% -10%, color-mix(in srgb, var(--brand) 12%, transparent), transparent 70%);
+  #net { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+  .gridbg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(56, 214, 245, .045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 214, 245, .045) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 80%);
   }
-  main { width: 100%; max-width: 640px; text-align: center; }
-  .logo { width: 64px; height: 64px; margin: 0 auto 14px; display: block; }
-  h1 { margin: 0; font-size: 30px; letter-spacing: .16em; font-weight: 750; }
-  .tag { color: var(--muted); font-size: 14px; margin: 4px 0 28px; }
-  .card {
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 28px 24px;
+  .glow {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(700px 420px at 50% -8%, rgba(245, 179, 1, .16), transparent 70%),
+      radial-gradient(600px 500px at 0% 60%, rgba(57, 135, 229, .12), transparent 70%),
+      radial-gradient(600px 500px at 100% 80%, rgba(56, 214, 245, .08), transparent 70%);
   }
-  .card p { margin: 0 0 14px; color: var(--text2); font-size: 16px; }
-  .card p strong { color: var(--text); }
+  .wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+
+  /* ---------- hero ---------- */
+  header.hero { text-align: center; padding: 64px 0 34px; }
+  .logo { width: 76px; height: 76px; display: block; margin: 0 auto 18px; filter: drop-shadow(0 0 18px rgba(245, 179, 1, .45)); }
+  .logo .spin { transform-origin: 24px 24px; animation: spin 18s linear infinite; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--cyan);
+    border: 1px solid rgba(56, 214, 245, .35); background: rgba(56, 214, 245, .07); padding: 4px 12px; border-radius: 999px; letter-spacing: .06em; }
+  .chip i { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); animation: blink 1.6s infinite; }
+  h1 { margin: 16px 0 6px; font-size: clamp(38px, 7vw, 76px); line-height: 1.02; letter-spacing: .12em; font-weight: 800;
+    background: linear-gradient(180deg, #fff 20%, #c9d3e6 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lead { max-width: 680px; margin: 10px auto 0; color: var(--text2); font-size: clamp(16px, 2.2vw, 19px); }
+  .lead b { color: var(--text); font-weight: 600; }
+
   .cta {
-    display: block;
-    margin: 24px 0 10px;
-    padding: 20px 22px;
-    border-radius: 14px;
-    background: var(--brand);
-    color: var(--brand-ink);
-    text-decoration: none;
-    font-size: 22px;
-    font-weight: 750;
-    letter-spacing: .01em;
-    box-shadow: 0 10px 30px color-mix(in srgb, var(--brand) 30%, transparent);
-    transition: transform .15s ease, box-shadow .15s ease;
+    position: relative; display: inline-flex; flex-direction: column; align-items: center; gap: 4px;
+    margin-top: 30px; padding: 22px 42px; border-radius: 16px; text-decoration: none;
+    background: linear-gradient(135deg, #ffcf3a, #f5b301 45%, #e09a00);
+    color: #1a1300; font-weight: 800; font-size: clamp(19px, 2.6vw, 25px); letter-spacing: .01em;
+    box-shadow: 0 0 0 1px rgba(255, 220, 120, .5) inset, 0 18px 50px rgba(245, 179, 1, .35), 0 0 80px rgba(245, 179, 1, .18);
+    transition: transform .18s ease, box-shadow .18s ease; overflow: hidden; isolation: isolate;
   }
-  .cta:hover, .cta:focus-visible { transform: translateY(-2px); box-shadow: 0 14px 36px color-mix(in srgb, var(--brand) 40%, transparent); }
-  .cta:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
-  .cta small { display: block; font-size: 13px; font-weight: 500; opacity: .8; margin-top: 4px; word-break: break-all; }
-  .note { color: var(--muted); font-size: 13px; margin: 0; }
-  .en { color: var(--muted); font-size: 13px; margin-top: 18px; }
-  footer { color: var(--muted); font-size: 12px; margin-top: 28px; }
-  footer p { margin: 4px 0; }
-  @media (max-width: 480px) {
-    h1 { font-size: 24px; }
-    .cta { font-size: 19px; padding: 18px 16px; }
+  .cta::after { content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .55) 48%, transparent 66%);
+    transform: translateX(-120%); animation: shine 3.6s ease-in-out infinite; }
+  .cta:hover, .cta:focus-visible { transform: translateY(-3px) scale(1.01); box-shadow: 0 0 0 1px rgba(255, 220, 120, .6) inset, 0 24px 60px rgba(245, 179, 1, .45), 0 0 100px rgba(245, 179, 1, .25); }
+  .cta:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+  .cta small { font-size: 13px; font-weight: 600; opacity: .72; font-family: var(--mono); word-break: break-all; }
+  .cta-note { color: var(--muted); font-size: 13px; margin-top: 12px; }
+
+  /* ---------- section heads ---------- */
+  .sec { padding: 46px 0 8px; }
+  .sec-head { text-align: center; margin-bottom: 22px; }
+  .sec-head .k { font-family: var(--mono); font-size: 12px; color: var(--brand); letter-spacing: .18em; text-transform: uppercase; }
+  .sec-head h2 { margin: 6px 0 0; font-size: clamp(22px, 3.2vw, 32px); font-weight: 750; letter-spacing: .01em; }
+  .sec-head p { color: var(--text2); margin: 8px auto 0; max-width: 640px; }
+
+  /* ---------- control room ---------- */
+  .room { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 16px; align-items: end; }
+  .monitor { position: relative; }
+  .screen {
+    position: relative; height: 250px; border-radius: 12px; overflow: hidden;
+    background: #070a11; border: 2px solid #232a3a;
+    box-shadow: 0 0 0 6px #0d111a, 0 0 0 7px #232a3a, 0 20px 50px rgba(0, 0, 0, .55), 0 0 40px rgba(56, 214, 245, .08);
   }
-  @media (prefers-reduced-motion: reduce) { .cta { transition: none; } }
+  .screen::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 3;
+    background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .025) 0 1px, transparent 1px 3px); }
+  .screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 3;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, .06), transparent 60%); }
+  .stand { width: 26%; height: 22px; margin: 6px auto 0; background: linear-gradient(#1a2030, #0e121b); clip-path: polygon(30% 0, 70% 0, 100% 100%, 0 100%); }
+  .base { width: 42%; height: 6px; margin: 0 auto; border-radius: 4px; background: #1a2030; }
+  .bar { display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; background: #0d121c; border-bottom: 1px solid #1c2333;
+    font-family: var(--mono); font-size: 11px; color: var(--muted); position: relative; z-index: 2; }
+  .bar i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .bar i:nth-child(1) { background: #e66767; } .bar i:nth-child(2) { background: #f5b301; } .bar i:nth-child(3) { background: #2fd28b; }
+  .bar span { margin-left: 8px; }
+  pre.code { margin: 0; padding: 10px 12px; font-family: var(--mono); font-size: 11.5px; line-height: 1.55; color: #c9d4ea; white-space: pre; height: calc(100% - 26px); overflow: hidden; }
+  .code .kw { color: #c792ea; } .code .fn { color: #82aaff; } .code .st { color: #c3e88d; } .code .cm { color: #5f6b85; } .code .nu { color: #f78c6c; }
+  .caret { display: inline-block; width: 7px; height: 13px; background: var(--cyan); vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+  .screen canvas { display: block; width: 100%; height: calc(100% - 26px); }
+  .hud { position: absolute; left: 10px; bottom: 8px; z-index: 2; font-family: var(--mono); font-size: 10.5px; color: var(--cyan); opacity: .85; letter-spacing: .08em; }
+
+  /* ---------- servers ---------- */
+  .servers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 26px; }
+  .rack { background: linear-gradient(180deg, #121826, #0b0f18); border: 1px solid #222a3b; border-radius: 10px; padding: 10px; box-shadow: 0 16px 40px rgba(0, 0, 0, .5); }
+  .rack-top { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+  .rack-top b { color: var(--text2); font-weight: 600; letter-spacing: .08em; }
+  .unit { display: flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; margin-bottom: 5px; border-radius: 4px;
+    background: linear-gradient(180deg, #192032, #121827); border: 1px solid #252e43; }
+  .unit:last-child { margin-bottom: 0; }
+  .led { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); animation: blink 1.2s infinite; }
+  .led.b { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
+  .led.a { background: var(--brand); box-shadow: 0 0 6px var(--brand); }
+  .vents { flex: 1; height: 8px; margin-left: 6px; background: repeating-linear-gradient(90deg, #2a3348 0 2px, transparent 2px 5px); border-radius: 2px; opacity: .7; }
+  .act { width: 34px; height: 4px; border-radius: 2px; background: #0b0f18; overflow: hidden; position: relative; }
+  .act::after { content: ""; position: absolute; inset: 0; width: 40%; background: var(--cyan); opacity: .8; animation: act 1.4s ease-in-out infinite; }
+
+  /* ---------- pipeline ---------- */
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; position: relative; }
+  .step { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 16px; backdrop-filter: blur(6px); }
+  .step .n { font-family: var(--mono); font-size: 11px; color: var(--brand); letter-spacing: .14em; }
+  .step h3 { margin: 6px 0 4px; font-size: 17px; }
+  .step p { margin: 0; color: var(--text2); font-size: 14px; }
+  .step svg { width: 34px; height: 34px; color: var(--cyan); margin-bottom: 4px; }
+  .step:not(:last-child)::after { content: ""; position: absolute; top: 50%; right: -14px; width: 14px; height: 2px;
+    background: linear-gradient(90deg, var(--cyan), transparent); }
+
+  .pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; }
+  .pill { font-family: var(--mono); font-size: 12.5px; color: var(--text2); padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); }
+  .pill b { color: var(--cyan); font-weight: 600; }
+
+  /* ---------- final cta ---------- */
+  .final { margin: 54px auto 0; max-width: 820px; text-align: center; padding: 36px 24px; border-radius: 20px;
+    background: linear-gradient(180deg, rgba(245, 179, 1, .10), rgba(16, 20, 30, .85)); border: 1px solid rgba(245, 179, 1, .35);
+    box-shadow: 0 0 80px rgba(245, 179, 1, .08); }
+  .final h2 { margin: 0; font-size: clamp(22px, 3.4vw, 34px); }
+  .final p { color: var(--text2); margin: 10px auto 0; max-width: 600px; }
+  footer { text-align: center; color: var(--muted); font-size: 12px; padding: 40px 0 34px; }
+  footer p { margin: 4px auto; max-width: 760px; }
+
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes shine { 0%, 55% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+  @keyframes act { 0% { transform: translateX(-100%); } 100% { transform: translateX(260%); } }
+
+  @media (max-width: 980px) {
+    .room { grid-template-columns: 1fr 1fr; }
+    .room .monitor:first-child { grid-column: 1 / -1; }
+    .servers { grid-template-columns: repeat(2, 1fr); }
+    .flow { grid-template-columns: 1fr 1fr; }
+    .step:nth-child(2)::after { display: none; }
+  }
+  @media (max-width: 620px) {
+    header.hero { padding-top: 44px; }
+    .room, .flow { grid-template-columns: 1fr; }
+    .step::after { display: none; }
+    .screen { height: 220px; }
+    .cta { padding: 18px 22px; width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::after { animation: none !important; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <svg class="logo" viewBox="0 0 48 48" aria-hidden="true">
-    <polygon points="24,3 42,13.5 42,34.5 24,45 6,34.5 6,13.5" fill="none" stroke="#f5b301" stroke-width="3"/>
-    <polygon points="24,14 33,19 33,29 24,34 15,29 15,19" fill="#f5b301" opacity=".85"/>
-  </svg>
-  <h1>EGEMEN AGI</h1>
-  <p class="tag">Otomatik işlem sistemi</p>
+<canvas id="net" aria-hidden="true"></canvas>
+<div class="gridbg" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
 
-  <div class="card">
-    <p>Egemen AGI, çok sayıda otomatik stratejiyi önce demo hesaplarda ileri testten geçirip
-      yalnızca istikrarlı sonuç verenleri gerçek hesapta çalıştıran bir işlem sistemidir.</p>
-    <p>Gerçek hesabın güncel performansı bu sitede değil, bağımsız izleme sitesi
-      <strong>Myfxbook</strong>'ta canlı olarak yayınlanıyor. Bakiye, işlemler, kazanç ve düşüş
-      bilgilerinin hepsini orada görebilirsiniz.</p>
+<div class="wrap">
+  <header class="hero">
+    <svg class="logo" viewBox="0 0 48 48" aria-hidden="true">
+      <g class="spin"><polygon points="24,2 43,13 43,35 24,46 5,35 5,13" fill="none" stroke="#f5b301" stroke-width="2" stroke-dasharray="6 4"/></g>
+      <polygon points="24,12 34,18 34,30 24,36 14,30 14,18" fill="#f5b301"/>
+      <circle cx="24" cy="24" r="3.2" fill="#06080d"/>
+    </svg>
+    <span class="chip"><i></i>PYTHON · YAPAY ZEKÂ · 7/24</span>
+    <h1>EGEMEN AGI</h1>
+    <p class="lead">Python ve yapay zekâ ile çalışan <b>otomatik işlem sistemi</b>. Stratejiler makinede üretilir,
+      demo hesaplarda gerçek piyasa koşullarında sınanır; yalnızca istikrarlı olanlar gerçek hesaba geçer.</p>
 
     <a class="cta" href="https://www.myfxbook.com/members/mtumtu/aibee/12201664" rel="noopener">
       Canlı performansı Myfxbook'ta görün →
       <small>myfxbook.com/members/mtumtu/aibee/12201664</small>
     </a>
-    <p class="note">Bağlantı sizi Myfxbook sitesine götürür.</p>
+    <div class="cta-note">Gerçek hesabın bakiyesi, işlemleri ve sonuçları bağımsız izleme sitesi Myfxbook'ta canlı yayınlanır.</div>
+  </header>
 
-    <p class="en">Live account performance is published on Myfxbook — follow the link above.</p>
-  </div>
+  <section class="sec">
+    <div class="sec-head">
+      <div class="k">// kontrol odası</div>
+      <h2>Kod, model ve piyasa verisi aynı masada</h2>
+    </div>
+
+    <div class="room">
+      <div class="monitor">
+        <div class="screen">
+          <div class="bar"><i></i><i></i><i></i><span>strategy_lab.py</span></div>
+          <pre class="code" id="code"></pre>
+        </div>
+        <div class="stand"></div><div class="base"></div>
+      </div>
+      <div class="monitor">
+        <div class="screen">
+          <div class="bar"><i></i><i></i><i></i><span>market_feed</span></div>
+          <canvas id="candles"></canvas>
+          <div class="hud">M5 · ÇOKLU PARİTE</div>
+        </div>
+        <div class="stand"></div><div class="base"></div>
+      </div>
+      <div class="monitor">
+        <div class="screen">
+          <div class="bar"><i></i><i></i><i></i><span>neural_model</span></div>
+          <canvas id="brain"></canvas>
+          <div class="hud">MODEL EĞİTİMİ</div>
+        </div>
+        <div class="stand"></div><div class="base"></div>
+      </div>
+    </div>
+
+    <div class="servers" id="servers"></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head">
+      <div class="k">// nasıl çalışır</div>
+      <h2>Fikirden gerçek hesaba dört adım</h2>
+    </div>
+    <div class="flow">
+      <div class="step">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
+        <div class="n">01</div><h3>Veri</h3><p>Çok sayıda paritenin fiyat verisi sürekli toplanır ve temizlenir.</p>
+      </div>
+      <div class="step">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 11l3.5-4.5M7 13l3.5 4.5M14 6.5L17 11M14 17.5l3-4.5"/></svg>
+        <div class="n">02</div><h3>Üretim</h3><p>Python motorları ve yapay zekâ modelleri yeni strateji adayları üretir.</p>
+      </div>
+      <div class="step">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M6 12l3-3 3 2 5-4"/></svg>
+        <div class="n">03</div><h3>Demo ileri test</h3><p>Adaylar demo hesaplarda, gerçek piyasada canlı olarak sınanır.</p>
+      </div>
+      <div class="step">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        <div class="n">04</div><h3>Gerçek hesap</h3><p>Yalnızca istikrarlı sonuç verenler küçük ve eşit lotla gerçek hesaba geçer.</p>
+      </div>
+    </div>
+    <div class="pills">
+      <span class="pill"><b>Python</b> ile yazıldı</span>
+      <span class="pill"><b>Yapay zekâ</b> modelleri</span>
+      <span class="pill"><b>MetaTrader 5</b> bağlantısı</span>
+      <span class="pill"><b>7/24</b> otomatik</span>
+      <span class="pill"><b>Myfxbook</b> ile bağımsız takip</span>
+    </div>
+  </section>
+
+  <section class="final">
+    <h2>Sonuçları kendiniz görün</h2>
+    <p>Bu sayfada performans rakamı yayınlamıyoruz. Gerçek hesabın güncel ve eksiksiz kaydı Myfxbook'ta:
+      kazanan da kaybeden de her işlem orada.</p>
+    <a class="cta" href="https://www.myfxbook.com/members/mtumtu/aibee/12201664" rel="noopener">
+      Myfxbook'ta canlı takip →
+      <small>myfxbook.com/members/mtumtu/aibee/12201664</small>
+    </a>
+  </section>
 
   <footer>
-    <p>Kaldıraçlı döviz işlemleri yüksek risk içerir ve yatırılan paranın tamamı kaybedilebilir.
-      Bu sayfa yatırım tavsiyesi değildir.</p>
+    <p>Bu sayfadaki ekran, grafik ve sunucu görselleri temsilidir; gerçek performans verisi değildir.
+      Güncel ve gerçek sonuçlar yalnızca Myfxbook bağlantısındadır.</p>
+    <p>Kaldıraçlı döviz işlemleri yüksek risk içerir ve yatırılan paranın tamamı kaybedilebilir. Bu sayfa yatırım tavsiyesi değildir.</p>
     <p>© Egemen AGI</p>
   </footer>
-</main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+  function fit(cv) {
+    var r = cv.getBoundingClientRect();
+    cv.width = Math.max(1, Math.round(r.width * DPR));
+    cv.height = Math.max(1, Math.round(r.height * DPR));
+    var c = cv.getContext("2d"); c.setTransform(DPR, 0, 0, DPR, 0, 0);
+    return { c: c, w: r.width, h: r.height };
+  }
+
+  /* ---------- arka plan: sinir ağı ---------- */
+  var net = document.getElementById("net"), N, nodes = [];
+  function initNet() {
+    N = fit(net);
+    var count = Math.round(Math.min(90, N.w * N.h / 16000));
+    nodes = [];
+    for (var i = 0; i < count; i++) nodes.push({ x: Math.random() * N.w, y: Math.random() * N.h, vx: (Math.random() - .5) * .25, vy: (Math.random() - .5) * .25 });
+  }
+  function drawNet() {
+    var c = N.c; c.clearRect(0, 0, N.w, N.h);
+    for (var i = 0; i < nodes.length; i++) {
+      var a = nodes[i];
+      if (!reduce) { a.x += a.vx; a.y += a.vy; if (a.x < 0 || a.x > N.w) a.vx *= -1; if (a.y < 0 || a.y > N.h) a.vy *= -1; }
+      for (var j = i + 1; j < nodes.length; j++) {
+        var b = nodes[j], dx = a.x - b.x, dy = a.y - b.y, d = dx * dx + dy * dy;
+        if (d < 19000) { c.strokeStyle = "rgba(56,214,245," + (0.13 * (1 - d / 19000)).toFixed(3) + ")"; c.lineWidth = 1; c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke(); }
+      }
+      c.fillStyle = "rgba(120,200,255,.55)"; c.beginPath(); c.arc(a.x, a.y, 1.6, 0, 6.283); c.fill();
+    }
+  }
+
+  /* ---------- kod ekranı (temsili) ---------- */
+  var CODE = [
+    ['cm', '# strateji laboratuvarı — temsili kod'],
+    ['kw', 'import ', '', 'numpy ', 'kw', 'as ', '', 'np'],
+    ['kw', 'import ', '', 'pandas ', 'kw', 'as ', '', 'pd'],
+    ['kw', 'from ', '', 'lab ', 'kw', 'import ', '', 'Factory, ForwardTest'],
+    [''],
+    ['', 'data = ', 'fn', 'load_market', '', '(pairs, tf=', 'st', '"M5"', '', ')'],
+    ['', 'pool = ', 'fn', 'Factory', '', '(model=', 'st', '"neural"', '', ').', 'fn', 'generate', '', '()'],
+    [''],
+    ['kw', 'for ', '', 's ', 'kw', 'in ', '', 'pool:'],
+    ['', '    s.', 'fn', 'train', '', '(data.history)'],
+    ['', '    r = ', 'fn', 'ForwardTest', '', '(s).', 'fn', 'run', '', '(account=', 'st', '"demo"', '', ')'],
+    ['', '    ', 'kw', 'if ', '', 'r.', 'fn', 'stable', '', '():'],
+    ['', '        ', 'fn', 'promote', '', '(s, to=', 'st', '"live"', '', ')'],
+    [''],
+    ['cm', '# 7/24 döngü'],
+    ['kw', 'while ', 'nu', 'True', '', ':'],
+    ['', '    ', 'fn', 'step', '', '()']
+  ];
+  var codeEl = document.getElementById("code");
+  function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+  function lineHtml(parts, upto) {
+    var out = "", n = 0;
+    for (var i = 0; i < parts.length; i += 2) {
+      var cls = parts[i], txt = parts[i + 1] || "";
+      if (parts.length === 1) { cls = parts[0] === "" ? "" : parts[0]; txt = ""; }
+      var take = txt.slice(0, Math.max(0, upto - n)); n += txt.length;
+      if (take) out += cls ? '<span class="' + cls + '">' + esc(take) + "</span>" : esc(take);
+    }
+    return out;
+  }
+  function lineLen(parts) { var n = 0; for (var i = 1; i < parts.length; i += 2) n += (parts[i] || "").length; return n; }
+  /* her satır [sınıf, metin, sınıf, metin, ...]; [''] boş satır */
+  CODE = CODE.map(function (p) { return p.length === 1 ? ["", ""] : p; });
+  var li = 0, ci = 0, done = [];
+  function typeTick() {
+    if (li >= CODE.length) { setTimeout(function () { li = 0; ci = 0; done = []; typeTick(); }, 2600); return; }
+    var L = CODE[li], len = lineLen(L);
+    ci += 2;
+    var maxL = Math.max(4, Math.floor((codeEl.clientHeight - 20) / 17.8));   /* ekran dolunca yukarı kay */
+    var shown = done.slice(-(maxL - 1));
+    var html = shown.join("\n") + (shown.length ? "\n" : "") + lineHtml(L, ci) + '<span class="caret"></span>';
+    codeEl.innerHTML = html;
+    if (ci >= len) { done.push(lineHtml(L, len)); li++; ci = 0; setTimeout(typeTick, 160); }
+    else setTimeout(typeTick, 28);
+  }
+
+  /* ---------- mum grafiği (temsili, rastgele yürüyüş) ---------- */
+  var cv1 = document.getElementById("candles"), C1, bars = [], last = 100;
+  function newBar() {
+    var o = last, c = o + (Math.random() - .48) * 1.6, h = Math.max(o, c) + Math.random() * .9, l = Math.min(o, c) - Math.random() * .9;
+    last = c; return { o: o, c: c, h: h, l: l };
+  }
+  function initCandles() { C1 = fit(cv1); if (!bars.length) for (var i = 0; i < 46; i++) bars.push(newBar()); }
+  function drawCandles(t) {
+    var c = C1.c, w = C1.w, h = C1.h; c.clearRect(0, 0, w, h);
+    c.strokeStyle = "rgba(120,140,180,.10)"; c.lineWidth = 1;
+    for (var g = 1; g < 5; g++) { c.beginPath(); c.moveTo(0, h * g / 5); c.lineTo(w, h * g / 5); c.stroke(); }
+    var mn = Infinity, mx = -Infinity;
+    bars.forEach(function (b) { mn = Math.min(mn, b.l); mx = Math.max(mx, b.h); });
+    var pad = (mx - mn) * .12 || 1; mn -= pad; mx += pad;
+    function y(v) { return 10 + (mx - v) / (mx - mn) * (h - 34); }
+    var bw = w / bars.length;
+    var live = bars[bars.length - 1];
+    if (!reduce) { var wob = Math.sin(t / 380) * .35; live.c = live.o + (live.c - live.o) * .98 + wob * .05; live.h = Math.max(live.h, live.c); live.l = Math.min(live.l, live.c); }
+    /* hareketli ortalama */
+    c.strokeStyle = "rgba(245,179,1,.85)"; c.lineWidth = 1.6; c.beginPath();
+    bars.forEach(function (b, i) { var s = 0, k = 0; for (var j = Math.max(0, i - 8); j <= i; j++) { s += bars[j].c; k++; } var yy = y(s / k), xx = i * bw + bw / 2; i ? c.lineTo(xx, yy) : c.moveTo(xx, yy); });
+    c.stroke();
+    bars.forEach(function (b, i) {
+      var up = b.c >= b.o, col = up ? "#3987e5" : "#e66767", x = i * bw + bw / 2;
+      c.strokeStyle = col; c.lineWidth = 1; c.beginPath(); c.moveTo(x, y(b.h)); c.lineTo(x, y(b.l)); c.stroke();
+      c.fillStyle = col; var top = y(Math.max(b.o, b.c)), hh = Math.max(1.5, Math.abs(y(b.o) - y(b.c)));
+      c.fillRect(x - bw * .32, top, bw * .64, hh);
+    });
+    var ly = y(live.c);
+    c.setLineDash([3, 3]); c.strokeStyle = "rgba(56,214,245,.6)"; c.beginPath(); c.moveTo(0, ly); c.lineTo(w, ly); c.stroke(); c.setLineDash([]);
+  }
+  function stepCandles() { bars.shift(); bars.push(newBar()); }
+
+  /* ---------- sinir ağı ekranı + öğrenme eğrisi (temsili) ---------- */
+  var cv2 = document.getElementById("brain"), C2, layers = [4, 7, 7, 3], loss = [], lt = 0;
+  function initBrain() { C2 = fit(cv2); }
+  function drawBrain(t) {
+    var c = C2.c, w = C2.w, h = C2.h; c.clearRect(0, 0, w, h);
+    var top = 12, bot = h * .62, pts = [];
+    layers.forEach(function (n, li2) {
+      var x = 26 + li2 * (w - 52) / (layers.length - 1), arr = [];
+      for (var i = 0; i < n; i++) arr.push([x, top + (i + .5) * (bot - top) / n]);
+      pts.push(arr);
+    });
+    for (var l = 0; l < pts.length - 1; l++) pts[l].forEach(function (a, i) {
+      pts[l + 1].forEach(function (b, j) {
+        var pulse = (Math.sin(t / 500 + i * 1.3 + j * .7 + l) + 1) / 2;
+        c.strokeStyle = "rgba(56,214,245," + (0.05 + pulse * 0.22).toFixed(3) + ")"; c.lineWidth = 1;
+        c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke();
+      });
+    });
+    pts.forEach(function (arr, l) { arr.forEach(function (p, i) {
+      var on = (Math.sin(t / 420 + i + l * 2) + 1) / 2;
+      c.fillStyle = l === pts.length - 1 ? "rgba(245,179,1," + (0.5 + on * .5) + ")" : "rgba(120,200,255," + (0.45 + on * .55) + ")";
+      c.beginPath(); c.arc(p[0], p[1], 4, 0, 6.283); c.fill();
+    }); });
+    /* öğrenme eğrisi */
+    var y0 = h * .7, y1 = h - 28;
+    c.strokeStyle = "rgba(120,140,180,.18)"; c.beginPath(); c.moveTo(14, y1); c.lineTo(w - 14, y1); c.stroke();
+    if (loss.length > 1) {
+      c.strokeStyle = "#2fd28b"; c.lineWidth = 1.8; c.beginPath();
+      loss.forEach(function (v, i) { var x = 14 + i / 119 * (w - 28), yy = y0 + (1 - v) * (y1 - y0); i ? c.lineTo(x, yy) : c.moveTo(x, yy); });
+      c.stroke();
+    }
+  }
+  function stepLoss() {
+    if (loss.length >= 120) { loss = []; lt = 0; }
+    lt++; loss.push(Math.max(.04, Math.exp(-lt / 28) + (Math.random() - .5) * .06));
+  }
+
+  /* ---------- sunucu rafları ---------- */
+  var sv = document.getElementById("servers"), names = ["VERİ", "ÜRETİM", "TEST", "CANLI"], html = "";
+  names.forEach(function (n, k) {
+    html += '<div class="rack"><div class="rack-top"><b>NODE-0' + (k + 1) + '</b><span>' + n + '</span></div>';
+    for (var u = 0; u < 6; u++) {
+      var cls = ["", "b", "a"][(u + k) % 3];
+      html += '<div class="unit"><span class="led ' + cls + '" style="animation-delay:' + (Math.random() * 1.2).toFixed(2) + 's;animation-duration:' + (0.8 + Math.random() * 1.4).toFixed(2) + 's"></span>' +
+        '<span class="led" style="animation-delay:' + (Math.random() * 1.2).toFixed(2) + 's"></span><span class="vents"></span>' +
+        '<span class="act" style="--d:' + u + '"></span></div>';
+    }
+    html += "</div>";
+  });
+  sv.innerHTML = html;
+  Array.prototype.forEach.call(sv.querySelectorAll(".act"), function (e) { e.style.setProperty("animation-delay", (Math.random()).toFixed(2) + "s"); });
+
+  /* ---------- döngü ---------- */
+  function all() { initNet(); initCandles(); initBrain(); }
+  all();
+  for (var i = 0; i < 40; i++) stepLoss();
+  var acc = 0, prev = performance.now();
+  function frame(t) {
+    var dt = t - prev; prev = t; acc += dt;
+    if (acc > 900) { acc = 0; stepCandles(); stepLoss(); }
+    drawNet(); drawCandles(t); drawBrain(t);
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  if (reduce) { codeEl.innerHTML = CODE.map(function (L) { return lineHtml(L, lineLen(L)); }).join("\n"); }
+  else typeTick();
+  var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(all, 150); });
+})();
+</script>
 </body>
 </html>
