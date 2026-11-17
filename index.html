@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Egemen AGI</title>
-<meta name="description" content="Egemen AGI: yapay zekâ ile çalışan otomatik işlem sistemi. Gerçek hesap performansı Myfxbook'ta canlı yayınlanıyor.">
+<meta name="description" content="Egemen AGI: an automated trading system powered by AI. Real account performance is published live on Myfxbook.">
 <meta name="theme-color" content="#06080d">
 <style>
   :root {
@@ -202,12 +202,12 @@
 </style>
 </head>
 <body>
-<div class="music" id="music" role="group" aria-label="Arka plan müziği: BARS! Forex Savaş Marşı">
-  <button class="mbtn" id="mPlay" type="button" aria-pressed="false" aria-label="Marşı çal"></button>
+<div class="music" id="music" role="group" aria-label="Background music: BARS! Forex War March">
+  <button class="mbtn" id="mPlay" type="button" aria-pressed="false" aria-label="Play the march"></button>
   <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
   <span class="mlabel">BARS!</span>
-  <button class="mbtn ghost" id="mMute" type="button" aria-label="Sesi kapat"></button>
-  <input id="mVol" type="range" min="0" max="100" step="1" value="60" aria-label="Ses düzeyi">
+  <button class="mbtn ghost" id="mMute" type="button" aria-label="Mute"></button>
+  <input id="mVol" type="range" min="0" max="100" step="1" value="60" aria-label="Volume">
 </div>
 <canvas id="rockets" aria-hidden="true"></canvas>
 <canvas id="net" aria-hidden="true"></canvas>
@@ -221,29 +221,29 @@
       <polygon points="24,12 34,18 34,30 24,36 14,30 14,18" fill="#f5b301"/>
       <circle cx="24" cy="24" r="3.2" fill="#06080d"/>
     </svg>
-    <span class="chip"><i></i>YAPAY ZEKÂ · 7/24 OTOMATİK</span>
+    <span class="chip"><i></i>AI · 24/7 AUTOMATED</span>
     <h1>EGEMEN AGI</h1>
-    <p class="lead"><b>Yapay zekâ</b> ile çalışan otomatik işlem sistemi.</p>
+    <p class="lead">An automated trading system powered by <b>AI</b>.</p>
 
     <a class="cta" href="https://www.myfxbook.com/members/mtumtu/aibee/12201664" rel="noopener">
-      Canlı performansı Myfxbook'ta görün →
+      See live performance on Myfxbook →
       <small>myfxbook.com/members/mtumtu/aibee/12201664</small>
     </a>
-    <div class="cta-note">Gerçek hesabın bakiyesi, işlemleri ve sonuçları bağımsız izleme sitesi Myfxbook'ta canlı yayınlanır.</div>
+    <div class="cta-note">The real account's balance, trades and results are published live on Myfxbook, an independent tracking site.</div>
   </header>
 
   <section class="sec" id="mars">
     <div class="sec-head">
-      <div class="k">// savaş marşı</div>
-      <h2>BARS! — Forex Savaş Marşı</h2>
-      <p>Piyasa bir arena: boğalar yukarı, ayılar aşağı iter. Barlar yukarı aşağı yürür, oyunda kalan kazanır.</p>
+      <div class="k">// war march</div>
+      <h2>BARS! — Forex War March</h2>
+      <p>The market is an arena: bulls push up, bears push down. Bars march up and down, and whoever stays in the game wins.</p>
     </div>
     <div class="player">
       <audio controls loop preload="none" src="assets/bars-forex-savas-marsi.mp3">
-        Tarayıcınız ses oynatmayı desteklemiyor.
+        Your browser does not support audio playback.
       </audio>
       <details>
-        <summary>Sözler (İngilizce)</summary>
+        <summary>Lyrics</summary>
 <div class="lyrics">Attention, traders of Earth.
 The market is a battlefield.
 
@@ -282,15 +282,15 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
 <b><span class="g">BUY! — BUY!</span> — <span class="r">SELL! — SELL!</span> — moving up and down again!</b>
 <b>Who stays in the game will win the war!</b></div>
       </details>
-      <div class="credit">Müzik yapay zekâ ile üretildi. Sözler Rudyard Kipling'in "Boots" (1903) şiirinden uyarlanmıştır.
-        Davul ve bağırış kayıtları: Freesound (CC0).</div>
+      <div class="credit">Music generated with AI. Lyrics adapted from Rudyard Kipling's poem "Boots" (1903).
+        Drum and shout recordings: Freesound (CC0).</div>
     </div>
   </section>
 
   <section class="sec">
     <div class="sec-head">
-      <div class="k">// kontrol odası</div>
-      <h2>Yapay zekâ, piyasa verisi ve haber akışı aynı masada</h2>
+      <div class="k">// control room</div>
+      <h2>AI, market data and the news flow at one desk</h2>
     </div>
 
     <div class="room">
@@ -305,7 +305,7 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
         <div class="screen">
           <div class="bar"><i></i><i></i><i></i><span>market_feed</span></div>
           <canvas id="candles"></canvas>
-          <div class="hud">M5 · ÇOKLU PARİTE</div>
+          <div class="hud">M5 · MULTI-PAIR</div>
         </div>
         <div class="stand"></div><div class="base"></div>
       </div>
@@ -313,7 +313,7 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
         <div class="screen">
           <div class="bar"><i></i><i></i><i></i><span>neural_model</span></div>
           <canvas id="brain"></canvas>
-          <div class="hud">MODEL EĞİTİMİ</div>
+          <div class="hud">MODEL TRAINING</div>
         </div>
         <div class="stand"></div><div class="base"></div>
       </div>
@@ -324,37 +324,37 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
 
   <section class="sec">
     <div class="sec-head">
-      <div class="k">// sistem ağı</div>
-      <h2>Yüzlerce script, tek bir yapay zekâ ağı</h2>
-      <p>İleri backtestler, veri analizleri ve haber takibi yapan yüzlerce script birbirine bağlı
-        olarak 7/24 birlikte çalışır.</p>
+      <div class="k">// system network</div>
+      <h2>Hundreds of scripts, one AI network</h2>
+      <p>Hundreds of interconnected scripts running forward backtests, data analysis and news tracking
+        work together 24/7.</p>
     </div>
     <div class="mesh-card"><canvas id="mesh"></canvas></div>
     <div class="pills">
-      <span class="pill"><b>Yapay zekâ</b> çekirdeği</span>
-      <span class="pill"><b>İleri backtest</b></span>
-      <span class="pill"><b>Veri analizi</b></span>
-      <span class="pill"><b>Haber takibi</b></span>
-      <span class="pill"><b>Yüzlerce</b> bağlantılı script</span>
-      <span class="pill"><b>7/24</b> otomatik</span>
-      <span class="pill"><b>Myfxbook</b> ile bağımsız takip</span>
+      <span class="pill"><b>AI</b> core</span>
+      <span class="pill"><b>Forward backtest</b></span>
+      <span class="pill"><b>Data analysis</b></span>
+      <span class="pill"><b>News tracking</b></span>
+      <span class="pill"><b>Hundreds</b> of connected scripts</span>
+      <span class="pill"><b>24/7</b> automated</span>
+      <span class="pill">Independent tracking on <b>Myfxbook</b></span>
     </div>
   </section>
 
   <section class="final">
-    <h2>Sonuçları kendiniz görün</h2>
-    <p>Bu sayfada performans rakamı yayınlamıyoruz. Gerçek hesabın güncel ve eksiksiz kaydı Myfxbook'ta:
-      kazanan da kaybeden de her işlem orada.</p>
+    <h2>See the results for yourself</h2>
+    <p>We don't publish performance figures on this page. The real account's current, complete record is on Myfxbook:
+      every trade is there, winners and losers alike.</p>
     <a class="cta" href="https://www.myfxbook.com/members/mtumtu/aibee/12201664" rel="noopener">
-      Myfxbook'ta canlı takip →
+      Live tracking on Myfxbook →
       <small>myfxbook.com/members/mtumtu/aibee/12201664</small>
     </a>
   </section>
 
   <footer>
-    <p>Bu sayfadaki ekran, grafik ve sunucu görselleri temsilidir; gerçek performans verisi değildir.
-      Güncel ve gerçek sonuçlar yalnızca Myfxbook bağlantısındadır.</p>
-    <p>Kaldıraçlı döviz işlemleri yüksek risk içerir ve yatırılan paranın tamamı kaybedilebilir. Bu sayfa yatırım tavsiyesi değildir.</p>
+    <p>The screens, charts and server visuals on this page are illustrative, not real performance data.
+      Current, real results are only at the Myfxbook link.</p>
+    <p>Leveraged forex trading carries a high level of risk, and you can lose all of the money you invest. This page is not investment advice.</p>
     <p>© Egemen AGI</p>
   </footer>
 </div>
@@ -406,7 +406,7 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
   }
   function initRockets() {
     RK = fit(rk);
-    var max = Math.round(Math.min(16, Math.max(5, RK.w * RK.h / 90000)));
+    var max = Math.round(Math.min(28, Math.max(8, RK.w * RK.h / 50000)));
     rockets = []; sparks = []; nextClash = 0;
     for (var i = 0; i < max; i++) rockets.push(newRocket(true));
   }
@@ -432,7 +432,7 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
     var c = RK.c; c.clearRect(0, 0, RK.w, RK.h);
     if (!reduce) {
       if (!nextClash) nextClash = t + 3000;
-      if (t > nextClash) { spawnClash(); nextClash = t + 7000 + Math.random() * 5000; }
+      if (t > nextClash) { spawnClash(); nextClash = t + 5000 + Math.random() * 4000; }
     }
     for (var i = 0; i < rockets.length; i++) {
       var r = rockets[i];
@@ -471,7 +471,7 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
 
   /* ---------- kod ekranı (temsili) ---------- */
   var CODE = [
-    ['cm', '// yapay zekâ çekirdeği — temsili'],
+    ['cm', '// AI core — illustrative'],
     ['', 'ai = ', 'fn', 'Engine', '', '(mode=', 'st', '"neural"', '', ')'],
     [''],
     ['', 'ai.', 'fn', 'connect', '', '(market_data, news_feed)'],
@@ -481,7 +481,7 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
     [''],
     ['', 'signal = ai.', 'fn', 'decide', '', '()'],
     [''],
-    ['cm', '// yüzlerce modül, tek ağ · 7/24'],
+    ['cm', '// hundreds of modules, one network · 24/7'],
     ['kw', 'loop', '', '.', 'fn', 'forever', '', '(ai)']
   ];
   var codeEl = document.getElementById("code");
@@ -583,7 +583,7 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
   }
 
   /* ---------- sunucu rafları ---------- */
-  var sv = document.getElementById("servers"), names = ["VERİ ANALİZİ", "BACKTEST", "HABER", "YAPAY ZEKÂ"], html = "";
+  var sv = document.getElementById("servers"), names = ["DATA ANALYSIS", "BACKTEST", "NEWS", "AI"], html = "";
   names.forEach(function (n, k) {
     html += '<div class="rack"><div class="rack-top"><b>NODE-0' + (k + 1) + '</b><span>' + n + '</span></div>';
     for (var u = 0; u < 6; u++) {
@@ -599,7 +599,7 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
 
   /* ---------- sistem ağı (temsili) ---------- */
   var cvM = document.getElementById("mesh"), M, hubs = [], subs = [], pulses = [];
-  var HUBS = ["YAPAY ZEKÂ", "İLERİ BACKTEST", "VERİ ANALİZİ", "HABER TAKİBİ", "RİSK", "EMİR"];
+  var HUBS = ["AI", "FORWARD BACKTEST", "DATA ANALYSIS", "NEWS TRACKING", "RISK", "ORDERS"];
   function initMesh() {
     M = fit(cvM);
     var cx = M.w / 2, cy = M.h / 2, R = Math.min(M.w * .36, M.h * .34);
@@ -688,9 +688,9 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
       box.classList.toggle("on", on);
       bPlay.innerHTML = on ? PAUSE : PLAY;
       bPlay.setAttribute("aria-pressed", on ? "true" : "false");
-      bPlay.setAttribute("aria-label", on ? "Marşı durdur" : "Marşı çal");
+      bPlay.setAttribute("aria-label", on ? "Pause the march" : "Play the march");
       bMute.innerHTML = quiet ? MUTE : SPK;
-      bMute.setAttribute("aria-label", quiet ? "Sesi aç" : "Sesi kapat");
+      bMute.setAttribute("aria-label", quiet ? "Unmute" : "Mute");
       vol.value = Math.round((au.muted ? 0 : au.volume) * 100);
     }
     bPlay.addEventListener("click", function () { if (au.paused) au.play().catch(function () {}); else au.pause(); });
