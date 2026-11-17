@@ -111,20 +111,9 @@
   .screen canvas { display: block; width: 100%; height: calc(100% - 26px); }
   .hud { position: absolute; left: 10px; bottom: 8px; z-index: 2; font-family: var(--mono); font-size: 10.5px; color: var(--cyan); opacity: .85; letter-spacing: .08em; }
 
-  /* ---------- servers ---------- */
-  .servers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 26px; }
-  .rack { background: linear-gradient(180deg, #121826, #0b0f18); border: 1px solid #222a3b; border-radius: 10px; padding: 10px; box-shadow: 0 16px 40px rgba(0, 0, 0, .5); }
-  .rack-top { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 8px; }
-  .rack-top b { color: var(--text2); font-weight: 600; letter-spacing: .08em; }
-  .unit { display: flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; margin-bottom: 5px; border-radius: 4px;
-    background: linear-gradient(180deg, #192032, #121827); border: 1px solid #252e43; }
-  .unit:last-child { margin-bottom: 0; }
-  .led { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); animation: blink 1.2s infinite; }
-  .led.b { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
-  .led.a { background: var(--brand); box-shadow: 0 0 6px var(--brand); }
-  .vents { flex: 1; height: 8px; margin-left: 6px; background: repeating-linear-gradient(90deg, #2a3348 0 2px, transparent 2px 5px); border-radius: 2px; opacity: .7; }
-  .act { width: 34px; height: 4px; border-radius: 2px; background: #0b0f18; overflow: hidden; position: relative; }
-  .act::after { content: ""; position: absolute; inset: 0; width: 40%; background: var(--cyan); opacity: .8; animation: act 1.4s ease-in-out infinite; }
+  /* ---------- grafik + yapay sinir ağı ekranları ---------- */
+  .lab { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 30px; }
+  .lab .screen { height: 210px; }
 
   .mesh-card { position: relative; height: 420px; border-radius: 18px; overflow: hidden;
     background: radial-gradient(ellipse at 50% 50%, rgba(56, 214, 245, .06), rgba(10, 13, 20, .85) 70%);
@@ -179,16 +168,17 @@
   @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
   @keyframes spin { to { transform: rotate(360deg); } }
   @keyframes shine { 0%, 55% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
-  @keyframes act { 0% { transform: translateX(-100%); } 100% { transform: translateX(260%); } }
 
   @media (max-width: 980px) {
     .room { grid-template-columns: 1fr 1fr; }
     .room .monitor:first-child { grid-column: 1 / -1; }
-    .servers { grid-template-columns: repeat(2, 1fr); }
+    .lab { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 620px) {
     header.hero { padding-top: 64px; }
     .music { top: 8px; right: 8px; gap: 6px; padding-right: 10px; }
+    .lab { grid-template-columns: 1fr; }
+    .lab .screen { height: 190px; }
     .mlabel { display: none; }
     #mVol { width: 64px; }
     .room { grid-template-columns: 1fr; }
@@ -319,7 +309,14 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
       </div>
     </div>
 
-    <div class="servers" id="servers"></div>
+    <div class="lab">
+      <div class="screen"><div class="bar"><i></i><i></i><i></i><span>price_stream</span></div><canvas id="vStream"></canvas><div class="hud">TREND · MOVING AVERAGES</div></div>
+      <div class="screen"><div class="bar"><i></i><i></i><i></i><span>order_flow</span></div><canvas id="vFlow"></canvas><div class="hud">BUYERS VS SELLERS</div></div>
+      <div class="screen"><div class="bar"><i></i><i></i><i></i><span>correlation_map</span></div><canvas id="vHeat"></canvas><div class="hud">CORRELATION MAP</div></div>
+      <div class="screen"><div class="bar"><i></i><i></i><i></i><span>deep_network</span></div><canvas id="vDeep"></canvas><div class="hud">DEEP NEURAL NETWORK</div></div>
+      <div class="screen"><div class="bar"><i></i><i></i><i></i><span>attention_map</span></div><canvas id="vAttn"></canvas><div class="hud">ATTENTION WEIGHTS</div></div>
+      <div class="screen"><div class="bar"><i></i><i></i><i></i><span>neural_cloud</span></div><canvas id="vCloud"></canvas><div class="hud">NEURAL CLOUD</div></div>
+    </div>
   </section>
 
   <section class="sec">
@@ -406,7 +403,7 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
   }
   function initRockets() {
     RK = fit(rk);
-    var max = Math.round(Math.min(28, Math.max(8, RK.w * RK.h / 50000)));
+    var max = Math.round(Math.min(84, Math.max(24, RK.w * RK.h / 16700)));
     rockets = []; sparks = []; nextClash = 0;
     for (var i = 0; i < max; i++) rockets.push(newRocket(true));
   }
@@ -432,7 +429,7 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
     var c = RK.c; c.clearRect(0, 0, RK.w, RK.h);
     if (!reduce) {
       if (!nextClash) nextClash = t + 3000;
-      if (t > nextClash) { spawnClash(); nextClash = t + 5000 + Math.random() * 4000; }
+      if (t > nextClash) { spawnClash(); nextClash = t + 3000 + Math.random() * 2000; }
     }
     for (var i = 0; i < rockets.length; i++) {
       var r = rockets[i];
@@ -582,20 +579,173 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
     lt++; loss.push(Math.max(.04, Math.exp(-lt / 28) + (Math.random() - .5) * .06));
   }
 
-  /* ---------- sunucu rafları ---------- */
-  var sv = document.getElementById("servers"), names = ["DATA ANALYSIS", "BACKTEST", "NEWS", "AI"], html = "";
-  names.forEach(function (n, k) {
-    html += '<div class="rack"><div class="rack-top"><b>NODE-0' + (k + 1) + '</b><span>' + n + '</span></div>';
-    for (var u = 0; u < 6; u++) {
-      var cls = ["", "b", "a"][(u + k) % 3];
-      html += '<div class="unit"><span class="led ' + cls + '" style="animation-delay:' + (Math.random() * 1.2).toFixed(2) + 's;animation-duration:' + (0.8 + Math.random() * 1.4).toFixed(2) + 's"></span>' +
-        '<span class="led" style="animation-delay:' + (Math.random() * 1.2).toFixed(2) + 's"></span><span class="vents"></span>' +
-        '<span class="act" style="--d:' + u + '"></span></div>';
-    }
-    html += "</div>";
+  /* ---------- grafik + yapay sinir ağı ekranları (temsili: sayı, fiyat, parite adı YOK) ----------
+     her ekran yalnız görünürken çizilir (ziyaretçinin işlemcisini yormasın) */
+  var VIZ = [];
+  function viz(id, make) {
+    var cv = document.getElementById(id), v = make(cv); v.vis = true; VIZ.push(v);
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { v.vis = es[0].isIntersecting; }).observe(cv);
+  }
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+
+  /* fiyat akışı: çizgi + iki hareketli ortalama + altta yeşil/kırmızı histogram */
+  viz("vStream", function (cv) {
+    var S, p = [], x = 0, v = 0;
+    function step() { v += (Math.random() - .5) * .8 - v * .04; x += v * .15; p.push(x); if (p.length > 140) p.shift(); }
+    for (var i = 0; i < 140; i++) step();
+    function ma(n, i) { var s = 0, k = 0; for (var j = Math.max(0, i - n + 1); j <= i; j++) { s += p[j]; k++; } return s / k; }
+    return { init: function () { S = fit(cv); }, step: step, draw: function () {
+      var c = S.c, w = S.w, h = S.h, top = 10, bot = h * .56; c.clearRect(0, 0, w, h);
+      var mn = Math.min.apply(null, p), mx = Math.max.apply(null, p), pad = (mx - mn) * .1 || 1; mn -= pad; mx += pad;
+      function X(i) { return i / (p.length - 1) * w; } function Y(q) { return top + (mx - q) / (mx - mn) * (bot - top); }
+      c.strokeStyle = "rgba(120,140,180,.10)"; c.lineWidth = 1;
+      for (var g = 1; g < 4; g++) { var gy = top + (bot - top) * g / 4; c.beginPath(); c.moveTo(0, gy); c.lineTo(w, gy); c.stroke(); }
+      [[30, "rgba(57,135,229,.85)"], [10, "rgba(245,179,1,.9)"]].forEach(function (m) {
+        c.strokeStyle = m[1]; c.lineWidth = 1.4; c.beginPath();
+        for (var i = 0; i < p.length; i++) { var yy = Y(ma(m[0], i)); i ? c.lineTo(X(i), yy) : c.moveTo(X(i), yy); }
+        c.stroke();
+      });
+      c.strokeStyle = "#38d6f5"; c.lineWidth = 1.6; c.beginPath();
+      for (var i = 0; i < p.length; i++) i ? c.lineTo(X(i), Y(p[i])) : c.moveTo(X(i), Y(p[i]));
+      c.stroke();
+      var mid = h * .7, bw = w / p.length, ds = [], md = 1e-9;
+      for (var i = 0; i < p.length; i++) { var d = ma(10, i) - ma(30, i); ds.push(d); md = Math.max(md, Math.abs(d)); }
+      ds.forEach(function (d, i) {
+        var hh = Math.abs(d) / md * h * .1;
+        c.fillStyle = d >= 0 ? "rgba(47,210,139,.75)" : "rgba(230,103,103,.75)";
+        c.fillRect(i * bw, d >= 0 ? mid - hh : mid, Math.max(1, bw * .7), hh);
+      });
+    } };
   });
-  sv.innerHTML = html;
-  Array.prototype.forEach.call(sv.querySelectorAll(".act"), function (e) { e.style.setProperty("animation-delay", (Math.random()).toFixed(2) + "s"); });
+
+  /* alıcı-satıcı akışı: yukarı yeşil (alıcılar), aşağı kırmızı (satıcılar) */
+  viz("vFlow", function (cv) {
+    var S, cols = [], b = .5, s = .5;
+    function step() {
+      b = Math.min(1, Math.max(.08, b + (Math.random() - .5) * .28));
+      s = Math.min(1, Math.max(.08, s + (Math.random() - .5) * .28));
+      cols.push([b, s]); if (cols.length > 44) cols.shift();
+    }
+    for (var i = 0; i < 44; i++) step();
+    return { init: function () { S = fit(cv); }, step: step, draw: function (t) {
+      var c = S.c, w = S.w, h = S.h, mid = h * .44, bw = w / cols.length; c.clearRect(0, 0, w, h);
+      cols.forEach(function (q, i) {
+        var hb = q[0] * (mid - 10), hs = q[1] * (h - mid - 30), last = i === cols.length - 1;
+        c.fillStyle = "rgba(47,210,139," + (last ? .95 : .55) + ")"; c.fillRect(i * bw + 1, mid - hb, bw - 2, hb);
+        c.fillStyle = "rgba(230,103,103," + (last ? .95 : .55) + ")"; c.fillRect(i * bw + 1, mid + 1, bw - 2, hs);
+      });
+      c.setLineDash([3, 3]); c.strokeStyle = "rgba(245,179,1,.7)"; c.beginPath(); c.moveTo(0, mid); c.lineTo(w, mid); c.stroke(); c.setLineDash([]);
+    } };
+  });
+
+  /* korelasyon ısı haritası: yavaşça değişen yeşil/kırmızı hücreler */
+  viz("vHeat", function (cv) {
+    var S, N = 9, ph = [];
+    for (var k = 0; k < N * N; k++) ph.push([Math.random() * 6.283, rnd(.3, 1)]);
+    return { init: function () { S = fit(cv); }, draw: function (t) {
+      var c = S.c, w = S.w, h = S.h; c.clearRect(0, 0, w, h);
+      var cell = Math.min((w - 24) / N, (h - 36) / N), ox = (w - cell * N) / 2, oy = 6;
+      for (var i = 0; i < N; i++) for (var j = 0; j < N; j++) {
+        var k = Math.min(i, j) * N + Math.max(i, j);
+        var val = i === j ? 1 : Math.sin(t / 2600 * ph[k][1] + ph[k][0]);
+        c.fillStyle = val >= 0 ? "rgba(47,210,139," + (.12 + .7 * val).toFixed(3) + ")" : "rgba(230,103,103," + (.12 - .7 * val).toFixed(3) + ")";
+        c.fillRect(ox + j * cell + 1, oy + i * cell + 1, cell - 2, cell - 2);
+      }
+    } };
+  });
+
+  /* derin sinir ağı: katmanlardan akan sinyaller, uğradığı nöron parlar */
+  viz("vDeep", function (cv) {
+    var S, L = [4, 7, 9, 9, 7, 3], pts = [], hit = [], parts = [];
+    return { init: function () {
+      S = fit(cv); pts = []; hit = [];
+      L.forEach(function (n, l) {
+        var x = 18 + l * (S.w - 36) / (L.length - 1), arr = [];
+        for (var i = 0; i < n; i++) arr.push([x, 8 + (i + .5) * (S.h - 40) / n]);
+        pts.push(arr); hit.push(new Array(n).fill(-1e9));
+      });
+      parts = [];
+    }, draw: function (t) {
+      var c = S.c; c.clearRect(0, 0, S.w, S.h);
+      c.strokeStyle = "rgba(56,214,245,.07)"; c.lineWidth = 1;
+      for (var l = 0; l < pts.length - 1; l++) pts[l].forEach(function (a) { pts[l + 1].forEach(function (b) { c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke(); }); });
+      if (!reduce && Math.random() < .45 && parts.length < 40) parts.push({ l: 0, i: Math.floor(Math.random() * L[0]), j: Math.floor(Math.random() * L[1]), k: 0 });
+      parts = parts.filter(function (q) {
+        if (!reduce) q.k += .045;
+        if (q.k >= 1) {
+          hit[q.l + 1][q.j] = t;
+          if (q.l + 2 >= L.length) return false;
+          q.l++; q.i = q.j; q.j = Math.floor(Math.random() * L[q.l + 1]); q.k = 0;
+        }
+        var a = pts[q.l][q.i], b = pts[q.l + 1][q.j], x = a[0] + (b[0] - a[0]) * q.k, y = a[1] + (b[1] - a[1]) * q.k;
+        c.strokeStyle = "rgba(56,214,245,.28)"; c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke();
+        c.fillStyle = "rgba(160,230,255,.95)"; c.beginPath(); c.arc(x, y, 2, 0, 6.283); c.fill();
+        return true;
+      });
+      pts.forEach(function (arr, l) { arr.forEach(function (p, i) {
+        var g = Math.exp(-(t - hit[l][i]) / 350), out = l === pts.length - 1;
+        c.fillStyle = out ? "rgba(245,179,1," + (.45 + .55 * g).toFixed(3) + ")" : "rgba(120,200,255," + (.35 + .65 * g).toFixed(3) + ")";
+        c.beginPath(); c.arc(p[0], p[1], 3.2 + 2 * g, 0, 6.283); c.fill();
+      }); });
+    } };
+  });
+
+  /* dikkat (attention) matrisi: her satır bir olasılık dağılımı, sorgu satırı aşağı süzülür */
+  viz("vAttn", function (cv) {
+    var S, N = 12, W = [];
+    function row(i) {
+      var z = [], s = 0, m = 0;
+      for (var j = 0; j < N; j++) { var e = Math.exp(-Math.pow((j - i) / rnd(1.2, 3.5), 2) + rnd(0, 1.6)); z.push(e); s += e; }
+      return z.map(function (e) { var q = e / s; m = Math.max(m, q); return q; }).map(function (q, _, a) { return q / Math.max.apply(null, a); });
+    }
+    for (var i = 0; i < N; i++) W.push(row(i));
+    return { init: function () { S = fit(cv); }, step: function () { var i = Math.floor(Math.random() * N); W[i] = row(i); }, draw: function (t) {
+      var c = S.c, w = S.w, h = S.h; c.clearRect(0, 0, w, h);
+      var cell = Math.min((w - 24) / N, (h - 36) / N), ox = (w - cell * N) / 2, oy = 6, q = Math.floor(t / 420) % N;
+      for (var i = 0; i < N; i++) for (var j = 0; j < N; j++) {
+        var a = W[i][j] * (i === q ? 1 : .55);
+        c.fillStyle = i === q ? "rgba(245,179,1," + (.1 + .85 * a).toFixed(3) + ")" : "rgba(56,214,245," + (.06 + .7 * a).toFixed(3) + ")";
+        c.fillRect(ox + j * cell + 1, oy + i * cell + 1, cell - 2, cell - 2);
+      }
+      c.strokeStyle = "rgba(245,179,1,.8)"; c.lineWidth = 1; c.strokeRect(ox + .5, oy + q * cell + .5, cell * N - 1, cell - 1);
+    } };
+  });
+
+  /* nöron bulutu: dönen 3B nöron kümesi, ara sıra ateşlenen nöronlar */
+  viz("vCloud", function (cv) {
+    var S, P = [], E = [], fire = {};
+    var n = 80, ga = Math.PI * (3 - Math.sqrt(5));
+    for (var i = 0; i < n; i++) {
+      var y = 1 - (i / (n - 1)) * 2, r = Math.sqrt(1 - y * y) * rnd(.85, 1.05), th = ga * i;
+      P.push([Math.cos(th) * r, y * rnd(.9, 1.05), Math.sin(th) * r]);
+    }
+    P.forEach(function (a, i) {
+      var d = P.map(function (b, j) { return [(a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1]) + (a[2] - b[2]) * (a[2] - b[2]), j]; })
+        .sort(function (u, v2) { return u[0] - v2[0]; });
+      for (var k = 1; k <= 3; k++) if (d[k][1] > i) E.push([i, d[k][1]]);
+    });
+    return { init: function () { S = fit(cv); }, draw: function (t) {
+      var c = S.c, w = S.w, h = S.h; c.clearRect(0, 0, w, h);
+      var ay = t / 6000, ax = .45 * Math.sin(t / 9000), R = Math.min(w, h - 22) * .42, cx = w / 2, cy = (h - 18) / 2 + 2;
+      if (!reduce && Math.random() < .08) fire[Math.floor(Math.random() * n)] = t;
+      var Q = P.map(function (p) {
+        var x = p[0] * Math.cos(ay) + p[2] * Math.sin(ay), z = -p[0] * Math.sin(ay) + p[2] * Math.cos(ay);
+        var y = p[1] * Math.cos(ax) - z * Math.sin(ax); z = p[1] * Math.sin(ax) + z * Math.cos(ax);
+        var s = 2.6 / (2.6 + z); return [cx + x * R * s, cy + y * R * s, z, s];
+      });
+      E.forEach(function (e) {
+        var a = Q[e[0]], b = Q[e[1]], f = Math.max(fire[e[0]] ? Math.exp(-(t - fire[e[0]]) / 500) : 0, fire[e[1]] ? Math.exp(-(t - fire[e[1]]) / 500) : 0);
+        var dz = (2 - (a[2] + b[2]) / 2) / 3;
+        c.strokeStyle = f > .05 ? "rgba(245,179,1," + (.2 + .6 * f).toFixed(3) + ")" : "rgba(56,214,245," + (.05 + .2 * dz).toFixed(3) + ")";
+        c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke();
+      });
+      Q.forEach(function (q, i) {
+        var f = fire[i] ? Math.exp(-(t - fire[i]) / 500) : 0, dz = (1 - q[2]) / 2;
+        c.fillStyle = f > .05 ? "rgba(245,179,1," + (.5 + .5 * f).toFixed(3) + ")" : "rgba(140,210,255," + (.25 + .6 * dz).toFixed(3) + ")";
+        c.beginPath(); c.arc(q[0], q[1], (1.4 + 1.6 * dz) * q[3] + 2 * f, 0, 6.283); c.fill();
+      });
+    } };
+  });
 
   /* ---------- sistem ağı (temsili) ---------- */
   var cvM = document.getElementById("mesh"), M, hubs = [], subs = [], pulses = [];
@@ -716,14 +866,16 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
   })();
 
   /* ---------- döngü ---------- */
-  function all() { initRockets(); initNet(); initCandles(); initBrain(); initMesh(); }
+  function all() { initRockets(); initNet(); initCandles(); initBrain(); initMesh(); VIZ.forEach(function (v) { v.init(); }); }
   all();
   for (var i = 0; i < 40; i++) stepLoss();
-  var acc = 0, prev = performance.now();
+  var acc = 0, vacc = 0, prev = performance.now();
   function frame(t) {
-    var dt = t - prev; prev = t; acc += dt;
+    var dt = t - prev; prev = t; acc += dt; vacc += dt;
     if (acc > 900) { acc = 0; stepCandles(); stepLoss(); }
+    if (vacc > 140) { vacc = 0; VIZ.forEach(function (v) { if (v.step) v.step(); }); }
     drawRockets(t); drawNet(); drawCandles(t); drawBrain(t); drawMesh(t);
+    VIZ.forEach(function (v) { if (v.vis) v.draw(t); });
     if (!reduce) requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
