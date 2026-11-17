@@ -4,97 +4,119 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Egemen AGI</title>
-<meta name="description" content="Egemen AGI: gerçek hesapta çalışan otomatik işlem sisteminin ölçülmüş, canlı performansı.">
+<meta name="description" content="Egemen AGI otomatik işlem sisteminin gerçek hesap performansı Myfxbook'ta canlı olarak yayınlanıyor.">
 <meta name="theme-color" content="#0b0d12">
-<link rel="stylesheet" href="style.css?v=927edc25">
+<style>
+  :root {
+    --bg: #0b0d12;
+    --panel: #12151d;
+    --line: #232838;
+    --text: #e9ebf1;
+    --text2: #b7bccb;
+    --muted: #828aa0;
+    --brand: #f5b301;
+    --brand-ink: #1a1300;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f4f5f8;
+      --panel: #ffffff;
+      --line: #e2e5ec;
+      --text: #12151d;
+      --text2: #3d4354;
+      --muted: #646b7e;
+      --brand: #f5b301;
+      --brand-ink: #1a1300;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(800px 500px at 50% -10%, color-mix(in srgb, var(--brand) 12%, transparent), transparent 70%);
+  }
+  main { width: 100%; max-width: 640px; text-align: center; }
+  .logo { width: 64px; height: 64px; margin: 0 auto 14px; display: block; }
+  h1 { margin: 0; font-size: 30px; letter-spacing: .16em; font-weight: 750; }
+  .tag { color: var(--muted); font-size: 14px; margin: 4px 0 28px; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px 24px;
+  }
+  .card p { margin: 0 0 14px; color: var(--text2); font-size: 16px; }
+  .card p strong { color: var(--text); }
+  .cta {
+    display: block;
+    margin: 24px 0 10px;
+    padding: 20px 22px;
+    border-radius: 14px;
+    background: var(--brand);
+    color: var(--brand-ink);
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 750;
+    letter-spacing: .01em;
+    box-shadow: 0 10px 30px color-mix(in srgb, var(--brand) 30%, transparent);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .cta:hover, .cta:focus-visible { transform: translateY(-2px); box-shadow: 0 14px 36px color-mix(in srgb, var(--brand) 40%, transparent); }
+  .cta:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+  .cta small { display: block; font-size: 13px; font-weight: 500; opacity: .8; margin-top: 4px; word-break: break-all; }
+  .note { color: var(--muted); font-size: 13px; margin: 0; }
+  .en { color: var(--muted); font-size: 13px; margin-top: 18px; }
+  footer { color: var(--muted); font-size: 12px; margin-top: 28px; }
+  footer p { margin: 4px 0; }
+  @media (max-width: 480px) {
+    h1 { font-size: 24px; }
+    .cta { font-size: 19px; padding: 18px 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .cta { transition: none; } }
+</style>
 </head>
 <body>
-<div class="wrap">
+<main>
+  <svg class="logo" viewBox="0 0 48 48" aria-hidden="true">
+    <polygon points="24,3 42,13.5 42,34.5 24,45 6,34.5 6,13.5" fill="none" stroke="#f5b301" stroke-width="3"/>
+    <polygon points="24,14 33,19 33,29 24,34 15,29 15,19" fill="#f5b301" opacity=".85"/>
+  </svg>
+  <h1>EGEMEN AGI</h1>
+  <p class="tag">Otomatik işlem sistemi</p>
 
-  <header class="top">
-    <div class="brand">
-      <span class="logo" aria-hidden="true">⬡</span>
-      <div>
-        <h1>EGEMEN AGI</h1>
-        <small>Gerçek hesap · canlı sistem performansı</small>
-      </div>
-    </div>
-    <div class="sync">
-      <span class="dot" id="syncDot"></span>güncellendi <b id="lastUpdated">—</b>
-      <div class="stale" id="staleNote" hidden></div>
-    </div>
-  </header>
+  <div class="card">
+    <p>Egemen AGI, çok sayıda otomatik stratejiyi önce demo hesaplarda ileri testten geçirip
+      yalnızca istikrarlı sonuç verenleri gerçek hesapta çalıştıran bir işlem sistemidir.</p>
+    <p>Gerçek hesabın güncel performansı bu sitede değil, bağımsız izleme sitesi
+      <strong>Myfxbook</strong>'ta canlı olarak yayınlanıyor. Bakiye, işlemler, kazanç ve düşüş
+      bilgilerinin hepsini orada görebilirsiniz.</p>
 
-  <section class="notice" id="emptyNote" hidden>
-    <div class="notice-title" id="emptyTitle">Kayıt yakında başlıyor</div>
-    <p id="emptyText"></p>
-  </section>
+    <a class="cta" href="https://www.myfxbook.com/members/mtumtu/aibee/12201664" rel="noopener">
+      Canlı performansı Myfxbook'ta görün →
+      <small>myfxbook.com/members/mtumtu/aibee/12201664</small>
+    </a>
+    <p class="note">Bağlantı sizi Myfxbook sitesine götürür.</p>
 
-  <section class="hero">
-    <div class="card hero-main">
-      <div class="lbl">Sistem net kâr/zarar</div>
-      <div class="big" id="heroNet">—</div>
-      <div class="sub" id="heroSub">—</div>
-      <svg id="heroSpark" class="spark" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"></svg>
-    </div>
-    <div class="card hero-acc">
-      <div class="lbl">Hesap</div>
-      <div class="acc-row"><span>Bakiye</span><b id="accBalance">—</b></div>
-      <div class="acc-row"><span>Varlık</span><b id="accEquity">—</b></div>
-      <div class="acc-row"><span>Açık pozisyon</span><b id="accOpen">—</b></div>
-      <p class="fine">Hesap rakamları yatırılan parayı ve hesap sahibinin elle açtığı işlemleri de içerir.
-        "Sistem net kâr/zarar" ise yalnızca sistemin kapattığı işlemlerden hesaplanır.</p>
-    </div>
-  </section>
-
-  <section class="stats" id="stats"></section>
-
-  <section class="card block">
-    <div class="block-head">
-      <h2>Kümülatif net</h2>
-      <span class="hint">gün sonu toplamı · çubuk = o günün neti</span>
-    </div>
-    <div id="chartBox" class="chart-box"></div>
-  </section>
-
-  <div class="grid2">
-    <section class="card block">
-      <div class="block-head"><h2>Stratejiler</h2><span class="hint">takma adlarla</span></div>
-      <div id="stratBox"></div>
-    </section>
-    <section class="card block">
-      <div class="block-head"><h2>Pariteler</h2></div>
-      <div id="pairBox"></div>
-    </section>
+    <p class="en">Live account performance is published on Myfxbook — follow the link above.</p>
   </div>
 
-  <section class="card block">
-    <div class="block-head"><h2>Son kapanan işlemler</h2><span class="hint">sunucu saati</span></div>
-    <div id="tradeBox"></div>
-  </section>
-
-  <section class="card block">
-    <div class="block-head"><h2>Aylık</h2></div>
-    <div id="monthBox"></div>
-  </section>
-
-  <section class="card block about">
-    <h2>Nasıl çalışır</h2>
-    <p>Çok sayıda otomatik strateji önce demo hesaplarda, gerçek piyasa koşullarında ileri testten geçer.
-      Gerçek hesaba yalnızca bu testte istikrarlı sonuç verenler, küçük ve eşit lotla alınır.
-      Her stratejinin kalıcı bir takma adı vardır (<code>SOV-xxxx</code>): aynı stratejiyi günler boyunca
-      izleyebilirsiniz.</p>
-    <p>Bu sayfadaki her sayı gerçek hesaptaki kapanmış işlemlerden ölçülür. Tahmin, simülasyon ya da
-      seçilmiş sonuç yoktur; kaybeden işlemler de gösterilir.</p>
-  </section>
-
-  <footer class="foot">
-    <p id="disclaimer"></p>
+  <footer>
     <p>Kaldıraçlı döviz işlemleri yüksek risk içerir ve yatırılan paranın tamamı kaybedilebilir.
       Bu sayfa yatırım tavsiyesi değildir.</p>
-    <p class="muted">© Egemen AGI</p>
+    <p>© Egemen AGI</p>
   </footer>
-</div>
-<script src="app.js?v=e964a1c2"></script>
+</main>
 </body>
 </html>
