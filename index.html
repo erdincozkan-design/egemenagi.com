@@ -113,7 +113,18 @@
 
   /* ---------- grafik + yapay sinir ağı ekranları ---------- */
   .lab { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 30px; }
-  .lab .screen { height: 210px; }
+  .lab .screen { height: 230px; border-radius: 0; border: 1px solid rgba(56, 214, 245, .32);
+    background: radial-gradient(ellipse at 50% 35%, #0a1626 0%, #060a12 72%);
+    box-shadow: inset 0 0 42px rgba(56, 214, 245, .08), inset 0 0 0 1px rgba(56, 214, 245, .06);
+    clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px); }
+  .lab .screen::after { background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0, 0, 0, .5)); }
+  .bar.hb { background: linear-gradient(90deg, rgba(56, 214, 245, .16), rgba(56, 214, 245, .03) 60%, transparent);
+    border-bottom: 1px solid rgba(56, 214, 245, .25); color: var(--cyan); font-size: 10.5px; letter-spacing: .16em; }
+  .bar.hb span { margin-left: 6px; color: #d6f3ff; }
+  .bar.hb em { margin-left: auto; font-style: normal; color: rgba(56, 214, 245, .65); letter-spacing: .12em; }
+  .bar.hb .pip { width: 6px; height: 6px; border-radius: 0; background: var(--green); box-shadow: 0 0 6px var(--green);
+    transform: rotate(45deg); animation: blink 1.4s infinite; }
+  .lab .hud { color: rgba(170, 235, 255, .9); font-size: 10px; letter-spacing: .14em; }
 
   .mesh-card { position: relative; height: 420px; border-radius: 18px; overflow: hidden;
     background: radial-gradient(ellipse at 50% 50%, rgba(56, 214, 245, .06), rgba(10, 13, 20, .85) 70%);
@@ -178,7 +189,7 @@
     header.hero { padding-top: 64px; }
     .music { top: 8px; right: 8px; gap: 6px; padding-right: 10px; }
     .lab { grid-template-columns: 1fr; }
-    .lab .screen { height: 190px; }
+    .lab .screen { height: 215px; }
     .mlabel { display: none; }
     #mVol { width: 64px; }
     .room { grid-template-columns: 1fr; }
@@ -310,12 +321,12 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
     </div>
 
     <div class="lab">
-      <div class="screen"><div class="bar"><i></i><i></i><i></i><span>price_stream</span></div><canvas id="vStream"></canvas><div class="hud">TREND · MOVING AVERAGES</div></div>
-      <div class="screen"><div class="bar"><i></i><i></i><i></i><span>order_flow</span></div><canvas id="vFlow"></canvas><div class="hud">BUYERS VS SELLERS</div></div>
-      <div class="screen"><div class="bar"><i></i><i></i><i></i><span>correlation_map</span></div><canvas id="vHeat"></canvas><div class="hud">CORRELATION MAP</div></div>
-      <div class="screen"><div class="bar"><i></i><i></i><i></i><span>deep_network</span></div><canvas id="vDeep"></canvas><div class="hud">DEEP NEURAL NETWORK</div></div>
-      <div class="screen"><div class="bar"><i></i><i></i><i></i><span>attention_map</span></div><canvas id="vAttn"></canvas><div class="hud">ATTENTION WEIGHTS</div></div>
-      <div class="screen"><div class="bar"><i></i><i></i><i></i><span>neural_cloud</span></div><canvas id="vCloud"></canvas><div class="hud">NEURAL CLOUD</div></div>
+      <div class="screen"><div class="bar hb"><i class="pip"></i><span>TRAJECTORY</span><em>TLM-01</em></div><canvas id="vStream"></canvas><div class="hud">&#9656; PRICE VECTOR · MA ENVELOPE</div></div>
+      <div class="screen"><div class="bar hb"><i class="pip"></i><span>FLUX ANALYZER</span><em>FLX-02</em></div><canvas id="vFlow"></canvas><div class="hud">&#9656; BUYERS VS SELLERS</div></div>
+      <div class="screen"><div class="bar hb"><i class="pip"></i><span>MATRIX SCAN</span><em>MTX-03</em></div><canvas id="vHeat"></canvas><div class="hud">&#9656; CORRELATION FIELD</div></div>
+      <div class="screen"><div class="bar hb"><i class="pip"></i><span>NEURAL CORE</span><em>NRL-04</em></div><canvas id="vDeep"></canvas><div class="hud">&#9656; DEEP NETWORK · 6 LAYERS</div></div>
+      <div class="screen"><div class="bar hb"><i class="pip"></i><span>ATTENTION ARRAY</span><em>ATN-05</em></div><canvas id="vAttn"></canvas><div class="hud">&#9656; ATTENTION WEIGHTS</div></div>
+      <div class="screen"><div class="bar hb"><i class="pip"></i><span>HOLO SPHERE</span><em>HLO-06</em></div><canvas id="vCloud"></canvas><div class="hud">&#9656; NEURAL CLOUD</div></div>
     </div>
   </section>
 
@@ -579,171 +590,330 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
     lt++; loss.push(Math.max(.04, Math.exp(-lt / 28) + (Math.random() - .5) * .06));
   }
 
-  /* ---------- grafik + yapay sinir ağı ekranları (temsili: sayı, fiyat, parite adı YOK) ----------
-     her ekran yalnız görünürken çizilir (ziyaretçinin işlemcisini yormasın) */
-  var VIZ = [];
+  /* ---------- uzay gemisi konsolu: grafik + yapay sinir ağı ekranları ----------
+     temsili: fiyat, performans, parite adı YOK; yalnız HUD kodları. Her ekran yalnız görünürken çizilir. */
+  var VIZ = [], MONO = 'ui-monospace, "SFMono-Regular", Consolas, monospace';
   function viz(id, make) {
     var cv = document.getElementById(id), v = make(cv); v.vis = true; VIZ.push(v);
     if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { v.vis = es[0].isIntersecting; }).observe(cv);
   }
   function rnd(a, b) { return a + Math.random() * (b - a); }
+  function layer(w, h, paint) {                     /* statik katman (ızgara, çerçeve, bağlantılar) bir kez çizilir */
+    var o = document.createElement("canvas");
+    o.width = Math.max(1, Math.round(w * DPR)); o.height = Math.max(1, Math.round(h * DPR));
+    var c = o.getContext("2d"); c.setTransform(DPR, 0, 0, DPR, 0, 0); paint(c, w, h); return o;
+  }
+  function hudBase(c, w, h, step) {
+    step = step || 16;
+    c.strokeStyle = "rgba(56,214,245,.045)"; c.lineWidth = 1;
+    for (var x = step; x < w; x += step) { c.beginPath(); c.moveTo(x + .5, 0); c.lineTo(x + .5, h); c.stroke(); }
+    for (var y = step; y < h; y += step) { c.beginPath(); c.moveTo(0, y + .5); c.lineTo(w, y + .5); c.stroke(); }
+    c.strokeStyle = "rgba(56,214,245,.65)"; c.lineWidth = 1.2;
+    var L = 11, m = 4.5;
+    [[m, m, 1, 1], [w - m, m, -1, 1], [m, h - m, 1, -1], [w - m, h - m, -1, -1]].forEach(function (q) {
+      c.beginPath(); c.moveTo(q[0], q[1] + L * q[3]); c.lineTo(q[0], q[1]); c.lineTo(q[0] + L * q[2], q[1]); c.stroke();
+    });
+    c.strokeStyle = "rgba(56,214,245,.32)"; c.lineWidth = 1;
+    for (var y2 = 18, k = 0; y2 < h - 28; y2 += 5, k++) { var len = k % 5 === 0 ? 7 : 3; c.beginPath(); c.moveTo(w - 3, y2 + .5); c.lineTo(w - 3 - len, y2 + .5); c.stroke(); }
+    for (var x2 = 20, k2 = 0; x2 < w - 20; x2 += 5, k2++) { var l2 = k2 % 5 === 0 ? 5 : 2; c.beginPath(); c.moveTo(x2 + .5, 2); c.lineTo(x2 + .5, 2 + l2); c.stroke(); }
+  }
+  function glow(c, col, width, blur) { c.strokeStyle = col; c.lineWidth = width; c.shadowColor = col; c.shadowBlur = blur; }
+  function noGlow(c) { c.shadowBlur = 0; c.lineWidth = 1; }
+  function poly(c, xs, ys) { c.beginPath(); for (var i = 0; i < xs.length; i++) i ? c.lineTo(xs[i], ys[i]) : c.moveTo(xs[i], ys[i]); }
 
-  /* fiyat akışı: çizgi + iki hareketli ortalama + altta yeşil/kırmızı histogram */
+  /* TRAJECTORY: fiyat vektörü, hareketli ortalama zarfı, hedef retikülü, tarama çizgisi, osiloskop */
   viz("vStream", function (cv) {
-    var S, p = [], x = 0, v = 0;
-    function step() { v += (Math.random() - .5) * .8 - v * .04; x += v * .15; p.push(x); if (p.length > 140) p.shift(); }
-    for (var i = 0; i < 140; i++) step();
+    var S, B, p = [], x = 0, v = 0, N = 150;
+    function step() { v += (Math.random() - .5) * .8 - v * .04; x += v * .15; p.push(x); if (p.length > N) p.shift(); }
+    for (var i = 0; i < N; i++) step();
     function ma(n, i) { var s = 0, k = 0; for (var j = Math.max(0, i - n + 1); j <= i; j++) { s += p[j]; k++; } return s / k; }
-    return { init: function () { S = fit(cv); }, step: step, draw: function () {
-      var c = S.c, w = S.w, h = S.h, top = 10, bot = h * .56; c.clearRect(0, 0, w, h);
-      var mn = Math.min.apply(null, p), mx = Math.max.apply(null, p), pad = (mx - mn) * .1 || 1; mn -= pad; mx += pad;
-      function X(i) { return i / (p.length - 1) * w; } function Y(q) { return top + (mx - q) / (mx - mn) * (bot - top); }
-      c.strokeStyle = "rgba(120,140,180,.10)"; c.lineWidth = 1;
-      for (var g = 1; g < 4; g++) { var gy = top + (bot - top) * g / 4; c.beginPath(); c.moveTo(0, gy); c.lineTo(w, gy); c.stroke(); }
-      [[30, "rgba(57,135,229,.85)"], [10, "rgba(245,179,1,.9)"]].forEach(function (m) {
-        c.strokeStyle = m[1]; c.lineWidth = 1.4; c.beginPath();
-        for (var i = 0; i < p.length; i++) { var yy = Y(ma(m[0], i)); i ? c.lineTo(X(i), yy) : c.moveTo(X(i), yy); }
-        c.stroke();
-      });
-      c.strokeStyle = "#38d6f5"; c.lineWidth = 1.6; c.beginPath();
-      for (var i = 0; i < p.length; i++) i ? c.lineTo(X(i), Y(p[i])) : c.moveTo(X(i), Y(p[i]));
-      c.stroke();
-      var mid = h * .7, bw = w / p.length, ds = [], md = 1e-9;
-      for (var i = 0; i < p.length; i++) { var d = ma(10, i) - ma(30, i); ds.push(d); md = Math.max(md, Math.abs(d)); }
-      ds.forEach(function (d, i) {
-        var hh = Math.abs(d) / md * h * .1;
-        c.fillStyle = d >= 0 ? "rgba(47,210,139,.75)" : "rgba(230,103,103,.75)";
-        c.fillRect(i * bw, d >= 0 ? mid - hh : mid, Math.max(1, bw * .7), hh);
-      });
-    } };
-  });
-
-  /* alıcı-satıcı akışı: yukarı yeşil (alıcılar), aşağı kırmızı (satıcılar) */
-  viz("vFlow", function (cv) {
-    var S, cols = [], b = .5, s = .5;
-    function step() {
-      b = Math.min(1, Math.max(.08, b + (Math.random() - .5) * .28));
-      s = Math.min(1, Math.max(.08, s + (Math.random() - .5) * .28));
-      cols.push([b, s]); if (cols.length > 44) cols.shift();
-    }
-    for (var i = 0; i < 44; i++) step();
-    return { init: function () { S = fit(cv); }, step: step, draw: function (t) {
-      var c = S.c, w = S.w, h = S.h, mid = h * .44, bw = w / cols.length; c.clearRect(0, 0, w, h);
-      cols.forEach(function (q, i) {
-        var hb = q[0] * (mid - 10), hs = q[1] * (h - mid - 30), last = i === cols.length - 1;
-        c.fillStyle = "rgba(47,210,139," + (last ? .95 : .55) + ")"; c.fillRect(i * bw + 1, mid - hb, bw - 2, hb);
-        c.fillStyle = "rgba(230,103,103," + (last ? .95 : .55) + ")"; c.fillRect(i * bw + 1, mid + 1, bw - 2, hs);
-      });
-      c.setLineDash([3, 3]); c.strokeStyle = "rgba(245,179,1,.7)"; c.beginPath(); c.moveTo(0, mid); c.lineTo(w, mid); c.stroke(); c.setLineDash([]);
-    } };
-  });
-
-  /* korelasyon ısı haritası: yavaşça değişen yeşil/kırmızı hücreler */
-  viz("vHeat", function (cv) {
-    var S, N = 9, ph = [];
-    for (var k = 0; k < N * N; k++) ph.push([Math.random() * 6.283, rnd(.3, 1)]);
-    return { init: function () { S = fit(cv); }, draw: function (t) {
-      var c = S.c, w = S.w, h = S.h; c.clearRect(0, 0, w, h);
-      var cell = Math.min((w - 24) / N, (h - 36) / N), ox = (w - cell * N) / 2, oy = 6;
-      for (var i = 0; i < N; i++) for (var j = 0; j < N; j++) {
-        var k = Math.min(i, j) * N + Math.max(i, j);
-        var val = i === j ? 1 : Math.sin(t / 2600 * ph[k][1] + ph[k][0]);
-        c.fillStyle = val >= 0 ? "rgba(47,210,139," + (.12 + .7 * val).toFixed(3) + ")" : "rgba(230,103,103," + (.12 - .7 * val).toFixed(3) + ")";
-        c.fillRect(ox + j * cell + 1, oy + i * cell + 1, cell - 2, cell - 2);
+    function sd(n, i, m) { var s = 0, k = 0; for (var j = Math.max(0, i - n + 1); j <= i; j++) { s += (p[j] - m) * (p[j] - m); k++; } return Math.sqrt(s / k); }
+    return { init: function () { S = fit(cv); B = layer(S.w, S.h, function (c, w, h) { hudBase(c, w, h); }); }, step: step, draw: function (t) {
+      var c = S.c, w = S.w, h = S.h, top = 18, bot = h * .58, R = w - 16, i;
+      c.clearRect(0, 0, w, h); c.drawImage(B, 0, 0, w, h);
+      var up = [], lo = [], mid = [], mn = Infinity, mx = -Infinity;
+      for (i = 0; i < p.length; i++) {
+        var m = ma(20, i), s = sd(20, i, m) * 2;
+        mid.push(m); up.push(m + s); lo.push(m - s);
+        mn = Math.min(mn, p[i], m - s); mx = Math.max(mx, p[i], m + s);
+      }
+      var pad = (mx - mn) * .08 || 1; mn -= pad; mx += pad;
+      var X = [], Yp = [], Yu = [], Yl = [], Ym = [];
+      for (i = 0; i < p.length; i++) {
+        X.push(8 + i / (p.length - 1) * (R - 8));
+        Yp.push(top + (mx - p[i]) / (mx - mn) * (bot - top)); Yu.push(top + (mx - up[i]) / (mx - mn) * (bot - top));
+        Yl.push(top + (mx - lo[i]) / (mx - mn) * (bot - top)); Ym.push(top + (mx - mid[i]) / (mx - mn) * (bot - top));
+      }
+      c.beginPath();
+      for (i = 0; i < X.length; i++) i ? c.lineTo(X[i], Yu[i]) : c.moveTo(X[i], Yu[i]);
+      for (i = X.length - 1; i >= 0; i--) c.lineTo(X[i], Yl[i]);
+      c.closePath(); c.fillStyle = "rgba(57,135,229,.10)"; c.fill();
+      c.strokeStyle = "rgba(57,135,229,.5)"; c.setLineDash([2, 3]);
+      poly(c, X, Yu); c.stroke(); poly(c, X, Yl); c.stroke(); c.setLineDash([]);
+      c.strokeStyle = "rgba(245,179,1,.7)"; poly(c, X, Ym); c.stroke();
+      var g = c.createLinearGradient(0, top, 0, bot); g.addColorStop(0, "rgba(56,214,245,.24)"); g.addColorStop(1, "rgba(56,214,245,0)");
+      c.beginPath(); c.moveTo(X[0], bot); for (i = 0; i < X.length; i++) c.lineTo(X[i], Yp[i]); c.lineTo(X[X.length - 1], bot); c.closePath(); c.fillStyle = g; c.fill();
+      glow(c, "#38d6f5", 1.6, 8); poly(c, X, Yp); c.stroke(); noGlow(c);
+      var sx = 8 + ((t / 28) % (R - 8)), sg = c.createLinearGradient(sx - 36, 0, sx, 0);
+      sg.addColorStop(0, "rgba(56,214,245,0)"); sg.addColorStop(1, "rgba(56,214,245,.13)");
+      c.fillStyle = sg; c.fillRect(sx - 36, top - 6, 36, bot - top + 12);
+      c.fillStyle = "rgba(160,240,255,.5)"; c.fillRect(sx, top - 6, 1, bot - top + 12);
+      var lx = X[X.length - 1], ly = Yp[Yp.length - 1];
+      c.strokeStyle = "rgba(245,179,1,.45)"; c.setLineDash([3, 3]);
+      c.beginPath(); c.moveTo(8, ly); c.lineTo(R, ly); c.moveTo(lx, top - 8); c.lineTo(lx, h - 30); c.stroke(); c.setLineDash([]);
+      var rr = 6 + Math.sin(t / 200) * 1.5;
+      c.strokeStyle = "rgba(245,179,1,.95)"; c.beginPath(); c.arc(lx, ly, rr, 0, 6.283); c.stroke();
+      c.beginPath(); c.moveTo(lx - rr - 5, ly); c.lineTo(lx - rr - 1, ly); c.moveTo(lx, ly - rr - 5); c.lineTo(lx, ly - rr - 1); c.stroke();
+      c.fillStyle = "#f5b301"; c.beginPath(); c.arc(lx, ly, 1.8, 0, 6.283); c.fill();
+      c.font = "8.5px " + MONO; c.textAlign = "right"; c.fillStyle = "rgba(245,179,1,.9)"; c.fillText("TRACK", R - 2, Math.max(top + 8, ly - 9));
+      var om = h * .74, oh = h * .085, ds = [], md = 1e-9;
+      for (i = 0; i < p.length; i++) { var d = ma(8, i) - ma(21, i); ds.push(d); md = Math.max(md, Math.abs(d)); }
+      c.strokeStyle = "rgba(120,140,180,.3)"; c.beginPath(); c.moveTo(8, om + .5); c.lineTo(R, om + .5); c.stroke();
+      for (i = 0; i < ds.length; i++) {
+        c.strokeStyle = ds[i] >= 0 ? "rgba(47,210,139,.85)" : "rgba(230,103,103,.85)";
+        c.beginPath(); c.moveTo(X[i], om); c.lineTo(X[i], om - ds[i] / md * oh); c.stroke();
       }
     } };
   });
 
-  /* derin sinir ağı: katmanlardan akan sinyaller, uğradığı nöron parlar */
-  viz("vDeep", function (cv) {
-    var S, L = [4, 7, 9, 9, 7, 3], pts = [], hit = [], parts = [];
+  /* FLUX ANALYZER: LED segmentli alıcı (yeşil) / satıcı (kırmızı) spektrumu, tepe tutucular */
+  viz("vFlow", function (cv) {
+    var S, B, n = 34, b = [], s = [], pb = [], ps = [];
+    for (var i = 0; i < n; i++) { b.push(rnd(.2, .8)); s.push(rnd(.2, .8)); pb.push(0); ps.push(0); }
+    function step() {
+      for (var i = 0; i < n; i++) {
+        b[i] = Math.min(1, Math.max(.05, b[i] * .65 + rnd(0, 1) * .35));
+        s[i] = Math.min(1, Math.max(.05, s[i] * .65 + rnd(0, 1) * .35));
+      }
+    }
+    return { init: function () { S = fit(cv); B = layer(S.w, S.h, function (c, w, h) { hudBase(c, w, h, 12); }); }, step: step, draw: function () {
+      var c = S.c, w = S.w, h = S.h, mid = h * .44, L = 16, R = w - 18, bw = (R - L) / n, seg = 4;
+      c.clearRect(0, 0, w, h); c.drawImage(B, 0, 0, w, h);
+      var upMax = mid - 22, dnMax = h - mid - 36, cu = Math.floor(upMax / seg), cd = Math.floor(dnMax / seg);
+      for (var i = 0; i < n; i++) {
+        var x = L + i * bw + 1, ww = Math.max(2, bw - 3), k, a;
+        pb[i] = Math.max(pb[i] - .005, b[i]); ps[i] = Math.max(ps[i] - .005, s[i]);
+        var nb = Math.floor(b[i] * cu), ns = Math.floor(s[i] * cd);
+        for (k = 0; k < nb; k++) { a = .22 + .78 * k / Math.max(1, cu); c.fillStyle = "rgba(47,210,139," + a.toFixed(3) + ")"; c.fillRect(x, mid - 2 - (k + 1) * seg, ww, seg - 1); }
+        for (k = 0; k < ns; k++) { a = .22 + .78 * k / Math.max(1, cd); c.fillStyle = "rgba(230,103,103," + a.toFixed(3) + ")"; c.fillRect(x, mid + 2 + k * seg, ww, seg - 1); }
+        c.fillStyle = "rgba(200,255,225,.95)"; c.fillRect(x, mid - 3 - Math.ceil(pb[i] * cu) * seg - 2, ww, 1.5);
+        c.fillStyle = "rgba(255,210,210,.95)"; c.fillRect(x, mid + 2 + Math.ceil(ps[i] * cd) * seg + 1, ww, 1.5);
+      }
+      glow(c, "rgba(245,179,1,.9)", 1, 6); c.beginPath(); c.moveTo(L, mid); c.lineTo(R, mid); c.stroke(); noGlow(c);
+      c.font = "8.5px " + MONO; c.textAlign = "left";
+      c.fillStyle = "rgba(47,210,139,.85)"; c.fillText("BUY ▲", L, 15);
+      c.fillStyle = "rgba(230,103,103,.85)"; c.fillText("SELL ▼", L + 46, 15);
+    } };
+  });
+
+  /* MATRIX SCAN: harf/sayı koordinatlı korelasyon alanı, tarama ışını, hedef kilidi */
+  viz("vHeat", function (cv) {
+    var S, B, N = 10, ph = [], tgt = [3, 6], tl = 0, G;
+    for (var k = 0; k < N * N; k++) ph.push([Math.random() * 6.283, rnd(.25, 1)]);
+    function val(i, j, t) { if (i === j) return 1; var k = Math.min(i, j) * N + Math.max(i, j); return Math.sin(t / 2600 * ph[k][1] + ph[k][0]); }
     return { init: function () {
-      S = fit(cv); pts = []; hit = [];
+      S = fit(cv);
+      var cell = Math.min((S.w - 80) / N, (S.h - 50) / N);
+      G = { cell: cell, ox: (S.w - cell * N) / 2 + 4, oy: 22 };
+      B = layer(S.w, S.h, function (c, w, h) {
+        hudBase(c, w, h);
+        c.font = "8px " + MONO; c.fillStyle = "rgba(56,214,245,.6)"; c.textAlign = "center";
+        for (var j = 0; j < N; j++) c.fillText(String.fromCharCode(65 + j), G.ox + (j + .5) * G.cell, G.oy - 6);
+        c.textAlign = "right";
+        for (var i = 0; i < N; i++) c.fillText(String(i), G.ox - 6, G.oy + (i + .5) * G.cell + 3);
+        c.strokeStyle = "rgba(56,214,245,.3)"; c.strokeRect(G.ox - 2.5, G.oy - 2.5, G.cell * N + 5, G.cell * N + 5);
+      });
+    }, draw: function (t) {
+      var c = S.c, w = S.w, h = S.h, cell = G.cell, ox = G.ox, oy = G.oy;
+      c.clearRect(0, 0, w, h); c.drawImage(B, 0, 0, w, h);
+      var beam = ((t / 1400) % 1.4) * N;
+      for (var i = 0; i < N; i++) for (var j = 0; j < N; j++) {
+        var v2 = val(i, j, t), boost = Math.max(0, 1 - Math.abs(j + .5 - beam) / 1.2) * .35, a = Math.min(1, .1 + .6 * Math.abs(v2) + boost);
+        c.fillStyle = (v2 >= 0 ? "rgba(47,210,139," : "rgba(230,103,103,") + a.toFixed(3) + ")";
+        c.fillRect(ox + j * cell + 1.5, oy + i * cell + 1.5, cell - 3, cell - 3);
+      }
+      if (beam < N) {
+        var bx = ox + beam * cell, g = c.createLinearGradient(bx - cell * 1.5, 0, bx, 0);
+        g.addColorStop(0, "rgba(56,214,245,0)"); g.addColorStop(1, "rgba(56,214,245,.32)");
+        c.fillStyle = g; c.fillRect(bx - cell * 1.5, oy, cell * 1.5, cell * N);
+        c.fillStyle = "rgba(170,240,255,.85)"; c.fillRect(bx, oy - 4, 1, cell * N + 8);
+      }
+      if (t - tl > 2200) { tl = t; tgt = [Math.floor(Math.random() * N), Math.floor(Math.random() * N)]; }
+      var cx = ox + (tgt[1] + .5) * cell, cy = oy + (tgt[0] + .5) * cell, r = cell * .85 + Math.sin(t / 180) * 1.2, q = r * .45;
+      c.strokeStyle = "rgba(245,179,1,.5)"; c.setLineDash([2, 3]);
+      c.beginPath(); c.moveTo(ox - 3, cy); c.lineTo(cx - r, cy); c.moveTo(cx, oy - 3); c.lineTo(cx, cy - r); c.stroke(); c.setLineDash([]);
+      c.strokeStyle = "rgba(245,179,1,.95)"; c.lineWidth = 1.3;
+      [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(function (d) {
+        c.beginPath(); c.moveTo(cx + d[0] * r, cy + d[1] * (r - q)); c.lineTo(cx + d[0] * r, cy + d[1] * r); c.lineTo(cx + d[0] * (r - q), cy + d[1] * r); c.stroke();
+      });
+      c.lineWidth = 1; c.font = "8.5px " + MONO; c.textAlign = "left"; c.fillStyle = "rgba(245,179,1,.95)";
+      c.fillText("LOCK " + String.fromCharCode(65 + tgt[1]) + tgt[0], Math.min(cx + r + 4, w - 56), cy - r - 3 < oy + 4 ? cy + r + 10 : cy - r - 3);
+    } };
+  });
+
+  /* NEURAL CORE: eğri bağlantılar, L1..L6 katman kılavuzları, izli sinyal darbeleri, halka nöronlar */
+  viz("vDeep", function (cv) {
+    var S, B, L = [6, 9, 12, 12, 9, 4], pts = [], hit = [], parts = [];
+    return { init: function () {
+      S = fit(cv); pts = []; hit = []; parts = [];
       L.forEach(function (n, l) {
-        var x = 18 + l * (S.w - 36) / (L.length - 1), arr = [];
-        for (var i = 0; i < n; i++) arr.push([x, 8 + (i + .5) * (S.h - 40) / n]);
+        var x = 24 + l * (S.w - 56) / (L.length - 1), arr = [];
+        for (var i = 0; i < n; i++) arr.push([x, 26 + (i + .5) * (S.h - 62) / n]);
         pts.push(arr); hit.push(new Array(n).fill(-1e9));
       });
-      parts = [];
+      B = layer(S.w, S.h, function (c, w, h) {
+        hudBase(c, w, h);
+        c.lineWidth = .8; c.strokeStyle = "rgba(56,214,245,.13)";
+        for (var l = 0; l < pts.length - 1; l++) pts[l].forEach(function (a) { pts[l + 1].forEach(function (b) {
+          var mx = (a[0] + b[0]) / 2; c.beginPath(); c.moveTo(a[0], a[1]); c.bezierCurveTo(mx, a[1], mx, b[1], b[0], b[1]); c.stroke();
+        }); });
+        c.lineWidth = 1; c.font = "8px " + MONO; c.fillStyle = "rgba(56,214,245,.65)"; c.textAlign = "center";
+        pts.forEach(function (arr, l) {
+          c.fillText("L" + (l + 1), arr[0][0], 15);
+          c.strokeStyle = "rgba(56,214,245,.12)"; c.setLineDash([2, 4]);
+          c.beginPath(); c.moveTo(arr[0][0], 19); c.lineTo(arr[0][0], h - 32); c.stroke(); c.setLineDash([]);
+        });
+      });
     }, draw: function (t) {
-      var c = S.c; c.clearRect(0, 0, S.w, S.h);
-      c.strokeStyle = "rgba(56,214,245,.07)"; c.lineWidth = 1;
-      for (var l = 0; l < pts.length - 1; l++) pts[l].forEach(function (a) { pts[l + 1].forEach(function (b) { c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke(); }); });
-      if (!reduce && Math.random() < .45 && parts.length < 40) parts.push({ l: 0, i: Math.floor(Math.random() * L[0]), j: Math.floor(Math.random() * L[1]), k: 0 });
+      var c = S.c; c.clearRect(0, 0, S.w, S.h); c.drawImage(B, 0, 0, S.w, S.h);
+      if (!reduce && Math.random() < .6 && parts.length < 60)
+        parts.push({ l: 0, i: Math.floor(Math.random() * L[0]), j: Math.floor(Math.random() * L[1]), k: 0, gold: Math.random() < .2 });
       parts = parts.filter(function (q) {
-        if (!reduce) q.k += .045;
+        if (!reduce) q.k += .05;
         if (q.k >= 1) {
           hit[q.l + 1][q.j] = t;
           if (q.l + 2 >= L.length) return false;
           q.l++; q.i = q.j; q.j = Math.floor(Math.random() * L[q.l + 1]); q.k = 0;
         }
-        var a = pts[q.l][q.i], b = pts[q.l + 1][q.j], x = a[0] + (b[0] - a[0]) * q.k, y = a[1] + (b[1] - a[1]) * q.k;
-        c.strokeStyle = "rgba(56,214,245,.28)"; c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke();
-        c.fillStyle = "rgba(160,230,255,.95)"; c.beginPath(); c.arc(x, y, 2, 0, 6.283); c.fill();
+        var a = pts[q.l][q.i], b = pts[q.l + 1][q.j], mx = (a[0] + b[0]) / 2, col = q.gold ? "245,179,1" : "120,220,255";
+        c.strokeStyle = "rgba(" + col + ",.22)"; c.beginPath(); c.moveTo(a[0], a[1]); c.bezierCurveTo(mx, a[1], mx, b[1], b[0], b[1]); c.stroke();
+        for (var z = 0; z < 4; z++) {
+          var u = Math.max(0, q.k - z * .06), r = 1 - u;
+          var px = r * r * r * a[0] + 3 * r * r * u * mx + 3 * r * u * u * mx + u * u * u * b[0];
+          var py = r * r * r * a[1] + 3 * r * r * u * a[1] + 3 * r * u * u * b[1] + u * u * u * b[1];
+          c.fillStyle = "rgba(" + col + "," + (.95 - z * .23).toFixed(2) + ")"; c.beginPath(); c.arc(px, py, 2.1 - z * .4, 0, 6.283); c.fill();
+        }
         return true;
       });
       pts.forEach(function (arr, l) { arr.forEach(function (p, i) {
-        var g = Math.exp(-(t - hit[l][i]) / 350), out = l === pts.length - 1;
-        c.fillStyle = out ? "rgba(245,179,1," + (.45 + .55 * g).toFixed(3) + ")" : "rgba(120,200,255," + (.35 + .65 * g).toFixed(3) + ")";
-        c.beginPath(); c.arc(p[0], p[1], 3.2 + 2 * g, 0, 6.283); c.fill();
+        var g = Math.exp(-(t - hit[l][i]) / 380), col = l === pts.length - 1 ? "245,179,1" : "120,210,255";
+        c.strokeStyle = "rgba(" + col + "," + (.45 + .5 * g).toFixed(3) + ")"; c.beginPath(); c.arc(p[0], p[1], 3.6 + 1.6 * g, 0, 6.283); c.stroke();
+        c.fillStyle = "rgba(" + col + "," + (.3 + .7 * g).toFixed(3) + ")"; c.beginPath(); c.arc(p[0], p[1], 1.6 + g, 0, 6.283); c.fill();
       }); });
     } };
   });
 
-  /* dikkat (attention) matrisi: her satır bir olasılık dağılımı, sorgu satırı aşağı süzülür */
+  /* ATTENTION ARRAY: Q·K dikkat matrisi + seçili satırın SOFTMAX dağılım paneli */
   viz("vAttn", function (cv) {
-    var S, N = 12, W = [];
+    var S, B, N = 14, W = [], G;
     function row(i) {
-      var z = [], s = 0, m = 0;
-      for (var j = 0; j < N; j++) { var e = Math.exp(-Math.pow((j - i) / rnd(1.2, 3.5), 2) + rnd(0, 1.6)); z.push(e); s += e; }
-      return z.map(function (e) { var q = e / s; m = Math.max(m, q); return q; }).map(function (q, _, a) { return q / Math.max.apply(null, a); });
+      var z = [];
+      for (var j = 0; j < N; j++) z.push(Math.exp(-Math.pow((j - i) / rnd(1.2, 3.5), 2) + rnd(0, 1.6)));
+      var m = Math.max.apply(null, z); return z.map(function (e) { return e / m; });
     }
     for (var i = 0; i < N; i++) W.push(row(i));
-    return { init: function () { S = fit(cv); }, step: function () { var i = Math.floor(Math.random() * N); W[i] = row(i); }, draw: function (t) {
-      var c = S.c, w = S.w, h = S.h; c.clearRect(0, 0, w, h);
-      var cell = Math.min((w - 24) / N, (h - 36) / N), ox = (w - cell * N) / 2, oy = 6, q = Math.floor(t / 420) % N;
+    return { init: function () {
+      S = fit(cv);
+      var cell = Math.min((S.w * .6 - 24) / N, (S.h - 52) / N);
+      G = { cell: cell, ox: 24, oy: 22, px: 24 + cell * N + 26 };
+      B = layer(S.w, S.h, function (c, w, h) {
+        hudBase(c, w, h);
+        c.strokeStyle = "rgba(56,214,245,.35)"; c.strokeRect(G.ox - 3.5, G.oy - 3.5, cell * N + 7, cell * N + 7);
+        c.strokeRect(G.px - 3.5, G.oy - 3.5, w - G.px - 20 + 7, cell * N + 7);
+        c.font = "8px " + MONO; c.fillStyle = "rgba(56,214,245,.65)"; c.textAlign = "left";
+        c.fillText("Q·Kᵀ", G.ox, G.oy - 8); c.fillText("SOFTMAX", G.px, G.oy - 8);
+      });
+    }, step: function () { var i = Math.floor(Math.random() * N); W[i] = row(i); }, draw: function (t) {
+      var c = S.c, w = S.w, h = S.h, cell = G.cell, ox = G.ox, oy = G.oy, q = Math.floor(t / 420) % N;
+      c.clearRect(0, 0, w, h); c.drawImage(B, 0, 0, w, h);
       for (var i = 0; i < N; i++) for (var j = 0; j < N; j++) {
-        var a = W[i][j] * (i === q ? 1 : .55);
-        c.fillStyle = i === q ? "rgba(245,179,1," + (.1 + .85 * a).toFixed(3) + ")" : "rgba(56,214,245," + (.06 + .7 * a).toFixed(3) + ")";
+        var a = W[i][j] * (i === q ? 1 : .5);
+        c.fillStyle = i === q ? "rgba(245,179,1," + (.12 + .85 * a).toFixed(3) + ")" : "rgba(56,214,245," + (.05 + .7 * a).toFixed(3) + ")";
         c.fillRect(ox + j * cell + 1, oy + i * cell + 1, cell - 2, cell - 2);
       }
-      c.strokeStyle = "rgba(245,179,1,.8)"; c.lineWidth = 1; c.strokeRect(ox + .5, oy + q * cell + .5, cell * N - 1, cell - 1);
+      glow(c, "rgba(245,179,1,.9)", 1, 8); c.strokeRect(ox - .5, oy + q * cell - .5, cell * N + 1, cell + 1); noGlow(c);
+      var px = G.px, pw = w - px - 20;
+      for (var k = 0; k < N; k++) {
+        var vv = W[q][k];
+        c.fillStyle = "rgba(56,214,245,.1)"; c.fillRect(px, oy + k * cell + 1, pw, cell - 2);
+        c.fillStyle = "rgba(245,179,1," + (.35 + .6 * vv).toFixed(3) + ")"; c.fillRect(px, oy + k * cell + 1, pw * vv, cell - 2);
+      }
+      c.strokeStyle = "rgba(245,179,1,.55)"; c.setLineDash([2, 3]);
+      c.beginPath(); c.moveTo(ox + cell * N + 5, oy + (q + .5) * cell); c.lineTo(px - 5, oy + (q + .5) * cell); c.stroke(); c.setLineDash([]);
     } };
   });
 
-  /* nöron bulutu: dönen 3B nöron kümesi, ara sıra ateşlenen nöronlar */
+  /* HOLO SPHERE: tel kafes hologram küre, nöron ağı, yörüngede uydu, dönen ölçek halkası, tarama çizgisi */
   viz("vCloud", function (cv) {
-    var S, P = [], E = [], fire = {};
-    var n = 80, ga = Math.PI * (3 - Math.sqrt(5));
-    for (var i = 0; i < n; i++) {
-      var y = 1 - (i / (n - 1)) * 2, r = Math.sqrt(1 - y * y) * rnd(.85, 1.05), th = ga * i;
-      P.push([Math.cos(th) * r, y * rnd(.9, 1.05), Math.sin(th) * r]);
+    var S, B, P = [], E = [], RINGS = [], fire = {}, n = 90, ga = Math.PI * (3 - Math.sqrt(5)), i, a;
+    for (i = 0; i < n; i++) {
+      var y = 1 - (i / (n - 1)) * 2, r = Math.sqrt(1 - y * y), th = ga * i, k2 = rnd(.82, .98);
+      P.push([Math.cos(th) * r * k2, y * k2, Math.sin(th) * r * k2]);
     }
-    P.forEach(function (a, i) {
-      var d = P.map(function (b, j) { return [(a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1]) + (a[2] - b[2]) * (a[2] - b[2]), j]; })
+    P.forEach(function (p, ii) {
+      var d = P.map(function (q, j) { return [(p[0] - q[0]) * (p[0] - q[0]) + (p[1] - q[1]) * (p[1] - q[1]) + (p[2] - q[2]) * (p[2] - q[2]), j]; })
         .sort(function (u, v2) { return u[0] - v2[0]; });
-      for (var k = 1; k <= 3; k++) if (d[k][1] > i) E.push([i, d[k][1]]);
+      for (var k = 1; k <= 3; k++) if (d[k][1] > ii) E.push([ii, d[k][1]]);
     });
-    return { init: function () { S = fit(cv); }, draw: function (t) {
-      var c = S.c, w = S.w, h = S.h; c.clearRect(0, 0, w, h);
-      var ay = t / 6000, ax = .45 * Math.sin(t / 9000), R = Math.min(w, h - 22) * .42, cx = w / 2, cy = (h - 18) / 2 + 2;
+    for (var la = -2; la <= 2; la++) {
+      var yy = la * .32, rr = Math.sqrt(1 - yy * yy), ring = [];
+      for (a = 0; a <= 40; a++) { var t1 = a / 40 * 6.283; ring.push([Math.cos(t1) * rr, yy, Math.sin(t1) * rr]); }
+      RINGS.push(ring);
+    }
+    for (var mI = 0; mI < 6; mI++) {
+      var phi = mI / 6 * Math.PI, ring2 = [];
+      for (a = 0; a <= 40; a++) { var t2 = a / 40 * 6.283; ring2.push([Math.cos(phi) * Math.sin(t2), Math.cos(t2), Math.sin(phi) * Math.sin(t2)]); }
+      RINGS.push(ring2);
+    }
+    function rot(p, ay, ax) {
+      var x = p[0] * Math.cos(ay) + p[2] * Math.sin(ay), z = -p[0] * Math.sin(ay) + p[2] * Math.cos(ay);
+      var y = p[1] * Math.cos(ax) - z * Math.sin(ax); z = p[1] * Math.sin(ax) + z * Math.cos(ax);
+      return [x, y, z];
+    }
+    return { init: function () { S = fit(cv); B = layer(S.w, S.h, function (c, w, h) { hudBase(c, w, h); }); }, draw: function (t) {
+      var c = S.c, w = S.w, h = S.h; c.clearRect(0, 0, w, h); c.drawImage(B, 0, 0, w, h);
+      var R = Math.min(w * .5, h - 44) * .5, cx = w / 2, cy = (h - 26) / 2 + 8, ay = t / 7000, ax = .35 + .15 * Math.sin(t / 9000);
+      function pr(p) { var q = rot(p, ay, ax), s = 3 / (3 + q[2]); return [cx + q[0] * R * s, cy + q[1] * R * s, q[2], s]; }
+      c.save(); c.translate(cx, cy);
+      c.strokeStyle = "rgba(56,214,245,.35)"; c.setLineDash([2, 7]); c.lineDashOffset = -t / 40;
+      c.beginPath(); c.arc(0, 0, R * 1.3, 0, 6.283); c.stroke(); c.setLineDash([]); c.lineDashOffset = 0;
+      c.rotate(-t / 12000); c.strokeStyle = "rgba(56,214,245,.4)";
+      for (var k = 0; k < 72; k++) {
+        var an = k / 72 * 6.283, l = k % 6 === 0 ? 7 : 3;
+        c.beginPath(); c.moveTo(Math.cos(an) * R * 1.42, Math.sin(an) * R * 1.42); c.lineTo(Math.cos(an) * (R * 1.42 + l), Math.sin(an) * (R * 1.42 + l)); c.stroke();
+      }
+      c.restore();
+      RINGS.forEach(function (ring) {
+        var Q = ring.map(pr);
+        for (var s = 0; s < Q.length - 1; s++) {
+          var dz = (1 - (Q[s][2] + Q[s + 1][2]) / 2) / 2;
+          c.strokeStyle = "rgba(56,214,245," + (.04 + .22 * dz * dz).toFixed(3) + ")";
+          c.beginPath(); c.moveTo(Q[s][0], Q[s][1]); c.lineTo(Q[s + 1][0], Q[s + 1][1]); c.stroke();
+        }
+      });
       if (!reduce && Math.random() < .08) fire[Math.floor(Math.random() * n)] = t;
-      var Q = P.map(function (p) {
-        var x = p[0] * Math.cos(ay) + p[2] * Math.sin(ay), z = -p[0] * Math.sin(ay) + p[2] * Math.cos(ay);
-        var y = p[1] * Math.cos(ax) - z * Math.sin(ax); z = p[1] * Math.sin(ax) + z * Math.cos(ax);
-        var s = 2.6 / (2.6 + z); return [cx + x * R * s, cy + y * R * s, z, s];
-      });
+      var Q2 = P.map(pr);
       E.forEach(function (e) {
-        var a = Q[e[0]], b = Q[e[1]], f = Math.max(fire[e[0]] ? Math.exp(-(t - fire[e[0]]) / 500) : 0, fire[e[1]] ? Math.exp(-(t - fire[e[1]]) / 500) : 0);
-        var dz = (2 - (a[2] + b[2]) / 2) / 3;
-        c.strokeStyle = f > .05 ? "rgba(245,179,1," + (.2 + .6 * f).toFixed(3) + ")" : "rgba(56,214,245," + (.05 + .2 * dz).toFixed(3) + ")";
-        c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke();
+        var A = Q2[e[0]], Bq = Q2[e[1]], f = Math.max(fire[e[0]] ? Math.exp(-(t - fire[e[0]]) / 500) : 0, fire[e[1]] ? Math.exp(-(t - fire[e[1]]) / 500) : 0);
+        var dz = (2 - (A[2] + Bq[2])) / 4;
+        c.strokeStyle = f > .05 ? "rgba(245,179,1," + (.25 + .6 * f).toFixed(3) + ")" : "rgba(120,210,255," + (.05 + .25 * dz).toFixed(3) + ")";
+        c.beginPath(); c.moveTo(A[0], A[1]); c.lineTo(Bq[0], Bq[1]); c.stroke();
       });
-      Q.forEach(function (q, i) {
-        var f = fire[i] ? Math.exp(-(t - fire[i]) / 500) : 0, dz = (1 - q[2]) / 2;
-        c.fillStyle = f > .05 ? "rgba(245,179,1," + (.5 + .5 * f).toFixed(3) + ")" : "rgba(140,210,255," + (.25 + .6 * dz).toFixed(3) + ")";
-        c.beginPath(); c.arc(q[0], q[1], (1.4 + 1.6 * dz) * q[3] + 2 * f, 0, 6.283); c.fill();
+      Q2.forEach(function (q, ii) {
+        var f = fire[ii] ? Math.exp(-(t - fire[ii]) / 500) : 0, dz = (1 - q[2]) / 2;
+        c.fillStyle = f > .05 ? "rgba(245,179,1," + (.55 + .45 * f).toFixed(3) + ")" : "rgba(150,220,255," + (.2 + .65 * dz).toFixed(3) + ")";
+        c.beginPath(); c.arc(q[0], q[1], (1.2 + 1.4 * dz) * q[3] + 2 * f, 0, 6.283); c.fill();
       });
+      var orb = [], o = t / 2200;
+      for (a = 0; a <= 48; a++) { var t3 = a / 48 * 6.283; orb.push(pr([Math.cos(t3) * 1.22, Math.sin(t3) * .25, Math.sin(t3) * 1.22])); }
+      c.strokeStyle = "rgba(245,179,1,.35)"; c.beginPath();
+      orb.forEach(function (q, j) { j ? c.lineTo(q[0], q[1]) : c.moveTo(q[0], q[1]); }); c.stroke();
+      var sat = pr([Math.cos(o) * 1.22, Math.sin(o) * .25, Math.sin(o) * 1.22]);
+      c.fillStyle = "#f5b301"; c.shadowColor = "#f5b301"; c.shadowBlur = 8; c.beginPath(); c.arc(sat[0], sat[1], 2.6, 0, 6.283); c.fill(); c.shadowBlur = 0;
+      var sy = cy - R + ((t / 22) % (2 * R)), sgr = c.createLinearGradient(0, sy - 14, 0, sy);
+      sgr.addColorStop(0, "rgba(56,214,245,0)"); sgr.addColorStop(1, "rgba(56,214,245,.18)");
+      c.fillStyle = sgr; c.fillRect(cx - R * 1.15, sy - 14, R * 2.3, 14);
+      c.strokeStyle = "rgba(56,214,245,.5)"; c.beginPath(); c.moveTo(cx - 6, cy); c.lineTo(cx + 6, cy); c.moveTo(cx, cy - 6); c.lineTo(cx, cy + 6); c.stroke();
     } };
   });
 
