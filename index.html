@@ -33,7 +33,7 @@
     line-height: 1.6;
     overflow-x: hidden;
   }
-  #net { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+  #net, #rockets { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
   .gridbg {
     position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background-image:
@@ -134,6 +134,18 @@
   .pill { font-family: var(--mono); font-size: 12.5px; color: var(--text2); padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); }
   .pill b { color: var(--cyan); font-weight: 600; }
 
+  /* ---------- savaş marşı ---------- */
+  .player { max-width: 720px; margin: 0 auto; padding: 20px 22px; border-radius: 16px; background: var(--panel);
+    border: 1px solid var(--line); box-shadow: 0 20px 60px rgba(0, 0, 0, .45); }
+  .player audio { display: block; width: 100%; }
+  .player details { margin-top: 14px; }
+  .player summary { cursor: pointer; font-family: var(--mono); font-size: 13px; color: var(--cyan); letter-spacing: .04em; }
+  .lyrics { margin: 12px 0 0; padding: 14px 16px; border-radius: 10px; background: rgba(6, 8, 13, .7); border: 1px solid var(--line);
+    font-family: var(--mono); font-size: 12.5px; line-height: 1.7; color: var(--text2); white-space: pre-wrap; max-height: 360px; overflow: auto; }
+  .lyrics b { color: var(--text); }
+  .lyrics .g { color: var(--green); } .lyrics .r { color: var(--red); }
+  .credit { margin-top: 12px; color: var(--muted); font-size: 12px; text-align: center; }
+
   /* ---------- final cta ---------- */
   .final { margin: 54px auto 0; max-width: 820px; text-align: center; padding: 36px 24px; border-radius: 20px;
     background: linear-gradient(180deg, rgba(245, 179, 1, .10), rgba(16, 20, 30, .85)); border: 1px solid rgba(245, 179, 1, .35);
@@ -166,6 +178,7 @@
 </style>
 </head>
 <body>
+<canvas id="rockets" aria-hidden="true"></canvas>
 <canvas id="net" aria-hidden="true"></canvas>
 <div class="gridbg" aria-hidden="true"></div>
 <div class="glow" aria-hidden="true"></div>
@@ -187,6 +200,61 @@
     </a>
     <div class="cta-note">Gerçek hesabın bakiyesi, işlemleri ve sonuçları bağımsız izleme sitesi Myfxbook'ta canlı yayınlanır.</div>
   </header>
+
+  <section class="sec" id="mars">
+    <div class="sec-head">
+      <div class="k">// savaş marşı</div>
+      <h2>BARS! — Forex Savaş Marşı</h2>
+      <p>Piyasa bir arena: boğalar yukarı, ayılar aşağı iter. Barlar yukarı aşağı yürür, oyunda kalan kazanır.</p>
+    </div>
+    <div class="player">
+      <audio controls preload="none" src="assets/bars-forex-savas-marsi.mp3">
+        Tarayıcınız ses oynatmayı desteklemiyor.
+      </audio>
+      <details>
+        <summary>Sözler (İngilizce)</summary>
+<div class="lyrics">Attention, traders of Earth.
+The market is a battlefield.
+
+Tick — tick — tick — tick — ticking over Cable now,
+Pip — pip — pip — pip — the candles march in a row —
+<b>BARS! — BARS! — BARS! — BARS! — moving up and down again!</b>
+<b>There's no stop-out in the war!</b>
+
+<b>BARS! — BARS! — BARS! — BARS! — moving up and down again!</b>
+<span class="r">Red</span> — <span class="g">green</span> — <span class="r">red</span> — <span class="g">green</span> — every candle is a soldier,
+<b>BARS! — BARS! — BARS! — BARS! — moving up and down again!</b>
+<b>There's no stop-out in the war!</b>
+
+Wait! — wait! — wait! — <b>TRUE BARS!</b>
+Wait for the close, don't you jump at every wick!
+Wait! — wait! — wait! — <b>TRUE BARS!</b>
+Patience is the sword — <b>of a soldier in the war!</b>
+
+Spike — spike — spike — spike — NFP is out,
+Wick — wick — wick — wick — hunting every stop below,
+Hold — hold — hold — hold — hold your fire, soldier, hold,
+Wait — wait — wait — wait — for the true bars to unfold.
+
+Try! — try! — try! — <b>DON'T RUN OUT OF MONEY!</b>
+This is not a gamble! — <b>DEFINE YOUR STRATEGY!</b>
+Try! — try! — try! — <b>DON'T RUN OUT OF MONEY!</b>
+Plan the trade, then — <b>trade the plan, and win the war!</b>
+
+<span class="g">Bulls — charge — up!</span> — <b class="g">BUY! — BUY! — BUY!</b>
+<span class="r">Bears — push — down!</span> — <b class="r">SELL! — SELL! — SELL!</b>
+<b><span class="g">BUY! — BUY!</span> — <span class="r">SELL! — SELL!</span></b> — <b><span class="g">BUY! — BUY!</span> — <span class="r">SELL! — SELL!</span></b>
+<span class="g">Bulls</span> — and — <span class="r">bears</span> — clash — <b>in the arena of the war!</b>
+
+<b>BARS! — BARS! — BARS! — BARS! — moving up and down again!</b>
+Who stays in the game? — <b>WE STAY IN THE GAME!</b>
+<span class="g">BUY! — BUY!</span> — <span class="r">SELL! — SELL!</span> — <b>moving up and down again!</b>
+<b>Who stays in the game will win the war!</b></div>
+      </details>
+      <div class="credit">Müzik yapay zekâ ile üretildi. Sözler Rudyard Kipling'in "Boots" (1903) şiirinden uyarlanmıştır.
+        Davul ve bağırış kayıtları: Freesound (CC0).</div>
+    </div>
+  </section>
 
   <section class="sec">
     <div class="sec-head">
@@ -292,6 +360,81 @@
         if (d < 19000) { c.strokeStyle = "rgba(56,214,245," + (0.13 * (1 - d / 19000)).toFixed(3) + ")"; c.lineWidth = 1; c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke(); }
       }
       c.fillStyle = "rgba(120,200,255,.55)"; c.beginPath(); c.arc(a.x, a.y, 1.6, 0, 6.283); c.fill();
+    }
+  }
+
+  /* ---------- arka plan: roket gibi kırmızı/yeşil barlar (süs, temsili) ----------
+     yeşil barlar egzoz iziyle yukarı fırlar, kırmızılar iziyle aşağı düşer; seyrek ve soluk */
+  var rk = document.getElementById("rockets"), RK, rockets = [];
+  function newRocket(scatter) {
+    var up = Math.random() < 0.55, d = 0.35 + Math.random() * 0.65;          /* d: derinlik, 1 = yakın */
+    var bh = (24 + Math.random() * 40) * d;
+    return { up: up, d: d, bh: bh, bw: (5 + Math.random() * 5) * d, wick: bh * (0.25 + Math.random() * 0.4),
+      x: Math.random() * RK.w, y: scatter ? Math.random() * RK.h : (up ? RK.h + bh + 60 : -bh - 60),
+      v: (0.25 + Math.random() * 0.5) * d, a: 0.004 + Math.random() * 0.01, ph: Math.random() * 6.283 };
+  }
+  function initRockets() {
+    RK = fit(rk);
+    var max = Math.round(Math.min(16, Math.max(5, RK.w * RK.h / 90000)));
+    rockets = []; sparks = []; nextClash = 0;
+    for (var i = 0; i < max; i++) rockets.push(newRocket(true));
+  }
+  /* boğa (yeşil, yukarı) ve ayı (kırmızı, aşağı) aynı noktaya koşar, ortada çarpışıp kıvılcım saçar */
+  var sparks = [], nextClash = 0;
+  function spawnClash() {
+    var x = RK.w * (0.12 + Math.random() * 0.76), meet = RK.h * (0.3 + Math.random() * 0.4), frames = 260 + Math.random() * 140;
+    var bull = newRocket(false), bear = newRocket(false);
+    bull.up = true; bear.up = false; bull.x = bear.x = x;
+    bull.d = bear.d = 0.75 + Math.random() * 0.25;
+    bull.y = RK.h + 30; bear.y = -bear.bh - 30;
+    bull.a = bear.a = 0; bull.v = (bull.y - meet) / frames; bear.v = (meet - bear.y - bear.bh) / frames;
+    bull.meet = bear.meet = meet; bull.pair = bear; bear.pair = bull;
+    rockets.push(bull, bear);
+  }
+  function burst(x, y) {
+    for (var k = 0; k < 16; k++) {
+      var a = Math.random() * 6.283, s = 0.6 + Math.random() * 1.8;
+      sparks.push({ x: x, y: y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, life: 1, col: k % 2 ? "47,210,139" : "230,103,103" });
+    }
+  }
+  function drawRockets(t) {
+    var c = RK.c; c.clearRect(0, 0, RK.w, RK.h);
+    if (!reduce) {
+      if (!nextClash) nextClash = t + 3000;
+      if (t > nextClash) { spawnClash(); nextClash = t + 7000 + Math.random() * 5000; }
+    }
+    for (var i = 0; i < rockets.length; i++) {
+      var r = rockets[i];
+      if (r.dead) continue;
+      if (!reduce) { r.v = Math.min(r.v + r.a * r.d, 3.2 * r.d); r.y += r.up ? -r.v : r.v; }
+      if (r.meet !== undefined && (r.up ? r.y <= r.meet : r.y + r.bh >= r.meet)) {
+        if (!r.pair.dead) burst(r.x, r.meet);
+        r.dead = r.pair.dead = true; continue;
+      }
+      if (r.up ? r.y < -r.bh - 160 : r.y > RK.h + r.bh + 160) { rockets[i] = newRocket(false); continue; }
+      var col = r.up ? "47,210,139" : "230,103,103", al = 0.13 + 0.19 * r.d;
+      /* egzoz izi: yeşilde altta, kırmızıda üstte; hızlandıkça uzar, hafif titrer */
+      var trail = r.bh * (1.4 + r.v * 1.1) * (0.9 + 0.1 * Math.sin(t / 90 + r.ph));
+      var y0 = r.up ? r.y + r.bh : r.y, y1 = r.up ? y0 + trail : y0 - trail;
+      var g = c.createLinearGradient(0, y0, 0, y1);
+      g.addColorStop(0, "rgba(" + col + "," + (al * 0.6).toFixed(3) + ")"); g.addColorStop(1, "rgba(" + col + ",0)");
+      c.fillStyle = g; c.fillRect(r.x - r.bw * 0.35, Math.min(y0, y1), r.bw * 0.7, trail);
+      /* fitil + gövde */
+      c.strokeStyle = "rgba(" + col + "," + (al * 0.9).toFixed(3) + ")"; c.lineWidth = Math.max(1, r.bw * 0.18);
+      c.beginPath(); c.moveTo(r.x, r.y - r.wick * 0.5); c.lineTo(r.x, r.y + r.bh + r.wick * 0.5); c.stroke();
+      c.fillStyle = "rgba(" + col + "," + al.toFixed(3) + ")"; c.fillRect(r.x - r.bw / 2, r.y, r.bw, r.bh);
+      /* hareket yönünde uç parıltısı */
+      var tipY = r.up ? r.y - r.wick * 0.5 : r.y + r.bh + r.wick * 0.5;
+      c.fillStyle = "rgba(" + col + "," + Math.min(0.45, al * 1.3).toFixed(3) + ")";
+      c.beginPath(); c.arc(r.x, tipY, Math.max(1.2, r.bw * 0.35), 0, 6.283); c.fill();
+    }
+    rockets = rockets.filter(function (r) { return !r.dead; });
+    for (var k = sparks.length - 1; k >= 0; k--) {
+      var s = sparks[k];
+      s.x += s.vx; s.y += s.vy; s.vx *= 0.97; s.vy *= 0.97; s.life -= 0.016;
+      if (s.life <= 0) { sparks.splice(k, 1); continue; }
+      c.fillStyle = "rgba(" + s.col + "," + (0.45 * s.life).toFixed(3) + ")";
+      c.beginPath(); c.arc(s.x, s.y, 1.3 + s.life, 0, 6.283); c.fill();
     }
   }
 
@@ -492,14 +635,14 @@
   }
 
   /* ---------- döngü ---------- */
-  function all() { initNet(); initCandles(); initBrain(); initMesh(); }
+  function all() { initRockets(); initNet(); initCandles(); initBrain(); initMesh(); }
   all();
   for (var i = 0; i < 40; i++) stepLoss();
   var acc = 0, prev = performance.now();
   function frame(t) {
     var dt = t - prev; prev = t; acc += dt;
     if (acc > 900) { acc = 0; stepCandles(); stepLoss(); }
-    drawNet(); drawCandles(t); drawBrain(t); drawMesh(t);
+    drawRockets(t); drawNet(); drawCandles(t); drawBrain(t); drawMesh(t);
     if (!reduce) requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
