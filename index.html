@@ -146,6 +146,27 @@
   .lyrics .g { color: var(--green); } .lyrics .r { color: var(--red); }
   .credit { margin-top: 12px; color: var(--muted); font-size: 12px; text-align: center; }
 
+  /* ---------- üstte müzik modülü ---------- */
+  .music { position: fixed; top: 12px; right: 12px; z-index: 20; display: flex; align-items: center; gap: 8px;
+    padding: 6px 12px 6px 6px; border-radius: 999px; background: rgba(10, 13, 20, .85); border: 1px solid var(--line);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 8px 24px rgba(0, 0, 0, .45);
+    font-family: var(--mono); font-size: 12px; color: var(--text2); }
+  .mbtn { flex: none; width: 32px; height: 32px; padding: 0; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+    border: 1px solid rgba(245, 179, 1, .5); background: rgba(245, 179, 1, .14); color: var(--brand); transition: background .15s ease; }
+  .mbtn:hover { background: rgba(245, 179, 1, .26); }
+  .mbtn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .mbtn.ghost { border-color: var(--line); background: transparent; color: var(--text2); }
+  .mbtn.ghost:hover { background: rgba(120, 140, 180, .14); }
+  .mbtn svg { width: 16px; height: 16px; fill: currentColor; }
+  .mlabel { letter-spacing: .12em; color: var(--text); white-space: nowrap; }
+  .eq { display: none; gap: 2px; align-items: flex-end; height: 12px; }
+  .eq i { width: 3px; height: 4px; border-radius: 1px; background: var(--green); animation: eq .9s ease-in-out infinite; }
+  .eq i:nth-child(2) { background: var(--red); animation-delay: .2s; } .eq i:nth-child(3) { animation-delay: .45s; }
+  .music.on .eq { display: inline-flex; }
+  #mVol { width: 92px; margin: 0; accent-color: var(--brand); cursor: pointer; }
+  #mVol[hidden] { display: none; }
+  @keyframes eq { 0%, 100% { height: 3px; } 50% { height: 12px; } }
+
   /* ---------- final cta ---------- */
   .final { margin: 54px auto 0; max-width: 820px; text-align: center; padding: 36px 24px; border-radius: 20px;
     background: linear-gradient(180deg, rgba(245, 179, 1, .10), rgba(16, 20, 30, .85)); border: 1px solid rgba(245, 179, 1, .35);
@@ -166,7 +187,10 @@
     .servers { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 620px) {
-    header.hero { padding-top: 44px; }
+    header.hero { padding-top: 64px; }
+    .music { top: 8px; right: 8px; gap: 6px; padding-right: 10px; }
+    .mlabel { display: none; }
+    #mVol { width: 64px; }
     .room { grid-template-columns: 1fr; }
     .screen { height: 220px; }
     .mesh-card { height: 360px; }
@@ -178,6 +202,13 @@
 </style>
 </head>
 <body>
+<div class="music" id="music" role="group" aria-label="Arka plan müziği: BARS! Forex Savaş Marşı">
+  <button class="mbtn" id="mPlay" type="button" aria-pressed="false" aria-label="Marşı çal"></button>
+  <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+  <span class="mlabel">BARS!</span>
+  <button class="mbtn ghost" id="mMute" type="button" aria-label="Sesi kapat"></button>
+  <input id="mVol" type="range" min="0" max="100" step="1" value="60" aria-label="Ses düzeyi">
+</div>
 <canvas id="rockets" aria-hidden="true"></canvas>
 <canvas id="net" aria-hidden="true"></canvas>
 <div class="gridbg" aria-hidden="true"></div>
@@ -208,7 +239,7 @@
       <p>Piyasa bir arena: boğalar yukarı, ayılar aşağı iter. Barlar yukarı aşağı yürür, oyunda kalan kazanır.</p>
     </div>
     <div class="player">
-      <audio controls preload="none" src="assets/bars-forex-savas-marsi.mp3">
+      <audio controls loop preload="none" src="assets/bars-forex-savas-marsi.mp3">
         Tarayıcınız ses oynatmayı desteklemiyor.
       </audio>
       <details>
@@ -633,6 +664,56 @@ Who stays in the game? — <b>WE STAY IN THE GAME!</b>
       c.fillText(h.name, Math.min(M.w - hw, Math.max(hw, h.x)), ly);
     });
   }
+
+  /* ---------- üstteki müzik modülü: bölümdeki oynatıcıyla AYNI ses öğesini yönetir ---------- */
+  (function () {
+    var au = document.querySelector("#mars audio"), box = document.getElementById("music");
+    var bPlay = document.getElementById("mPlay"), bMute = document.getElementById("mMute"), vol = document.getElementById("mVol");
+    var PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+        PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>',
+        SPK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+        MUTE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 9.5l5 5M21 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+    function put(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+    var v0 = parseFloat(get("bars_vol"));
+    au.volume = isNaN(v0) ? 0.6 : Math.min(1, Math.max(0, v0));
+    var probe = au.volume; au.volume = probe === 0.5 ? 0.6 : 0.5;          /* iPhone'da ses düzeyi değiştirilemez */
+    if (au.volume === probe) vol.hidden = true;
+    au.volume = probe;
+    if (get("bars_muted") === "1") au.muted = true;
+
+    function sync() {
+      var on = !au.paused, quiet = au.muted || au.volume === 0;
+      box.classList.toggle("on", on);
+      bPlay.innerHTML = on ? PAUSE : PLAY;
+      bPlay.setAttribute("aria-pressed", on ? "true" : "false");
+      bPlay.setAttribute("aria-label", on ? "Marşı durdur" : "Marşı çal");
+      bMute.innerHTML = quiet ? MUTE : SPK;
+      bMute.setAttribute("aria-label", quiet ? "Sesi aç" : "Sesi kapat");
+      vol.value = Math.round((au.muted ? 0 : au.volume) * 100);
+    }
+    bPlay.addEventListener("click", function () { if (au.paused) au.play().catch(function () {}); else au.pause(); });
+    bMute.addEventListener("click", function () {
+      if (au.muted || au.volume === 0) { au.muted = false; if (au.volume === 0) au.volume = 0.6; } else au.muted = true;
+      put("bars_muted", au.muted ? "1" : "0");
+    });
+    vol.addEventListener("input", function () { au.volume = vol.value / 100; au.muted = false; put("bars_vol", au.volume); put("bars_muted", "0"); });
+    au.addEventListener("play", function () { put("bars_on", "1"); sync(); });
+    au.addEventListener("pause", function () { put("bars_on", "0"); sync(); });
+    au.addEventListener("volumechange", sync);
+
+    /* önceki ziyarette açık bıraktıysa: ilk dokunuşta devam (tarayıcılar sesli otomatik başlatmayı engeller) */
+    if (get("bars_on") === "1") {
+      var resume = function (e) {
+        window.removeEventListener("pointerdown", resume, true); window.removeEventListener("keydown", resume, true);
+        if (e.target && e.target.closest && e.target.closest("#music, #mars audio")) return;   /* modülün kendi tıklaması */
+        au.play().catch(function () {});
+      };
+      window.addEventListener("pointerdown", resume, true); window.addEventListener("keydown", resume, true);
+    }
+    sync();
+  })();
 
   /* ---------- döngü ---------- */
   function all() { initRockets(); initNet(); initCandles(); initBrain(); initMesh(); }
