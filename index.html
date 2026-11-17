@@ -1,34 +1,100 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>egemenagi.com</title>
-<style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background: #000000;
-  }
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-  }
-  h1 {
-    color: #ffffff;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    font-weight: 400;
-    font-size: 1.5rem;
-    letter-spacing: 0.05em;
-    margin: 0;
-  }
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Egemen AGI</title>
+<meta name="description" content="Egemen AGI: gerçek hesapta çalışan otomatik işlem sisteminin ölçülmüş, canlı performansı.">
+<meta name="theme-color" content="#0b0d12">
+<link rel="stylesheet" href="style.css?v=927edc25">
 </head>
 <body>
-<h1>coming soon</h1>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">⬡</span>
+      <div>
+        <h1>EGEMEN AGI</h1>
+        <small>Gerçek hesap · canlı sistem performansı</small>
+      </div>
+    </div>
+    <div class="sync">
+      <span class="dot" id="syncDot"></span>güncellendi <b id="lastUpdated">—</b>
+      <div class="stale" id="staleNote" hidden></div>
+    </div>
+  </header>
+
+  <section class="notice" id="emptyNote" hidden>
+    <div class="notice-title" id="emptyTitle">Kayıt yakında başlıyor</div>
+    <p id="emptyText"></p>
+  </section>
+
+  <section class="hero">
+    <div class="card hero-main">
+      <div class="lbl">Sistem net kâr/zarar</div>
+      <div class="big" id="heroNet">—</div>
+      <div class="sub" id="heroSub">—</div>
+      <svg id="heroSpark" class="spark" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"></svg>
+    </div>
+    <div class="card hero-acc">
+      <div class="lbl">Hesap</div>
+      <div class="acc-row"><span>Bakiye</span><b id="accBalance">—</b></div>
+      <div class="acc-row"><span>Varlık</span><b id="accEquity">—</b></div>
+      <div class="acc-row"><span>Açık pozisyon</span><b id="accOpen">—</b></div>
+      <p class="fine">Hesap rakamları yatırılan parayı ve hesap sahibinin elle açtığı işlemleri de içerir.
+        "Sistem net kâr/zarar" ise yalnızca sistemin kapattığı işlemlerden hesaplanır.</p>
+    </div>
+  </section>
+
+  <section class="stats" id="stats"></section>
+
+  <section class="card block">
+    <div class="block-head">
+      <h2>Kümülatif net</h2>
+      <span class="hint">gün sonu toplamı · çubuk = o günün neti</span>
+    </div>
+    <div id="chartBox" class="chart-box"></div>
+  </section>
+
+  <div class="grid2">
+    <section class="card block">
+      <div class="block-head"><h2>Stratejiler</h2><span class="hint">takma adlarla</span></div>
+      <div id="stratBox"></div>
+    </section>
+    <section class="card block">
+      <div class="block-head"><h2>Pariteler</h2></div>
+      <div id="pairBox"></div>
+    </section>
+  </div>
+
+  <section class="card block">
+    <div class="block-head"><h2>Son kapanan işlemler</h2><span class="hint">sunucu saati</span></div>
+    <div id="tradeBox"></div>
+  </section>
+
+  <section class="card block">
+    <div class="block-head"><h2>Aylık</h2></div>
+    <div id="monthBox"></div>
+  </section>
+
+  <section class="card block about">
+    <h2>Nasıl çalışır</h2>
+    <p>Çok sayıda otomatik strateji önce demo hesaplarda, gerçek piyasa koşullarında ileri testten geçer.
+      Gerçek hesaba yalnızca bu testte istikrarlı sonuç verenler, küçük ve eşit lotla alınır.
+      Her stratejinin kalıcı bir takma adı vardır (<code>SOV-xxxx</code>): aynı stratejiyi günler boyunca
+      izleyebilirsiniz.</p>
+    <p>Bu sayfadaki her sayı gerçek hesaptaki kapanmış işlemlerden ölçülür. Tahmin, simülasyon ya da
+      seçilmiş sonuç yoktur; kaybeden işlemler de gösterilir.</p>
+  </section>
+
+  <footer class="foot">
+    <p id="disclaimer"></p>
+    <p>Kaldıraçlı döviz işlemleri yüksek risk içerir ve yatırılan paranın tamamı kaybedilebilir.
+      Bu sayfa yatırım tavsiyesi değildir.</p>
+    <p class="muted">© Egemen AGI</p>
+  </footer>
+</div>
+<script src="app.js?v=e964a1c2"></script>
 </body>
 </html>

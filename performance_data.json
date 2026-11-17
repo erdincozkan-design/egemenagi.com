@@ -1,142 +1,33 @@
 {
-  "last_updated": "2026-09-17T00:49:39Z",
+  "last_updated": "2026-11-17T05:23:28Z",
+  "source_updated": "2026-11-17T05:23:15Z",
+  "record_start": "2026-11-24",
   "account": {
-    "balance": 3.5,
-    "equity": 3.5,
-    "system_floating": 0,
-    "margin_level": 0.0,
+    "balance": 0.15,
+    "equity": 0.15,
     "total_trades": 0,
     "win_rate": 0.0,
+    "total_pnl": 0,
+    "daily_pnl": 0.0,
+    "last_trade_day": null,
+    "weekly_pnl": 0.0,
+    "monthly_pnl": 0.0,
+    "profit_factor": null,
+    "payoff": null,
+    "avg_win": 0.0,
+    "avg_loss": 0.0,
+    "expectancy": 0.0,
+    "max_drawdown": 0.0,
     "active_bots": 0,
     "pairs_traded": 0,
-    "active_positions": 0,
     "open_positions": 0,
-    "daily_pnl": 0.0,
-    "weekly_pnl": 0,
-    "monthly_pnl": 0,
-    "total_pnl": 0.0
+    "active_positions": 0,
+    "usd_unmeasured": 0
   },
-  "daily": [
-    {
-      "date": "2026-08-25",
-      "balance": 638.93,
-      "equity": 778.35,
-      "net": 44.33,
-      "trades": 53
-    },
-    {
-      "date": "2026-08-26",
-      "balance": 2212.69,
-      "equity": 1597.02,
-      "net": -105.27,
-      "trades": 145
-    },
-    {
-      "date": "2026-08-27",
-      "balance": 185.38,
-      "equity": 113.94,
-      "net": -17.4,
-      "trades": 14
-    },
-    {
-      "date": "2026-08-28",
-      "balance": 0.0,
-      "equity": 0.22,
-      "net": 0.0,
-      "trades": 0
-    },
-    {
-      "date": "2026-09-14",
-      "balance": 506.63,
-      "equity": 2058.36,
-      "net": 0.0,
-      "trades": 0
-    },
-    {
-      "date": "2026-09-15",
-      "balance": 974.79,
-      "equity": 1250.97,
-      "net": 0.0,
-      "trades": 0
-    },
-    {
-      "date": "2026-09-16",
-      "balance": 12.16,
-      "equity": 14.0,
-      "net": 0.0,
-      "trades": 0
-    },
-    {
-      "date": "2026-09-17",
-      "balance": 3.5,
-      "equity": 3.5,
-      "net": 0.0,
-      "trades": 0
-    }
-  ],
+  "daily": [],
   "pair_performance": {},
   "veteran_strategies": [],
   "monthly_returns": [],
   "recent_trades": [],
-  "market": [
-    {
-      "pair": "EURUSD",
-      "bid": 1.14624,
-      "change": -0.01,
-      "spread": 22,
-      "active": false
-    },
-    {
-      "pair": "GBPUSD",
-      "bid": 1.33758,
-      "change": 0.02,
-      "spread": 29,
-      "active": false
-    },
-    {
-      "pair": "USDJPY",
-      "bid": 156.009,
-      "change": -0.15,
-      "spread": 28,
-      "active": false
-    },
-    {
-      "pair": "USDCHF",
-      "bid": 0.82531,
-      "change": 0.0,
-      "spread": 30,
-      "active": false
-    },
-    {
-      "pair": "AUDUSD",
-      "bid": 0.70902,
-      "change": 0.06,
-      "spread": 25,
-      "active": false
-    },
-    {
-      "pair": "USDCAD",
-      "bid": 1.39912,
-      "change": 0.04,
-      "spread": 35,
-      "active": false
-    },
-    {
-      "pair": "NZDUSD",
-      "bid": 0.57131,
-      "change": 0.01,
-      "spread": 32,
-      "active": false
-    }
-  ],
-  "terminal_logs": [
-    "[{time}] SCANNER   | Market scan complete — 7 pairs quoted",
-    "[{time}] RISK      | 0 open positions · margin level verified ✓",
-    "[{time}] PORTFOLIO | Floating P&L $+0.00 · exposure within limits",
-    "[{time}] EXECUTION | 0 positions closed today",
-    "[{time}] GUARD     | News and session guards active ✓",
-    "[{time}] LEDGER    | 0 trades recorded · win rate 0.0%",
-    "[{time}] SIZING    | Position size recalculated from account equity ✓"
-  ],
-  "disclaimer": "Tum sayilar canli hesaptan olculmustur. Gecmis performans gelecegi garanti etmez."
+  "disclaimer": "Tum sayilar gercek (REEL) hesaptaki sistem islemlerinden olculmustur; manuel islemler dahil degildir. Gecmis performans gelecegi garanti etmez."
 }
