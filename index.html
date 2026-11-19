@@ -86,7 +86,7 @@
   .sec-head h2 { margin: 6px 0 0; font-size: clamp(22px, 3.2vw, 32px); font-weight: 750; letter-spacing: .01em; }
   .sec-head p { color: var(--text2); margin: 8px auto 0; max-width: 640px; }
 
-  .mesh-card { position: relative; height: 420px; border-radius: 18px; overflow: hidden;
+  .mesh-card { position: relative; height: 580px; border-radius: 18px; overflow: hidden;
     background: radial-gradient(ellipse at 50% 50%, rgba(56, 214, 245, .06), rgba(10, 13, 20, .85) 70%);
     border: 1px solid var(--line); box-shadow: 0 20px 60px rgba(0, 0, 0, .45); }
   .mesh-card canvas { display: block; width: 100%; height: 100%; }
@@ -109,7 +109,7 @@
 
   @media (max-width: 620px) {
     header.hero { padding-top: 48px; }
-    .mesh-card { height: 360px; }
+    .mesh-card { height: 560px; }
     .cta { padding: 18px 22px; width: 100%; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -145,12 +145,16 @@
     <div class="sec-head">
       <div class="k">// system network</div>
       <h2>Hundreds of scripts, one AI network</h2>
-      <p>Hundreds of interconnected scripts running forward backtests, data analysis and news tracking
-        work together 24/7.</p>
+      <p>Neural networks for servers, traders, reporters, currency pairs, news and the AI core talk to each other
+        nonstop, linked to hundreds of scripts running forward backtests and data analysis 24/7.</p>
     </div>
     <div class="mesh-card"><canvas id="mesh"></canvas></div>
     <div class="pills">
       <span class="pill"><b>AI</b> core</span>
+      <span class="pill"><b>Servers</b></span>
+      <span class="pill"><b>Traders</b></span>
+      <span class="pill"><b>Reporters</b></span>
+      <span class="pill"><b>Currency pairs</b></span>
       <span class="pill"><b>Forward backtest</b></span>
       <span class="pill"><b>Data analysis</b></span>
       <span class="pill"><b>News tracking</b></span>
@@ -288,71 +292,182 @@
     }
   }
 
-  /* ---------- sistem ağı (temsili) ---------- */
-  var cvM = document.getElementById("mesh"), M, hubs = [], subs = [], pulses = [];
-  var HUBS = ["AI", "FORWARD BACKTEST", "DATA ANALYSIS", "NEWS TRACKING", "RISK", "ORDERS"];
+  /* ---------- sistem ağı (temsili): birbiriyle konuşan sinir ağları ----------
+     her düğüm küçük bir katmanlı sinir ağı; ağlar eğri bağlarla birbirine bağlı, sinyal paketleri
+     bir ağdan ötekine zincirleme akar; çevredeki noktalar ağlara bağlı scriptler */
+  var cvM = document.getElementById("mesh"), M, hubs = [], links = [], subs = [], pulses = [], FONT = "sans-serif";
+  /* [tam ad, dar ekranda kısa ad]; iç halka tepeden saat yönünde, dış halka iç halkanın arasına */
+  var CORE = ["AI CORE", "AI CORE"];
+  var INNER = [["NEWS", "NEWS"], ["TRADERS", "TRADERS"], ["RISK", "RISK"], ["FORWARD BACKTEST", "BACKTEST"],
+               ["DATA ANALYSIS", "DATA"], ["CURRENCY PAIRS", "PAIRS"]];
+  var OUTER = [["SENTIMENT NET", "SENTIMENT"], ["SIGNAL NET", "SIGNALS"], ["ORDERS", "ORDERS"], ["SERVERS", "SERVERS"],
+               ["STRATEGY NET", "STRATEGY"], ["PATTERN NET", "PATTERNS"], ["VOLATILITY NET", "VOLATILITY"], ["REPORTERS", "REPORTERS"]];
+  /* uzak ağlar arasındaki ek bağlar (merkez, halka komşuları ve en yakın iç ağlar otomatik bağlanır) */
+  var CROSS = [["SERVERS", "AI CORE"], ["REPORTERS", "AI CORE"], ["REPORTERS", "SERVERS"], ["NEWS", "RISK"],
+               ["TRADERS", "DATA ANALYSIS"], ["CURRENCY PAIRS", "TRADERS"], ["SIGNAL NET", "PATTERN NET"],
+               ["SENTIMENT NET", "VOLATILITY NET"], ["STRATEGY NET", "SIGNAL NET"], ["CURRENCY PAIRS", "ORDERS"]];
+  var RGB = ["245,179,1", "56,214,245", "127,170,255"];                  /* merkez / iç / dış halka */
+
   function initMesh() {
     M = fit(cvM);
-    var cx = M.w / 2, cy = M.h / 2, R = Math.min(M.w * .36, M.h * .34);
-    hubs = HUBS.map(function (name, i) {
-      if (i === 0) return { name: name, x: cx, y: cy, r: 9, core: true };
-      var a = -Math.PI / 2 + (i - 1) * 2 * Math.PI / (HUBS.length - 1);
-      return { name: name, x: cx + Math.cos(a) * R * (M.w < 600 ? 1.05 : 1.25), y: cy + Math.sin(a) * R, r: 6 };
-    });
+    FONT = getComputedStyle(document.body).fontFamily;
+    var narrow = M.w < 600, cx = M.w / 2, cy = M.h / 2, sc = narrow ? 0.7 : 1.15;
+    M.narrow = narrow;
+
+    function hub(def, x, y, ring) {
+      var L = ring === 0 ? [4, 6, 6, 4] : [3, 4, 3], sp = (ring === 0 ? 10 : 8) * sc, gap = (ring === 0 ? 15 : 12) * sc;
+      var ang = ring === 0 ? -Math.PI / 2 : Math.atan2(cy - y, cx - x);   /* katman ekseni merkeze baksın */
+      var ca = Math.cos(ang), sa = Math.sin(ang), nodes = [], edges = [], prev = [];
+      L.forEach(function (n, li) {
+        var cur = [];
+        for (var ni = 0; ni < n; ni++) {
+          var lx = (li - (L.length - 1) / 2) * gap, ly = (ni - (n - 1) / 2) * sp;
+          var nd = { x: x + lx * ca - ly * sa, y: y + lx * sa + ly * ca, ph: Math.random() * 6.283 };
+          nodes.push(nd); cur.push(nd);
+          prev.forEach(function (p) { edges.push([p, nd]); });
+        }
+        prev = cur;
+      });
+      var rad = Math.max((L.length - 1) / 2 * gap, (Math.max.apply(null, L) - 1) / 2 * sp) + 6 * sc;
+      return { name: narrow ? def[1] : def[0], key: def[0], x: x, y: y, ring: ring, nodes: nodes, edges: edges, rad: rad, act: 0, links: [] };
+    }
+    hubs = [hub(CORE, cx, cy, 0)];
+    var oRx = M.w * (narrow ? 0.37 : 0.41), oRy = M.h * 0.385, iRx = M.w * (narrow ? 0.215 : 0.215), iRy = M.h * 0.215;
+    INNER.forEach(function (d, i) { var a = -Math.PI / 2 + i * Math.PI / 3; hubs.push(hub(d, cx + Math.cos(a) * iRx, cy + Math.sin(a) * iRy, 1)); });
+    OUTER.forEach(function (d, i) { var a = -Math.PI / 2 + Math.PI / 8 + i * Math.PI / 4; hubs.push(hub(d, cx + Math.cos(a) * oRx, cy + Math.sin(a) * oRy, 2)); });
+
+    links = []; var seen = {};
+    function idx(name) { for (var i = 0; i < hubs.length; i++) if (hubs[i].key === name) return i; return -1; }
+    function link(a, b, bend) {
+      if (a < 0 || b < 0 || a === b) return;
+      var key = a < b ? a + "-" + b : b + "-" + a; if (seen[key]) return; seen[key] = 1;
+      var A = hubs[a], B = hubs[b], mx = (A.x + B.x) / 2, my = (A.y + B.y) / 2, dx = B.x - A.x, dy = B.y - A.y;
+      var p1x = mx - dy * bend, p1y = my + dx * bend, p2x = mx + dy * bend, p2y = my - dx * bend;
+      var out = (p1x - cx) * (p1x - cx) + (p1y - cy) * (p1y - cy) >= (p2x - cx) * (p2x - cx) + (p2y - cy) * (p2y - cy);
+      var l = { a: A, b: B, cx: out ? p1x : p2x, cy: out ? p1y : p2y, core: a === 0 || b === 0, heat: 0,
+        len: Math.sqrt(dx * dx + dy * dy) * (1 + bend) };
+      links.push(l); A.links.push(l); B.links.push(l);
+    }
+    var nI = INNER.length, nO = OUTER.length;
+    for (var i = 0; i < nI; i++) { link(0, 1 + i, 0); link(1 + i, 1 + (i + 1) % nI, 0.06); }
+    for (var j = 0; j < nO; j++) {
+      var o = 1 + nI + j;
+      link(o, 1 + nI + (j + 1) % nO, 0.07);
+      var near = hubs.slice(1, 1 + nI).map(function (h, k) {
+        return { k: 1 + k, d: (h.x - hubs[o].x) * (h.x - hubs[o].x) + (h.y - hubs[o].y) * (h.y - hubs[o].y) };
+      }).sort(function (p, q) { return p.d - q.d; });
+      link(o, near[0].k, 0.04); link(o, near[1].k, 0.04);
+    }
+    CROSS.forEach(function (p) { link(idx(p[0]), idx(p[1]), 0.2); });
+
     subs = [];
-    var per = M.w < 600 ? 26 : 44;
-    hubs.forEach(function (h, hi) {
-      for (var k = 0; k < per; k++) {
-        var a = Math.random() * 6.283, d = 18 + Math.random() * (h.core ? 60 : 52);
-        subs.push({ h: hi, x: h.x + Math.cos(a) * d * 1.3, y: h.y + Math.sin(a) * d, ph: Math.random() * 6.283 });
+    var per = narrow ? 7 : 14;
+    hubs.forEach(function (h) {
+      var cnt = h.ring === 0 ? per + 8 : per;
+      for (var k = 0; k < cnt; k++) {
+        var a = Math.random() * 6.283, d = h.rad + (8 + Math.random() * 28) * sc;
+        subs.push({ h: h, n: h.nodes[Math.floor(Math.random() * h.nodes.length)], x: h.x + Math.cos(a) * d * 1.15, y: h.y + Math.sin(a) * d, ph: Math.random() * 6.283 });
       }
     });
     pulses = [];
   }
+
+  function bez(l, k) {
+    var u = 1 - k;
+    return { x: u * u * l.a.x + 2 * u * k * l.cx + k * k * l.b.x, y: u * u * l.a.y + 2 * u * k * l.cy + k * k * l.b.y };
+  }
+  function send(l, from, hop) {
+    if (pulses.length > 110) return;
+    var col = l.core ? RGB[0] : RGB[from.ring];
+    pulses.push({ l: l, fwd: l.a === from, k: 0, sp: (2.2 + Math.random() * 1.6) / Math.max(40, l.len), hop: hop, col: col });
+  }
+
   function drawMesh(t) {
     var c = M.c; c.clearRect(0, 0, M.w, M.h);
-    var core = hubs[0];
-    /* merkez <-> merkezler ve komsu merkezler */
-    for (var i = 1; i < hubs.length; i++) {
-      var h = hubs[i], n = hubs[i === hubs.length - 1 ? 1 : i + 1];
-      c.strokeStyle = "rgba(245,179,1,.28)"; c.lineWidth = 1.4;
-      c.beginPath(); c.moveTo(core.x, core.y); c.lineTo(h.x, h.y); c.stroke();
-      c.strokeStyle = "rgba(56,214,245,.16)"; c.lineWidth = 1;
-      c.beginPath(); c.moveTo(h.x, h.y); c.lineTo(n.x, n.y); c.stroke();
+    if (!reduce) {
+      /* yeni konuşmalar: rastgele bir ağ, bağlarından birine sinyal yollar */
+      var rate = M.narrow ? 0.14 : 0.24;
+      if (Math.random() < rate) { var h0 = hubs[Math.floor(Math.random() * hubs.length)]; send(h0.links[Math.floor(Math.random() * h0.links.length)], h0, 0); }
+      if (Math.random() < rate * 1.6) { var s0 = subs[Math.floor(Math.random() * subs.length)]; pulses.push({ s: s0, k: 0, sp: 0.03 + Math.random() * 0.02, col: RGB[s0.h.ring] }); }
     }
+
+    /* ağlar arası bağlar */
+    links.forEach(function (l) {
+      var base = l.core ? 0.2 : 0.12;
+      c.strokeStyle = "rgba(" + (l.core ? RGB[0] : "56,214,245") + "," + Math.min(0.6, base + l.heat * 0.38).toFixed(3) + ")";
+      c.lineWidth = 1 + l.heat * 0.7;
+      c.beginPath(); c.moveTo(l.a.x, l.a.y); c.quadraticCurveTo(l.cx, l.cy, l.b.x, l.b.y); c.stroke();
+      l.heat *= 0.95;
+    });
+
     /* scriptler */
-    subs.forEach(function (s2) {
-      var h = hubs[s2.h], on = (Math.sin(t / 600 + s2.ph) + 1) / 2;
-      c.strokeStyle = "rgba(120,200,255," + (0.05 + on * 0.10).toFixed(3) + ")"; c.lineWidth = 1;
-      c.beginPath(); c.moveTo(s2.x, s2.y); c.lineTo(h.x, h.y); c.stroke();
-      c.fillStyle = "rgba(140,210,255," + (0.35 + on * 0.6).toFixed(3) + ")";
-      c.beginPath(); c.arc(s2.x, s2.y, 1.8, 0, 6.283); c.fill();
+    c.lineWidth = 1;
+    subs.forEach(function (s) {
+      var on = (Math.sin(t / 650 + s.ph) + 1) / 2;
+      c.strokeStyle = "rgba(120,200,255," + (0.04 + on * 0.08).toFixed(3) + ")";
+      c.beginPath(); c.moveTo(s.x, s.y); c.lineTo(s.n.x, s.n.y); c.stroke();
+      c.fillStyle = "rgba(140,210,255," + (0.3 + on * 0.55).toFixed(3) + ")";
+      c.beginPath(); c.arc(s.x, s.y, 1.5, 0, 6.283); c.fill();
     });
-    /* akan veri paketleri */
-    if (!reduce && Math.random() < .35) {
-      var from = Math.random() < .5 ? subs[Math.floor(Math.random() * subs.length)] : null;
-      var hi2 = 1 + Math.floor(Math.random() * (hubs.length - 1));
-      pulses.push(from ? { a: from, b: hubs[from.h], k: 0, col: "56,214,245" } : { a: hubs[hi2], b: core, k: 0, col: "245,179,1" });
-    }
-    pulses = pulses.filter(function (p) { return p.k < 1; });
-    pulses.forEach(function (p) {
-      p.k += .022;
-      var x = p.a.x + (p.b.x - p.a.x) * p.k, y = p.a.y + (p.b.y - p.a.y) * p.k;
-      c.fillStyle = "rgba(" + p.col + ",.95)"; c.shadowColor = "rgba(" + p.col + ",.9)"; c.shadowBlur = 8;
-      c.beginPath(); c.arc(x, y, 2.4, 0, 6.283); c.fill(); c.shadowBlur = 0;
-    });
-    /* merkez dugumler + etiketler */
+
+    /* her düğüm: küçük katmanlı sinir ağı */
     hubs.forEach(function (h) {
-      var pr = h.r + (h.core ? 4 + Math.sin(t / 400) * 3 : 2 + Math.sin(t / 500 + h.x) * 1.5);
-      c.fillStyle = h.core ? "rgba(245,179,1,.18)" : "rgba(56,214,245,.14)";
-      c.beginPath(); c.arc(h.x, h.y, pr + 8, 0, 6.283); c.fill();
-      c.fillStyle = h.core ? "#f5b301" : "#38d6f5";
-      c.beginPath(); c.arc(h.x, h.y, h.r, 0, 6.283); c.fill();
-      c.font = (h.core ? "700 13px " : "600 11.5px ") + getComputedStyle(document.body).fontFamily;
-      c.textAlign = "center"; c.fillStyle = h.core ? "#ffe08a" : "#cfe9f5";
-      var ly = h.core ? h.y + 34 : (h.y < M.h / 2 ? h.y - 20 : h.y + 28);
-      var hw = c.measureText(h.name).width / 2 + 8;                       /* etiket kutudan taşmasın */
-      c.fillText(h.name, Math.min(M.w - hw, Math.max(hw, h.x)), ly);
+      var rgb = RGB[h.ring], core = h.ring === 0;
+      var pulse = core ? 3 + Math.sin(t / 400) * 2.5 : 1.5 + Math.sin(t / 520 + h.x) * 1.2;
+      c.fillStyle = "rgba(" + rgb + "," + (0.07 + h.act * 0.12).toFixed(3) + ")";
+      c.beginPath(); c.arc(h.x, h.y, h.rad + pulse + 4, 0, 6.283); c.fill();
+      c.strokeStyle = "rgba(" + rgb + "," + (0.12 + h.act * 0.4).toFixed(3) + ")"; c.lineWidth = 0.8;
+      c.beginPath();
+      h.edges.forEach(function (e) { c.moveTo(e[0].x, e[0].y); c.lineTo(e[1].x, e[1].y); });
+      c.stroke();
+      h.nodes.forEach(function (n) {
+        var g = Math.min(1, 0.45 + 0.3 * Math.sin(t / 350 + n.ph) + h.act * 0.55);
+        c.fillStyle = "rgba(" + rgb + "," + g.toFixed(3) + ")";
+        c.beginPath(); c.arc(n.x, n.y, core ? 2.3 : 1.8, 0, 6.283); c.fill();
+      });
+      h.act *= 0.955;
+    });
+
+    /* akan sinyaller; varınca alıcı ağ parlar ve çoğu zaman sinyali başka bir ağa iletir */
+    var next = [], n0 = pulses.length;                                    /* send() yeni sinyalleri sona ekler */
+    pulses.slice(0, n0).forEach(function (p) {
+      p.k += p.sp;
+      var pt;
+      if (p.s) {
+        pt = { x: p.s.x + (p.s.n.x - p.s.x) * p.k, y: p.s.y + (p.s.n.y - p.s.y) * p.k };
+        if (p.k >= 1) { p.s.h.act = Math.min(1, p.s.h.act + 0.25); return; }
+        c.fillStyle = "rgba(" + p.col + ",.85)"; c.beginPath(); c.arc(pt.x, pt.y, 1.6, 0, 6.283); c.fill();
+        next.push(p); return;
+      }
+      var l = p.l, to = p.fwd ? l.b : l.a;
+      l.heat = Math.min(1, l.heat + 0.025);
+      if (p.k >= 1) {
+        to.act = 1;
+        if (p.hop < 5 && Math.random() < 0.62 && to.links.length > 1) {
+          var nl = to.links[Math.floor(Math.random() * to.links.length)];
+          if (nl === l) nl = to.links[(to.links.indexOf(l) + 1) % to.links.length];
+          send(nl, to, p.hop + 1);
+        }
+        return;
+      }
+      pt = bez(l, p.fwd ? p.k : 1 - p.k);
+      c.fillStyle = "rgba(" + p.col + ",.95)"; c.shadowColor = "rgba(" + p.col + ",.9)"; c.shadowBlur = 8;
+      c.beginPath(); c.arc(pt.x, pt.y, 2.4, 0, 6.283); c.fill(); c.shadowBlur = 0;
+      next.push(p);
+    });
+    pulses = next.concat(pulses.slice(n0));
+
+    /* etiketler */
+    c.textAlign = "center"; c.textBaseline = "middle";
+    hubs.forEach(function (h) {
+      var core = h.ring === 0, fs = core ? (M.narrow ? 11 : 13) : (M.narrow ? 9 : 11);
+      c.font = (core ? "700 " : "600 ") + fs + "px " + FONT;
+      var tw = c.measureText(h.name).width;
+      var ly = core ? h.y + h.rad + 18 : (h.y < M.h / 2 ? h.y - h.rad - 11 : h.y + h.rad + 13);
+      var lx = Math.min(M.w - tw / 2 - 6, Math.max(tw / 2 + 6, h.x));    /* etiket kutudan taşmasın */
+      c.fillStyle = "rgba(6,8,13,.72)"; c.fillRect(lx - tw / 2 - 5, ly - fs / 2 - 3, tw + 10, fs + 6);
+      c.fillStyle = core ? "#ffe08a" : (h.ring === 1 ? "#cfe9f5" : "#b9cdfa");
+      c.fillText(h.name, lx, ly);
     });
   }
 
